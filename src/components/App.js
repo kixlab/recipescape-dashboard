@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { INCREMENT, DECREMENT } from '../constants/actionTypes'
-
 import './App.css';
+import { StatisticsDeck } from "./charts/statisticsBar"
 
 const mapStateToProps = state => ({
   number: state.counter,
@@ -24,12 +24,21 @@ class App extends Component {
     const { number } = this.props;
     return (
       <div>
-        <h2>{number}</h2>
-        <button onClick={this.increase}>+</button>
-        <button onClick={this.decrease}>-</button>
+        <StatisticsDeck stats={STATISTICS}/>
       </div>
     );
   }
 }
+
+  var STATISTICS = [{
+      mostUsed: ["Flour", "Eggs", "Sugar"],
+      leastUsed: ["Strawberries", "White chocolate", "Coconut Oil"]
+    },
+    {
+      mostUsed: ["Mix", "Bake", "Cool"],
+      leastUsed: ["Blache", "Boil", "Flamble"]
+    }
+  ];
+ 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
