@@ -26,7 +26,6 @@ class StatRow extends React.Component {
     var rows = [];
     //Check that datastructure is as expected
     if(mostUsed.length != leastUsed.length) throw "Unequal Length ERROR";
-
     for(let i = 0; i < mostUsed.length; i++){
         rows.push(<StatDuo mostUsed={mostUsed[i]} leastUsed={leastUsed[i]} key={mostUsed[i]+leastUsed[i]} />);
     }    
@@ -42,7 +41,7 @@ class StatRow extends React.Component {
 //handles singular card
 class StatCard extends React.Component {
   render() {
-      console.log(this.props.stats)
+
     return (
       <table>
         <thead>
