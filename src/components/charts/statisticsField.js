@@ -23,11 +23,12 @@ class StatDuo extends React.Component {
 class StatRow extends React.Component {
   render() {
 
-    let mostUsed = this.props.stats.mostUsed,
-       leastUsed = this.props.stats.leastUsed;
+    let mostUsed = this.props.statistics.mostUsed,
+       leastUsed = this.props.statistics.leastUsed;
+
     var rows = [];
     //Check that datastructure is as expected
-    if(mostUsed.length !== leastUsed.length) throw "Unequal Length ERROR";
+    if(mostUsed.length !== leastUsed.length) throw new Error("Unequal Length ERROR");
     for(let i = 0; i < mostUsed.length; i++){
         rows.push(<StatDuo mostUsed={mostUsed[i]} leastUsed={leastUsed[i]} key={mostUsed[i]+leastUsed[i]} />);
     }    
@@ -45,16 +46,19 @@ class StatCard extends React.Component {
   render() {
 
     return (
-      <div className="card">
-      <table>
-        <thead>
-          <tr>
-            <th>Most Used</th>
-            <th>Least Used</th>
-          </tr>
-        </thead>
-        <StatRow stats={this.props.stats}/>
-      </table>
+      <div>
+        <h3>{this.props.statistics.type}</h3>
+        <div className="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Most Used</th>
+              <th>Least Used</th>
+            </tr>
+          </thead>
+          <StatRow statistics={this.props.statistics}/>
+        </table>
+        </div>
       </div>
     );
   }
@@ -64,8 +68,11 @@ class StatCard extends React.Component {
 export class StatisticsDeck extends React.Component {
   render() {
     return (
-      <div>
-        {this.props.stats.map((element, index) => <StatCard stats={element} key={index}/>)}
+      <div style={{float: "left"}}>
+        <h2>Statistics</h2>
+        <div>
+          {this.props.statistics.map((element, index) => <StatCard statistics={element} key={index}/>)}
+        </div>
       </div>
     );
   }
