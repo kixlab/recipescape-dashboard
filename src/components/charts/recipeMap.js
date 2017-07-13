@@ -6,11 +6,13 @@ export class BigRecipeMapContainer extends React.Component {
 
     render(){
        return( 
-       <div style={{float: "left"}}>
+       <div className={"RecipeMap"} style={{float: "left"}}>
             <h1>RecipeMap</h1>
+            <div className={"sub"}>
                 <Map/>
                 <ClusterControls/>
                 <ClusterSelection clusters={this.props.clusters}/>
+            </div>
         </div>
        );
     }

@@ -25,7 +25,7 @@ class RecipeCard extends React.Component {
         let ingredientTable = [];
         let sliceNbr = [6,4];
         if(this.props.image){
-            image = <img src={this.props.image}/>;
+            image = <img src={this.props.image} style={{height: 76, display:"block", marginLeft:"auto", marginRight:"auto"}}/>;
             sliceNbr = [4,2];
         }
         let ingredients = this.props.ingredients.slice(0,sliceNbr[0]);
@@ -34,17 +34,17 @@ class RecipeCard extends React.Component {
         }
 
         return(
-            <div>
+            <div className={"RecipeCard"} style={{borderColor:this.props.color}}>
                 <h4>{this.props.recipeName}</h4>
                 {image}
-                <h5>Ingredients</h5>
+                <h5 style={{lineHeight:"0px"}}>Ingredients</h5>
                     <table>
                         <tbody>
                         {ingredientTable}
                         </tbody>
                     </table>
-                <h5>Instructions</h5>
-                {this.props.instructions.slice(0,sliceNbr[1]).map(element => <p>{element}</p>)}
+                <h5 style={{lineHeight:"0px"}}>Instructions</h5>
+                {this.props.instructions.slice(0,sliceNbr[1]).map(element => <p style={{lineHeight:"5px"}} key={element}>{element}</p>)}
             </div>
         );
     }
@@ -63,9 +63,9 @@ class RecipeCards extends React.Component {
 export class RecipeDeck extends React.Component {
     render(){
         return (
-            <div style={{float: "left"}}>
+            <div className={"RecipeDeck"} style={{float: "left"}}>
                 <h2>Recipe Deck</h2>
-                <div>
+                <div className={"sub"}>
                     <RecipeCards recipes={this.props.recipes}/>
                 </div>
             </div>

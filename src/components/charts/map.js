@@ -11,7 +11,7 @@ export class Map extends React.Component {
         //     .attr("width", width)
         //     .attr("height", height);
         return (
-            <div>cluster goes here</div>
+            <div style={{height: "409px", width: "564px"}}>cluster goes here</div>
         );
     }
 }

@@ -46,11 +46,11 @@ class StatCard extends React.Component {
   render() {
 
     return (
-      <div>
+      <div style={{paddingLeft:"20px"}}>
         <h3>{this.props.statistics.type}</h3>
-        <div className="card">
+        <div className={"StatCard"}>
         <table>
-          <thead>
+          <thead >
             <tr>
               <th>Most Used</th>
               <th>Least Used</th>
@@ -68,9 +68,9 @@ class StatCard extends React.Component {
 export class StatisticsDeck extends React.Component {
   render() {
     return (
-      <div style={{float: "left"}}>
+      <div className={"StatDeck"}>
         <h2>Statistics</h2>
-        <div>
+        <div className={"sub"}>
           {this.props.statistics.map((element, index) => <StatCard statistics={element} key={index}/>)}
         </div>
       </div>

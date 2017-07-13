@@ -18,7 +18,125 @@
   font-size: large;
 }
 
+
+.StatDeck {
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+
+.StatDeck .sub {
+  height: 612px;
+  width: 270px;
+  border: 1px solid #B9B9B9;
+}
+
+.StatCard {
+  text-align: center;
+  background-color: #F2F2F2;
+  height: 143px;
+  width: 226px;
+  display: block;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+}
+
+.StatCard table {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+  padding:15px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+th, h4,td {
+  font-size: 15px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+
+h5 {
+  font-size: 14px;
+}
+
+
+
+.RecipeDeck {
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+
+.RecipeDeck .sub {
+  height: 807px;
+  width: 671px;
+  border: 1px solid #CCCCCC;
+}
+
+.RecipeDeck .sub td,p {
+  font-size: 11px;
+}
+
+
+.RecipeCard {
+  line-height: 80%;
+  margin-left: 20px;
+  margin-top: 20px;
+  height:300px;
+  width: 170px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: white;
+  border: 2px solid black;
+  float: left;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2)
+}
+
+.RecipeCard table {
+    width: 100%;
+}
+
+.RecipeCard th,td {
+  border-bottom: 1px solid #ddd;
+}
+
+.RecipeMap {
+  float: left;
+}
+
+.RecipeMap .sub {
+  width:564px;
+  height:609px;
+  border: 1px solid #CCCCCC;
+}
+
+.checkbox{
+  width: 24px;
+  height: 24px;
+  border: 3px solid  #CCCCCC;
+  cursor: pointer;
+  margin:5px;
+  text-align: center;
+  display: block;
+  font-size: 20px;
+  color: #CCCCCC;
+}
+
+
+
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
