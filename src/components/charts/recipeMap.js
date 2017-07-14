@@ -10,7 +10,9 @@ export class BigRecipeMapContainer extends React.Component {
             <h1>RecipeMap</h1>
             <div className={"sub"}>
                 <Map/>
+                <hr/>
                 <ClusterControls/>
+                <hr/>
                 <ClusterSelection clusters={this.props.clusters}/>
             </div>
         </div>

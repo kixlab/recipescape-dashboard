@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 //Will Construct A venn Diagram with data
 data = {
     Recipe1 : {ingredients : ["tomato", "pepper", "sugar", "garlic", "olives","of","ingredients"] },

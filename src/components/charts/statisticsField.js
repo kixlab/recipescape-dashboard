@@ -1,10 +1,11 @@
 import React from 'react'
+import { LabelField } from "./labeled"
 
 //handles singular element
 class StatElement extends React.Component {
   render() {
     return (
-      <td>{this.props.element}</td>
+      <td style={{cursor:"pointer"}}>{this.props.element}</td>
     );
   }
 }
@@ -65,14 +66,26 @@ class StatCard extends React.Component {
 }
 
 //Created 3 cards
-export class StatisticsDeck extends React.Component {
+class StatisticsDeck extends React.Component {
   render() {
     return (
-      <div className={"StatDeck"}>
+      <div>
         <h2>Statistics</h2>
         <div className={"sub"}>
           {this.props.statistics.map((element, index) => <StatCard statistics={element} key={index}/>)}
         </div>
+      </div>
+    );
+  }
+}
+
+
+export class SecondRow extends React.Component {
+  render(){
+    return (
+      <div className={"StatDeck"}>
+        <StatisticsDeck statistics={this.props.statistics}/>
+        <LabelField labels={this.props.labels}/>
       </div>
     );
   }

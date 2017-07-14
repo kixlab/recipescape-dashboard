@@ -18,18 +18,61 @@
   font-size: large;
 }
 
+h2 {
+  font-size: 20px;
+}
+
+th, h4,td {
+  font-size: 15px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+
+h5 {
+  font-size: 14px;
+}
+
+button {
+    background-color: white; /* Green */
+    border: 1px solid black;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+
 
 .StatDeck {
+  margin-left: 20px;
+  float: left;
+}
+
+.RecipeDeck {
   margin-left: 20px;
   margin-right: 20px;
   float: left;
 }
 
+.RecipeMap {
+  margin-left: 30px;
+  float: left;
+}
+
+
 .StatDeck .sub {
   height: 612px;
   width: 270px;
   border: 1px solid #B9B9B9;
+  margin-bottom: 20px;
 }
+
+
 
 .StatCard {
   text-align: center;
@@ -49,55 +92,66 @@
   padding:15px;
 }
 
-h2 {
-  font-size: 20px;
-}
-
-th, h4,td {
-  font-size: 15px;
-}
-
-h3 {
-  font-size: 16px;
-}
-
-
-h5 {
-  font-size: 14px;
-}
-
-
-
-.RecipeDeck {
+.Label{
+  background-color: #F2F2F2;
   margin-left: 20px;
-  margin-right: 20px;
-  float: left;
+  margin-top: 10px; 
+  width: 226px;
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: block;
+  text-align: center;
+}
+
+.Label p {
+  font-size: 12px;
+}
+
+.LabelBox {
+  width: 270px;
+  height: 140px;
+  border: 1px solid #B9B9B9;
+  overflow: auto;
 }
 
 .RecipeDeck .sub {
-  height: 807px;
-  width: 671px;
+  height: 816px;
+  width: 451px;
   border: 1px solid #CCCCCC;
+  max-height:100%;
+  overflow:auto;
 }
 
 .RecipeDeck .sub td,p {
   font-size: 11px;
+  position: relative;
 }
 
 
 .RecipeCard {
   line-height: 80%;
-  margin-left: 20px;
-  margin-top: 20px;
+  margin-left: 15px;
+  margin-top: 15px;
   height:300px;
-  width: 170px;
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 200px;
   background-color: white;
   border: 2px solid black;
   float: left;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2)
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  padding-bottom: 20px;
 }
+.RecipeCard .inner {
+    height: 290px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow: hidden;
+}
+
+/*.RecipeCard .inner .body{
+  height: 70px;
+  overflow: auto;
+}*/
 
 .RecipeCard table {
     width: 100%;
@@ -107,29 +161,89 @@ h5 {
   border-bottom: 1px solid #ddd;
 }
 
-.RecipeMap {
-  float: left;
-}
 
 .RecipeMap .sub {
-  width:564px;
+  width:604px;
   height:609px;
   border: 1px solid #CCCCCC;
 }
 
-.checkbox{
-  width: 24px;
-  height: 24px;
-  border: 3px solid  #CCCCCC;
-  cursor: pointer;
-  margin:5px;
-  text-align: center;
-  display: block;
-  font-size: 20px;
-  color: #CCCCCC;
+.ClusterSelection{
+  margin-left: 10px;
 }
 
+.ClusterControls{
+  width:564px;
+  padding-top: 15px;
+  height: 20px;
+}
 
+.checkbox{ 
+  display: inline-block;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+    /*display: none;*/
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.checkbox label {
+    position: relative;
+    display: inline-block;
+    
+    /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
+    padding-left: 22px;
+}
+
+.checkbox label::before,
+.checkbox label::after {
+    position: absolute;
+    content: "";
+    /*Needed for the line-height to take effect*/
+    display: inline-block;
+}
+
+/*Outer box of the fake checkbox*/
+.checkbox label::before{
+    height: 16px;
+    width: 16px;
+    
+    border: 2px solid;
+    left: -1px;
+    
+    /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+     *to vertically center it.
+     */
+    top: 2px;
+}
+
+/*Checkmark of the fake checkbox*/
+.checkbox label::after {
+    height: 5px;
+    width: 9px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    
+    transform: rotate(-45deg);
+    
+    left: 4px;
+    top: 7px;
+}
+
+/*Hide the checkmark by default*/
+.checkbox input[type="checkbox"] + label::after {
+    content: none;
+}
+
+/*Unhide on the checked state*/
+.checkbox input[type="checkbox"]:checked + label::after {
+    content: "";
+}
 
 
 @keyframes App-logo-spin {
