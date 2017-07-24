@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { INCREMENT, DECREMENT } from '../constants/actionTypes'
 import './App.css';
-import { SecondRow } from "./charts/statisticsField"
+import { StatRow } from "./charts/statisticsField"
 import { BigRecipeMapContainer } from "./charts/recipeMap"
 import { RecipeDeck } from "./charts/recipeDeck"
+import { VennDiagram } from "./charts/vennDiagram"
 
 const mapStateToProps = state => ({
   number: state.counter,
@@ -13,7 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   increase: () => dispatch({type: INCREMENT}),
   decrease: () => dispatch({type: DECREMENT})
-})
+});
 
 class App extends Component {
   constructor() {
@@ -25,6 +26,7 @@ class App extends Component {
   render() {
     const { number } = this.props;
     return (
+
       <div>
         <SecondRow statistics={STATISTICS} labels={LABELS}/>
         <BigRecipeMapContainer clusters={CLUSTERS}/>
@@ -74,5 +76,30 @@ class App extends Component {
    {recipeName: "very tasty cake",color:"brown", key:"r6", ingredients:["everything"," nice", "comes", "to", "an", "end", "overflow"], instructions:["wisk a and b", "but", "this", "should"]},
    {recipeName: "very tasty cake 2",color:"brown", key:"r7", ingredients:["everything"," nice", "comes", "to", "an", "end", "overflow"], instructions:["wisk a and b", "but", "this", "should"]},
  ]
+
+ var sampleData = [
+  {id: '5fbmzmtc', x: 7, y: 41, z: 6},
+  {id: 's4f8phwm', x: 11, y: 45, z: 9},
+  // ...
+];
+
+var DATA = [
+  {plot: [[12, 13], [14, 40], [15,10],[16, 13], [17, 40], [18,10]], clusterColor: "red" },
+  {plot:[[1, 2], [10, 10], [14, 10], [15,3], [16, 2], [17, 10], [18, 10], [20,3]], clusterColor: "blue"}
+]
+
+var INGREDIENTSTATS = {
+  ingredientStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
+  methodStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
+}
+
+
+var data = {
+    Recipe1 : {ingredients : ["tomato", "pepper", "sugar", "garlic", "olives","of","ingredients"] },
+    Intersection: {ingredients : ["salt", "pasta", "beef", "onions", "it", "will", "adapt", "it", "more"]},
+    Recipe2 :  {ingredients : ["a", "lot","of","ingredients"]
+    },
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
