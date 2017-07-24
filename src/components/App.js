@@ -28,7 +28,7 @@ class App extends Component {
     return (
 
       <div>
-        <SecondRow statistics={STATISTICS} labels={LABELS}/>
+        <StatRow  {...INGREDIENTSTATS} labels={LABELS}/>
         <BigRecipeMapContainer clusters={CLUSTERS}/>
         <RecipeDeck recipes={RECIPES}/>
       </div>
