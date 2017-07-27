@@ -19,19 +19,117 @@
 }
 
 .Major > div {
-  float: left;
+  margin: 10px;
+    float: left;
+}
+.Major > div > div {
   height: 800px;
-  width: 500px;
   overflow: auto;
+  border: 1px solid #c2c2c2;
 }
 
-.cardSize{
-  height: 300px;
+
+.StatRow{
+  width: 570px;
+}
+
+/* RecipeCard Styling*/
+.container{
+  border-radius: 2px;
+  margin: 6px;
+  height: 350px;
   width: 200px;
   float: left;
-  overflow: auto;
-
+  overflow: hidden;
+  background: white;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
 }
+.container .details h2 {
+  font-size: 14px; 
+  font-family: 'Roboto', sans-serif;
+}
+
+.container .details {
+    width: inherit;
+    overflow: auto;
+    height: 270px;
+}
+
+.container .details table {
+  border-spacing: 1px;
+  width: 100%;
+}
+
+.header{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 15px; 
+    padding-right: 15px;
+    color: white;
+    /* font-weight: 100%; */
+    /* text-align: center;  */
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+  
+.footer {
+  border-top: 1px solid #c2c2c2;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.img-wrapper img{
+  width: 100%;
+}
+
+.img-wrapper{
+    text-align: center;
+}
+/*END RECIPE CARD STYLING*/
+
+/*STAT CARD STYLING*/
+
+.GraphCard{
+  height: 150px;
+  width: 265px;
+  border: 1px solid #c2c2c2;
+  overflow: hidden;
+  margin: 5px;
+  border-radius: 2px;
+}
+
+.GraphCard h4 {
+  font-size: 14px;
+}
+
+.GraphCard .card-container{
+  padding-left: 10px;
+}
+
+.GraphCard .float {
+  float: right;
+  position: static;
+  padding: 2px;
+  /* left: 150px; */
+}
+
+.GraphCard .mdc-button--dense {
+  height: 25px;
+  font-size: 10px;
+}
+
+.GraphCard table {
+  font-size: 10px;
+  width: 100%
+}
+
+.StatRow td, th{
+  vertical-align: super;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -39,4 +137,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text { font: 10px sans-serif; }
+
+.node--internal text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
 }

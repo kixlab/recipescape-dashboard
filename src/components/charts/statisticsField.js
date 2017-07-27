@@ -16,15 +16,17 @@ class GraphCard extends React.Component {
   render(){
     return(      
       <div className={"GraphCard"}>
+        <div className={"card-container"}>
+         <div className={"float"}>
+          <table>
+            <tbody>
+              {this.props.top3.map((ingredient, index) => <IngredientButton ingredient={ingredient} key={index}/>)}
+            </tbody>
+          </table>
+        </div>
         <h4>{this.props.name}</h4>
-        <div>
-            <table>
-              <tbody>
-                {this.props.top3.map((ingredient, index) => <IngredientButton ingredient={ingredient} key={index}/>)}
-              </tbody>
-            </table>
-           <Plot data={this.props.data} width={200} height={60}/>
-           <table>
+           <Plot data={this.props.data} width={180} height={60}/>
+           <table >
              <tbody><tr><td>begining</td><td>middle</td><td>end of recipe</td></tr></tbody>
            </table>
         </div>
@@ -33,25 +35,11 @@ class GraphCard extends React.Component {
   }
 }
 
-//Created 3 cards
-class StatisticsDeck extends React.Component {
-  render() {
-    return (
-      <div>
-        <h2>Statistics</h2>
-        <div className={"sub"}>
-          {/* {this.props.statistics.map((element, index) => <StatCard statistics={element} key={index}/>)} */}
-        </div>
-      </div>
-    );
-  }
-}
 
+// DESCRIBE CARDS
 const HeaderCard = ({title}) => {
   return(
-    <div>
       <h3>{title}</h3>
-    </div>
   );
 }
 
@@ -81,3 +69,21 @@ export class StatRow extends React.Component {
   }
 }
 
+
+
+
+/** Code For Statostocs*/
+
+//Created 3 cards
+class StatisticsDeck extends React.Component {
+  render() {
+    return (
+      <div>
+        <h2>Statistics</h2>
+        <div className={"sub"}>
+           {/* {this.props.statistics.map((element, index) => <StatCard statistics={element} key={index}/>)}  */}
+        </div>
+      </div>
+    );
+  }
+}

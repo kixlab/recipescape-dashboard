@@ -13,16 +13,16 @@ type Props = {
 
 const Plot = ({data, height, width}:Props) => {
 
-
     return(
+        <div className={"plot"}>
         <svg
-        className="plot"
         height={height}
         width={width}
         ><g>
             {data.map((line,index) => <Line key={index}linePath={line.plot} color={line.clusterColor} height={height} width={width}/>)}
         </g>
         </svg>
+        </div>
     );
 };
 
@@ -50,8 +50,7 @@ const Line = ({linePath, height, width, color}) => {
         <path d={plot(linePath)} 
             fill={"transparent"}
             stroke={color}
-            strokeWidth={1}
-            strokeLinejoin={"round"}
+            strokeWidth={2}
         />
     );
 }

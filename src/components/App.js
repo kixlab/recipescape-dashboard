@@ -6,6 +6,7 @@ import { StatRow } from "./charts/statisticsField"
 import { BigRecipeMapContainer } from "./charts/recipeMap"
 import { RecipeDeck } from "./charts/recipeDeck"
 import { VennDiagram } from "./charts/vennDiagram"
+import { Tree } from "./charts/treeRecipe"
 
 const mapStateToProps = state => ({
   number: state.counter,
@@ -27,10 +28,11 @@ class App extends Component {
     const { number } = this.props;
     return (
 
-      <div>
-        <StatRow  {...INGREDIENTSTATS} labels={LABELS}/>
+      <div className={"Major"}>
         <BigRecipeMapContainer clusters={CLUSTERS}/>
-        <RecipeDeck recipes={RECIPES}/>
+        <StatRow  {...INGREDIENTSTATS} labels={LABELS}/>
+        <RecipeDeck recipes={RECIPES} data={treeData}/>
+        
       </div>
     );
   }
@@ -77,20 +79,14 @@ class App extends Component {
    {recipeName: "very tasty cake 2",color:"brown", key:"r7", ingredients:["everything"," nice", "comes", "to", "an", "end", "overflow"], instructions:["wisk a and b", "but", "this", "should"]},
  ]
 
- var sampleData = [
-  {id: '5fbmzmtc', x: 7, y: 41, z: 6},
-  {id: 's4f8phwm', x: 11, y: 45, z: 9},
-  // ...
-];
-
 var DATA = [
   {plot: [[12, 13], [14, 40], [15,10],[16, 13], [17, 40], [18,10]], clusterColor: "red" },
   {plot:[[1, 2], [10, 10], [14, 10], [15,3], [16, 2], [17, 10], [18, 10], [20,3]], clusterColor: "blue"}
 ]
 
 var INGREDIENTSTATS = {
-  ingredientStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
-  methodStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
+  ingredientStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]},{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
+  methodStats: [{data: DATA, name:"mix", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"boil", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"mix", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"boil", top3:["mix", "stirr", "oil"]}],
 }
 
 
@@ -100,6 +96,66 @@ var data = {
     Recipe2 :  {ingredients : ["a", "lot","of","ingredients"]
     },
 };
+
+
+var treeData = [
+  {
+    "name": "Top Level",
+    "parent": "null",
+    "children": [
+      {
+        "name": "Level 2: A",
+        "parent": "Top Level",
+        "children": [
+          {
+            "name": "Son of A",
+            "parent": "Level 2: A"
+          },
+          {
+            "name": "Daughter of A",
+            "parent": "Level 2: A"
+          }
+        ]
+      },
+      {
+        "name": "Level 2: B",
+        "parent": "Top Level"
+      }
+    ]
+  }
+];
+
+var treeData =
+  {
+    "name": "Present nicely",
+    "children": [
+      {
+        "name": "put on top",
+        "children": [
+          { "name": "basil",},
+          {"name": "salt"}
+        ]
+      },
+      {"name": "bake",
+        "children":
+    [
+        { "name": "top",
+          "children": [
+          { "name": "cheese",},
+          {"name": "mix",
+        "children" :
+        [
+          { "name": "flour",},
+          {"name": "oil"}
+        ]
+             }
+    ]
+            },
+          {"name": "tomatos"}
+        ]
+    }
+    ]
+  };
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

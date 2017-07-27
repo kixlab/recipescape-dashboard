@@ -1,11 +1,12 @@
 import React from 'react'
+import { Tree } from "./treeRecipe"
 
-class Button extends React.Component {
-    render(){
+/**Order: From Small to Big */
+/* FIELDS FOR TEXT CARD*/
+const Button = ({symbol})=>{
         return (
-            <div>{this.props.symbol}</div>
+            <div style={{paddingLeft:15, paddingTop:10, float: "right", display: "inline-block", fontSize: 19}}>{symbol}</div>
         );
-    }
 }
 
 const Element = ({element}) =>{
@@ -29,64 +30,97 @@ const SingleRow = ({element})=> {
         );
 }
 
-const RecipeCard = ({image, ingredients, recipeName, color, instructions}) => {
-        let imageComp;
-        let ingredientTable = [];
-        let sliceNbr = [8,6];
-        if(image){
-            imageComp = <img src={image} style={{height: 76, display:"block", marginLeft:"auto", marginRight:"auto"}}/>;
-            sliceNbr = [4,2];
-        }
-        ingredients = ingredients.slice(0,sliceNbr[0]);
-        for (var index = 0; index < ingredients.length; index= index+2) {
-                ingredientTable.push(<DoubleRow first={ingredients[index]} second={ingredients[index+1]} key={ingredients[index]+ingredients[index+1]} />);
-        }
-
-        return(
-            <div className={"mdc-card cardSize"}>
-                <div className={"inner"}>
-                <Button symbol={"✕"} pos={"right"}/>
-                <Button symbol={"🌿"} pos={"left"}/>
-                <h1 className={"mdc-card__title"}>{recipeName}</h1>
-                
-                {imageComp}
-                <h5 className={"mdc-card__subtitle"}>Ingredients</h5>
-                <div className={"mdc-card__supporting-text"}>
-                    <table>
-                        <tbody>
-                        {ingredientTable}
-                        </tbody>
-                    </table>
-                </div>
-                <h5 className={"mdc-card__subtitle"}>Instructions</h5>
-                <div className={"mdc-card__supporting-text"}>
-                    <table>
-                        <tbody>
-                            {instructions.slice(0,sliceNbr[1]).map(element => <SingleRow key={element} element={element}/>)}
-                        </tbody>
-                    </table>
-                    </div>
-                 </div>
-                 </div>
-        );
+const Image = ({image}) => {
+    return  (
+        <div className="img-wrapper">
+                <img src={image} alt="image of food" />
+        </div>
+);
 }
 
-const RecipeCards = ({recipes}) => {
+const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
+    let ingredientTable = [];
+    let showImage;
+    if (image) {
+        showImage = <Image image={image} />;
+    }
+    for (var index = 0; index < ingredients.length; index = index + 2) {
+        ingredientTable.push(<DoubleRow first={ingredients[index]} second={ingredients[index + 1]} key={ingredients[index] + ingredients[index + 1]} />);
+    }
+
+    return (
+
+
+        <div className={"details mdc-card__supporting-text"}>
+            {showImage}
+            <div>
+                <div>
+                    <h2>Ingredients</h2>
+                    <table>
+                        <tbody>
+                            {ingredientTable}
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+            <div>
+                <h2>Instructions</h2>
+                    <table>
+                        <tbody>
+                            {instructions.map(element => <SingleRow key={element} element={element}/>)}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+
+    );
+}
+
+
+/**PUTTING EVERYTHING TOGETHER */
+
+class RecipeCard extends React.Component{
+    render(){
+        console.log(this.props)
+        let element;
+        if(false)
+            element = <TextCard {...this.props.element}/>;
+        else element = <Tree data={this.props.trees} height={260} width={200}/>;
+
         return(
-            <div >
-                {recipes.map((element, index) => <RecipeCard {...element}/>)}
+        <div className="container">
+             <div className="header" style={{background: this.props.element.color}}>
+                <h2 style={{display: "inline-block"}}>{this.props.element.recipeName}</h2>
+                <Button symbol={"✕"}/>
+            </div> 
+            {element}
+            <div className={"footer"}>
+                <Button symbol={"▶︎"}/>
+            </div>
+        </div>
+        );
+    }
+}
+
+
+const RecipeCards = ({recipes, trees}) => {
+        return(
+            <div>
+            <div className={"my-card-container"}>
+                {recipes.map((element, index) => <RecipeCard element={element} trees={trees}/>)}
+            </div>
             </div>
         );
 }
 
-export const RecipeDeck = ({recipes}) => {
+export const RecipeDeck = ({recipes, data}) => {
         return (
             <div className={"RecipeDeck"}>
                 <h2>Recipe Deck</h2>
                 <div className={"subDeck"}>
-                    <RecipeCards recipes={recipes}/>
+                    <RecipeCards recipes={recipes} trees={data}/>
                 </div>
             </div>
         );
 }
-
