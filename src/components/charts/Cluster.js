@@ -33,8 +33,8 @@ const Cluster = ({points, color, r, scaleX, scaleY}) => {
 const Point = ({posX, posY,r, recipeID, color}) => {
     return(
         <circle
-        cx={posX} 
-        cy={posY} 
+        cx={posX}
+        cy={posY}
         r={r}
         id={recipeID}
         fill={color}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ClusterSelection, ClusterControls } from "./clusterField"
-import {Clusters} from "./Cluster"
+import {Clusters} from "./charts/Cluster"
+import { Grid, Divider } from 'semantic-ui-react'
 
 export class BigRecipeMapContainer extends React.Component {
     
@@ -18,12 +19,15 @@ export class BigRecipeMapContainer extends React.Component {
         var DATA = [CLUSTER];
        return( 
        <div className={"RecipeMap"}>
-            <h1>RecipeMap</h1>
-            <div className={"subDeck"}>
+            <h2 type={"display3"}>RecipeMap</h2>
+            <Grid celled>
+                <Grid.Column>
                 <Clusters data={DATA} height={550} width={550}/>
+                <Divider fitted/>
                 <ClusterControls/>
                 <ClusterSelection clusters={this.props.clusters}/>
-            </div>
+                </Grid.Column>
+            </Grid>
         </div>
        );
     }
