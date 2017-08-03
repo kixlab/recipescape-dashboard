@@ -27,8 +27,8 @@ class App extends Component {
   render() {
     const { number } = this.props;
     return (
-
-      <Grid container columns='equal'>
+      <div style={{padding: 10}}>
+      <Grid columns='equal'>
         <Grid.Row>
           <Grid.Column>
             <BigRecipeMapContainer clusters={CLUSTERS}/>
@@ -39,6 +39,7 @@ class App extends Component {
         </Grid.Row>
           <RecipeDeck recipes={RECIPES} data={treeData}/>
       </Grid>
+      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { LabelField } from "./labeled"
 import Plot from "./charts/GraphPlot"
-import { Card, Icon, Image, Grid,Table } from 'semantic-ui-react'
+import { Card, Icon, Image, Grid,Table, Segment, Label, List, Button, Popup} from 'semantic-ui-react'
 
 const IngredientButton = ({ingredient}) => {
   return (
@@ -17,11 +17,21 @@ class GraphCard extends React.Component {
     return(      
       <Card>
         <Card.Content>
-        <Card.Header>{this.props.name}</Card.Header>
-        </Card.Content>
-        <Card.Content>
+          <List horizontal><List.Item>{this.props.name}</List.Item>
+            <List.Item>
+              <Label>mix</Label>
+            </List.Item>
+            <List.Item>
+              <Label>stir</Label>
+            </List.Item>
+            <List.Item>
+              <Label>boil</Label>
+            </List.Item>
+          </List>
+          </Card.Content>
+          <Card.Content>
+           <Plot data={this.props.data} width={250} height={100}/>
 
-           <Plot data={this.props.data} width={180} height={60}/>
           </Card.Content>
       </Card>
     );
@@ -39,26 +49,36 @@ const HeaderCard = ({title}) => {
 export class StatRow extends React.Component {
   render(){
     return (
-      <div className={"StatRow"}>
-        <h2 type={"display1"} gutterBottom={true}>Statistics</h2>
-        <Table>
+      <div>
+        <h2>
+          Recipe Analysis
+                                <Popup
+            trigger={<Icon color="grey" size="tiny" name="question circle" />}
+            content="I don't know what to put here"
+          />
+        </h2>
+
+        <Table basic celled padded>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell><HeaderCard title={"Method Adding Time : "}/></Table.HeaderCell>
+              <Table.HeaderCell><HeaderCard title={"When is ingredient is added?"}/></Table.HeaderCell>
               <Table.HeaderCell><HeaderCard title={"Ingredient Adding Time : "}/></Table.HeaderCell>
             </Table.Row>
           </Table.Header>
             <Table.Body>
-              <Table.Row verticalAlign='top'>
-                <Table.Cell>
+              <Table.Row verticalAlign='top' padded>
+                <Table.Cell padded>
+                  <div className={"Stats"}>
               {this.props.methodStats.map((methodCard, index)=> <GraphCard {...methodCard} key={index}/>)}
+              </div>
               </Table.Cell>
               <Table.Cell>
+                <div className={"Stats"}>
               {this.props.ingredientStats.map((ingredientCard, index) => <GraphCard {...ingredientCard} key={index}/>)}
+              </div>
               </Table.Cell>
               </Table.Row>
             </Table.Body>
-    
         </Table>
       </div>
     );

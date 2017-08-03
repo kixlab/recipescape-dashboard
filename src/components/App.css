@@ -18,7 +18,20 @@
   font-size: large;
 }
 
+ 
+  .Stats {
+  max-height: 620px;
+  overflow: auto;
+} 
 
+.Recipes .inner{
+  max-height: 430px;
+  overflow-x: auto; /* or auto, if you don't want the scroll bar visible all of the time. */
+  overflow-y: auto;
+  display: inline-block;
+  position: relative
+
+}
 
 @keyframes App-logo-spin {
   from {
@@ -27,6 +40,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.graphLabel {
+  font-size: 9px;
+  font-family: 'Times New Roman', Times, serif
 }
 
 .node circle {

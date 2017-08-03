@@ -6,23 +6,35 @@ import { Grid, Divider } from 'semantic-ui-react'
 export class BigRecipeMapContainer extends React.Component {
     
     render(){
-        var CLUSTER = {
-            r: 5,
-            color: "red",
-            points: [
-                {pos: [300, 300], id: 12},
-                {pos: [60, 50], id: 13},
-                {pos: [30, 60], id: 14}
-            ]
+
+        let generateNumber = () => {
+            let data = [];
+            for (var i = 0; i < 100; i++) {
+                data.push({pos:[Math.random()*700+1, Math.random()*400+1], id:i}
+                );
+            }
+            return data;
         }
 
-        var DATA = [CLUSTER];
+        var CLUSTER1 = {
+            r: 5,
+            color: "yellow",
+            points: generateNumber()
+        }
+
+        var CLUSTER2 = {
+            r: 5,
+            color: "orange",
+            points: generateNumber()
+        }
+
+        var DATA = [CLUSTER1, CLUSTER2];
        return( 
        <div className={"RecipeMap"}>
             <h2 type={"display3"}>RecipeMap</h2>
             <Grid celled>
                 <Grid.Column>
-                <Clusters data={DATA} height={550} width={550}/>
+                <Clusters data={DATA} height={450} width={700}/>
                 <Divider fitted/>
                 <ClusterControls/>
                 <ClusterSelection clusters={this.props.clusters}/>

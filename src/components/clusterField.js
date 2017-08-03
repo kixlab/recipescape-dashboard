@@ -3,7 +3,7 @@ import { Checkbox, Label, Button, List, Divider, Dropdown, Segment } from 'seman
 
 const ClusterSquare = ({color}) => (
     <List.Item>
-            <Label circular color={color}/>
+            <Label circular color={color} as={Button}/>
     </List.Item>
 
         );

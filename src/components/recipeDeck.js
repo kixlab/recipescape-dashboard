@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tree } from "./charts/treeRecipe"
-import { Card, Image, Grid, Icon, Menu, Button, List, Segment, Divider, Rail, Label, Header} from 'semantic-ui-react'
+import { Card, Image, Grid, Icon, Menu, Button, List, Segment, Divider, Rail, Label, Header, Message, Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
@@ -77,54 +77,66 @@ class RecipeCard extends React.Component{
 
         return(
             <Card centered>
-                <Card.Content>
-                    <Card.Header>
-                        <List horizontal relaxed>
-                    <List.Item><Icon corner color={this.props.element.color} name="delete"/></List.Item>
+                <Header
+                    attached
+                    color={this.props.element.color}
+                >
+                    <List horizontal relaxed>
+                        <List.Item><Icon corner color={this.props.element.color} name="delete" /></List.Item>
                         <List.Item><Header as='h4' color={this.props.element.color}>{this.props.element.recipeName}</Header></List.Item>
                     </List>
-                    </Card.Header>
-                </Card.Content>
+                    
+                </Header>
                 <Card.Content>
+                    <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label>
                     {element}
                 </Card.Content>
                     <Button.Group widths={3} attached="bottom">
-                        <Button basic color={this.props.element.color} corner icon="remove" />
-                        <Button basic color={this.props.element.color} corner icon="zoom" />
-                        <Button basic color={this.props.element.color} corner icon="arrow right" />
+                        <Button basic color={this.props.element.color} icon="zoom" />
+                        <Button basic color={this.props.element.color} icon="arrow right" />
                     </Button.Group>
             </Card>
         );
     }
 }
 
+const SavedDecks = ({savedDecks}) =>{
+    return( <Label.Group>
+        {savedDecks.map(item => <Label>{item}<Icon name='close' /></Label>)}
+            </Label.Group>);
+}
 
 const RecipeCards = ({recipes, trees}) => {
         return(
-        <div>
             <Grid celled>
                 <Grid.Row>
-                    <List horizontal relaxed divided>
-                    <List.Item><Button basic>save deck</Button></List.Item>
-                    <List.Item><List.Header>saved decks : </List.Header></List.Item>
+                    <List horizontal relaxed>
+                        <List.Item><Button basic>save deck</Button></List.Item>
+                        <List.Item><List.Header>saved decks : </List.Header></List.Item>
+                        <List.Item><SavedDecks savedDecks={['funny looking', 'amaze']}/></List.Item>
+                    {/* todo generate list elements as labels */}
                     </List>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row className={"inner"}>
                 <Divider/>
-                <Card.Group>
                     {recipes.map((element, index) => <RecipeCard key={index} element={element} trees={trees} />)}
-                </Card.Group>
                 </Grid.Row>
             </Grid>
-        </div>
         );
 }
 
 export const RecipeDeck = ({recipes, data}) => {
         return (
             <div>
-                <h2 type={"display1"} gutterBottom>Recipe Deck</h2>
-                    <RecipeCards recipes={recipes} trees={data}/>
+                <h2>Recipe Deck 
+                      <Popup
+                        trigger={<Icon color="grey" size="tiny" name="question circle" />}
+                        content='Recipes that you clicked in the map on are displayed here'
+                    />
+                    </h2>
+                <div className={"Recipes"}>
+                <RecipeCards className={"Recipes"} recipes={recipes} trees={data} />
+                </div>
             </div>
         );
 }
