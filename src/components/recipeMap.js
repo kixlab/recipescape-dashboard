@@ -7,6 +7,7 @@ export class BigRecipeMapContainer extends React.Component {
     
     render(){
 
+        //generate data to show off
         let generateNumber = () => {
             let data = [];
             for (var i = 0; i < 100; i++) {
@@ -30,6 +31,7 @@ export class BigRecipeMapContainer extends React.Component {
 
         var DATA = [CLUSTER1, CLUSTER2];
        return( 
+
        <div className={"RecipeMap"}>
             <h2 type={"display3"}>RecipeMap</h2>
             <Grid celled>

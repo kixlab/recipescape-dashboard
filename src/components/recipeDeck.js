@@ -39,7 +39,6 @@ const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
     }
 
     return (
-
         <div>
             {showImage}
         <Card.Meta>Ingredients</Card.Meta>
@@ -65,6 +64,24 @@ const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
 }
 
 
+const RecipeCardHeader = ({color, name}) => (
+                    <Header
+                    attached
+                    color={color}>
+                    <List horizontal relaxed>
+                        <List.Item><Icon corner color={color} name="delete" /></List.Item>
+                        <List.Item><Header as='h4' color={color}>{name}</Header></List.Item>
+                    </List>
+                </Header>
+);
+
+const RecipeBottomButtons = ({color}) => (
+    <Button.Group widths={3} attached="bottom">
+        <Button basic color={color} icon="zoom" />
+        <Button basic color={color} icon="arrow right" />
+    </Button.Group>
+);
+
 /**PUTTING EVERYTHING TOGETHER */
 
 class RecipeCard extends React.Component{
@@ -74,27 +91,14 @@ class RecipeCard extends React.Component{
         if(true)
             element = <TextCard {...this.props.element}/>;
         else element = <Tree data={this.props.trees} height={260} width={200}/>;
-
         return(
             <Card centered>
-                <Header
-                    attached
-                    color={this.props.element.color}
-                >
-                    <List horizontal relaxed>
-                        <List.Item><Icon corner color={this.props.element.color} name="delete" /></List.Item>
-                        <List.Item><Header as='h4' color={this.props.element.color}>{this.props.element.recipeName}</Header></List.Item>
-                    </List>
-                    
-                </Header>
+                <RecipeCardHeader color={this.props.element.color} name={this.props.element.recipeName}/>
                 <Card.Content>
                     <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label>
                     {element}
                 </Card.Content>
-                    <Button.Group widths={3} attached="bottom">
-                        <Button basic color={this.props.element.color} icon="zoom" />
-                        <Button basic color={this.props.element.color} icon="arrow right" />
-                    </Button.Group>
+                <RecipeBottomButtons color={this.props.element.color}/>
             </Card>
         );
     }
@@ -106,16 +110,19 @@ const SavedDecks = ({savedDecks}) =>{
             </Label.Group>);
 }
 
+const RecipeTopMenu = ({savedDecks}) => (
+    <List horizontal relaxed>
+        <List.Item><Button basic>save deck</Button></List.Item>
+        <List.Item><List.Header>saved decks : </List.Header></List.Item>
+        <List.Item><SavedDecks savedDecks={['funny looking', 'amaze']} /></List.Item>
+    </List>
+);
+
 const RecipeCards = ({recipes, trees}) => {
         return(
             <Grid celled>
                 <Grid.Row>
-                    <List horizontal relaxed>
-                        <List.Item><Button basic>save deck</Button></List.Item>
-                        <List.Item><List.Header>saved decks : </List.Header></List.Item>
-                        <List.Item><SavedDecks savedDecks={['funny looking', 'amaze']}/></List.Item>
-                    {/* todo generate list elements as labels */}
-                    </List>
+                    <RecipeTopMenu/>
                 </Grid.Row>
                 <Grid.Row className={"inner"}>
                 <Divider/>
