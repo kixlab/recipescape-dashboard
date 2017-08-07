@@ -46,11 +46,11 @@ export class StatRow extends React.Component {
             content="I don't know what to put here"
           />
         </h2>
-        <Table basic celled padded>
+        <Table basic celled>
           <TableHeader />
           <Table.Body>
-            <Table.Row verticalAlign='top' padded>
-              <Table.Cell padded>
+            <Table.Row verticalAlign='top'>
+              <Table.Cell>
                 <div className={"Stats"}>
                   {this.props.methodStats.map((methodCard, index) => <GraphCard {...methodCard} key={index} />)}
                 </div>

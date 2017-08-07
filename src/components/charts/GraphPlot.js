@@ -1,10 +1,10 @@
 import React from 'react'
 import { extent as d3ArrayExtent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear } from 'd3-scale';
-import { select } from 'd3-selection'
+import { select, event as currentEvent } from 'd3-selection'
 import { line as d3Line } from 'd3-shape';
 import * as d3 from "d3";
-import {event as currentEvent} from 'd3';
+// import {event as currentEvent} from 'd3-selection';
 import SVGColors from './svgColorTranslation'
 import { Button, Label,Menu, Icon, Grid } from 'semantic-ui-react'
 
@@ -24,8 +24,10 @@ class Plot extends React.Component {
     }
 
     createPlot(){
-        console.log(select(svg))
         let node = this.node;
+        let tooltip = this.tooltip;
+
+        let div = select(tooltip)
 
         let margin = {top: 10, right: 20, bottom: 20, left: 25};
         let width = this.props.width - margin.left - margin.right;
@@ -78,14 +80,28 @@ class Plot extends React.Component {
         svg.append("g")
             .call(d3.axisLeft(y).ticks(0).tickSize(0))
             .attr("class", "axis")
+            .on("mouseover", () => {
+                div.style("opacity", .9);
+                div.style("display", "initial")
+                div.html("relative occurence in recipe")
+                    .style("left", (currentEvent.pageX) + "px")
+                    .style("top", (currentEvent.pageY - 28) + "px");
+            })
+            .on("mouseout", () => {
+                setTimeout(() =>{
+                    div.style("display", "None");
+                }, 1000)
+            });
 
 
     }
 
+
     render(){
         return(
         <div>
-        <svg ref={node => this.node = node} ></svg>
+            <div ref={tooltip => this.tooltip = tooltip}/>
+            <svg ref={node => this.node = node} ></svg>
         </div>
         );
     }
