@@ -57,10 +57,13 @@ export class Clusters extends React.Component {
                     .attr("opacity", 0.3)
                     .attr("stroke-linejoin", "round")
                     .on("mouseover", () => {
-                        hull.attr("stroke", "gray")
+                        hull.attr("fill", "gray")
+                            .attr("stroke", "gray");
+                        
                     })
                     .on("mouseout", () => {
-                        hull.attr("stroke", SVGColors[element.color])
+                        hull.attr("fill", SVGColors[element.color])
+                        .attr("stroke", SVGColors[element.color]);
                     })
             this.createCluster(element.points, element.color, circles, element.r, div)
         });
