@@ -37,40 +37,37 @@ const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
                 <Instructions instructions={instructions}/>
             </Card.Description>
         </div>
-
-
     );
 }
 
 
 const RecipeCardHeader = ({color, name}) => (
-                    <Header
-                    attached
-                    color={color}>
-                    <List horizontal relaxed>
-                        <List.Item><Icon corner color={color} name="delete" /></List.Item>
-                        <List.Item><Header as='h4' color={color}>{name}</Header></List.Item>
-                    </List>
-                </Header>
+    <Header
+        attached
+        color={color}>
+        <List horizontal relaxed>
+            <List.Item><Icon corner color={color} name="delete" /></List.Item>
+            <List.Item><Header as='h4' color={color}>{name}</Header></List.Item>
+        </List>
+    </Header>
 );
 
 class RecipeBottomButtons extends React.Component {
+    render(){
+        let color = this.props.color;
+        let showRecipe = this.props.showRecipe;
+        let hideRecipe = this.props.hideRecipe;
+        let toggleTree = this.props.toggleTree;
+        let open = this.props.open;
 
-        render(){
-            let color = this.props.color;
-            let showRecipe = this.props.showRecipe;
-            let hideRecipe = this.props.hideRecipe;
-            let toggleTree = this.props.toggleTree;
-            let open = this.props.open;
-
-            return (
-            <Button.Group widths={3} attached="bottom">
-                <Button basic color={color} onClick={showRecipe } icon="zoom" />
-                <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
-                <PopupRecipe open={open} close={hideRecipe}/>
-            </Button.Group>
+        return (
+        <Button.Group widths={3} attached="bottom">
+            <Button basic color={color} onClick={showRecipe } icon="zoom" />
+            <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
+            <PopupRecipe open={open} close={hideRecipe}/>
+        </Button.Group>
         );
-        }
+    }
 }
 
 /**PUTTING EVERYTHING TOGETHER */
