@@ -39,19 +39,18 @@ export class Clusters extends React.Component {
             .attr("class", "circles");
 
         this.props.data.map((element) => {
-            this.createCluster(element.points, element.color, node, element.r)
+            this.createCluster(element.points, element.color, circles, element.r)
         });
 
         select(node).call(zoom().scaleExtent([1, 4]).on("zoom", ()=> {
-            select(node).attr("transform", currentEvent.transform)
+            circles.attr("transform", currentEvent.transform)
             console.log(circles)
         }));
 
     }
 
     createCluster(points, color, node, r){
-        select(node).append("g")
-            .attr("class", "circles")
+        node.append("g")
             .selectAll("circle")
             .data(points)
             .enter()
