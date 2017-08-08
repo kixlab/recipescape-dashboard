@@ -80,7 +80,6 @@ class Plot extends React.Component {
             .call(d3.axisLeft(y).ticks(0).tickSize(0))
             .attr("class", "axis")
             .on("mouseover", () => {
-                console.log(currentEvent)
                 div.style("display", "inline-block")
                 div.html("relative occurence in recipe")
                     .style("left", (currentEvent.offsetX + 10) + "px")

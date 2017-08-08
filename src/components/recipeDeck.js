@@ -1,12 +1,12 @@
 import React from 'react'
 import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/treeRecipe"
+import {SaveInput} from './popupInput'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
 /* FIELDS FOR TEXT CARD*/
-
 
 const Instructions = ({instructions})=> {
         return(
@@ -113,13 +113,25 @@ const SavedDecks = ({savedDecks}) =>{
             </Label.Group>);
 }
 
-const RecipeTopMenu = ({savedDecks}) => (
+class RecipeTopMenu extends React.Component {
+    state = { open: false }
+    show =  () => this.setState({ open: true })
+    close = () => this.setState({ open: false })
+
+    render(){
+        // let savedDecks = this.props.savedDecks;
+
+        return (
     <List horizontal relaxed>
-        <List.Item><Button basic>save deck</Button></List.Item>
+        <List.Item><Button basic onClick={this.show}>save deck</Button></List.Item>
+        <SaveInput open={this.state.open} close={this.close} text={"save current deck"}/>
         <List.Item><List.Header>saved decks : </List.Header></List.Item>
         <List.Item><SavedDecks savedDecks={['funny looking', 'amaze']} /></List.Item>
     </List>
-);
+        );
+    }
+}
+
 
 const RecipeCards = ({recipes, trees}) => {
         return(

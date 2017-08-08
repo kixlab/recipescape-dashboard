@@ -47,12 +47,10 @@ export class VennDiagram extends React.Component {
         if(ry1 > ry2) {
             cy1 = y+(ry1-ry2);
             cy2 = y;
-            console.log("ha")
         }
         else {
             cy1 = y;
             cy2 = y+(ry2-ry1);
-            console.log("ha")
         }
 
 

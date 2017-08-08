@@ -23,7 +23,6 @@ class LabelBox extends React.Component {
 
 export class LabelField extends React.Component {
     render(){
-        console.log(this.props.labels);
         return(
             <div>
                 <h2>Labeled Collections</h2>

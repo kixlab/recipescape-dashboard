@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClusterSelection, ClusterControls } from "./clusterField"
+import { ClusterSelection, GroupByControls } from "./clusterField"
 import {Clusters} from "./charts/Cluster"
 import { Grid, Divider } from 'semantic-ui-react'
 
@@ -38,7 +38,7 @@ export class BigRecipeMapContainer extends React.Component {
                 <Grid.Column>
                 <Clusters data={DATA} height={450} width={700}/>
                 <Divider fitted/>
-                <ClusterControls/>
+                <GroupByControls/>
                 <ClusterSelection clusters={this.props.clusters}/>
                 </Grid.Column>
             </Grid>
