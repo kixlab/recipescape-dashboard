@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, Label, Button, List, Divider, Dropdown, Segment } from 'semantic-ui-react'
+import { Label, Button, List, Divider, Dropdown, Segment } from 'semantic-ui-react'
 
 const ClusterSquare = ({color}) => (
     <List.Item>

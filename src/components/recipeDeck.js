@@ -1,26 +1,12 @@
 import React from 'react'
 import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/treeRecipe"
-import { Card, Image, Grid, Icon, Menu, Button, List, Table, Divider, Rail, Label, Header, Message, Popup} from 'semantic-ui-react'
+import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
 /* FIELDS FOR TEXT CARD*/
 
-const Element = ({element}) =>{
-        return (
-            <td>{element}</td>
-        );
-    };
-
-const DoubleRow = ({first, second}) => {
-        return (
-            <tr>
-                <Element element={first}/>
-                <Element element={second}/>
-            </tr>
-        );
-}
 
 const Instructions = ({instructions})=> {
         return(
@@ -32,7 +18,6 @@ const Instructions = ({instructions})=> {
 
 
 const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
-    let ingredientTable = [];
     let showImage;
     if (image) {
         showImage = <Image src={image} />;

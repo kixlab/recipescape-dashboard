@@ -1,8 +1,6 @@
 import * as d3 from "d3";
-import { layout } from 'd3';
-import {
-    select
-} from 'd3-selection'
+// import { layout } from 'd3';
+import { select} from 'd3-selection'
 import React from 'react'
 
 export class Tree extends React.Component {
@@ -26,7 +24,8 @@ export class Tree extends React.Component {
         let height = this.props.height;
         let treeData = this.props.data;
         let margin = { top: 30, right: 20, bottom: 30, left: 20 };
-        width = width - margin.left - margin.right,
+
+        width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
 
 
@@ -50,7 +49,7 @@ export class Tree extends React.Component {
                 "translate(" + margin.left + "," + margin.top + ")rotate(180 "+width/2 +" "+ height/2+")");
 
         // adds the links between the nodes
-        let link = g.selectAll(".link")
+        g.selectAll(".link")
             .data(nodes.descendants().slice(1))
             .enter().append("path")
             .attr("class", "link")

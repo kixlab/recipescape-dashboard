@@ -3,6 +3,7 @@ import { extent as d3ArrayExtent } from 'd3-array';
 import { select, event as currentEvent } from 'd3-selection'
 import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import {zoom} from 'd3-zoom';
+import { hull } from 'd3-polygon'
 import * as d3 from "d3";
 import SVGColors from './svgColorTranslation' // used for colors
 
@@ -41,6 +42,26 @@ export class Clusters extends React.Component {
             .attr("class", "circles");
 
         this.props.data.map((element) => {
+            
+            //generate area of cluster
+            let hull = circles.append("path")
+                    .attr("class", "hull")
+                    
+                    hull.datum(d3.polygonHull(element.points.map(x => x.pos)))
+                    .attr("d", function(d) {
+                        return "M" + d.join("L") + "Z"; })
+                    .attr("fill", SVGColors[element.color])
+                    .attr("stroke", SVGColors[element.color])
+                    .attr("stroke-width", 32+"px")
+                    .attr("line-join", "rounded")
+                    .attr("opacity", 0.3)
+                    .attr("stroke-linejoin", "round")
+                    .on("mouseover", () => {
+                        hull.attr("stroke", "gray")
+                    })
+                    .on("mouseout", () => {
+                        hull.attr("stroke", SVGColors[element.color])
+                    })
             this.createCluster(element.points, element.color, circles, element.r, div)
         });
 
@@ -59,7 +80,7 @@ export class Clusters extends React.Component {
             .attr("cx", (d) => d.pos[0])
             .attr("cy", (d) => d.pos[1])
             .attr("r", r)
-            .attr("fill", color)
+            .attr("fill", SVGColors[color])
             .on("mouseover", () => {
                 div.style("display", "inline-block")
                 div.html("pizza")
@@ -69,7 +90,7 @@ export class Clusters extends React.Component {
             .on("mouseout", () => {
                 setTimeout(() =>{
                     div.style("display", "None");
-                }, 1000)
+                }, 300)
             });
     }
 

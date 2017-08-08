@@ -1,7 +1,7 @@
 import React from 'react'
-import { LabelField } from "./labeled"
+// import { LabelField } from "./labeled"
 import Plot from "./charts/GraphPlot"
-import { Card, Icon, Image, Grid,Table, Segment, Label, List, Button, Popup} from 'semantic-ui-react'
+import { Card, Icon, Table,  Label, List, Popup} from 'semantic-ui-react'
 
 
 const GraphTop = ({name, topThree}) => {

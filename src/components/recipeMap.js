@@ -8,10 +8,10 @@ export class BigRecipeMapContainer extends React.Component {
     render(){
 
         //generate data to show off
-        let generateNumber = () => {
+        let generateNumber = (x,y, ox, oy) => {
             let data = [];
-            for (var i = 0; i < 100; i++) {
-                data.push({pos:[Math.random()*700+1, Math.random()*400+1], id:i}
+            for (var i = 0; i < 200; i++) {
+                data.push({pos:[Math.random()*x+ox, Math.random()*y+oy], id:i}
                 );
             }
             return data;
@@ -19,14 +19,14 @@ export class BigRecipeMapContainer extends React.Component {
 
         var CLUSTER1 = {
             r: 5,
-            color: "yellow",
-            points: generateNumber()
+            color: "red",
+            points: generateNumber(200, 200, 20, 100)
         }
 
         var CLUSTER2 = {
             r: 5,
-            color: "orange",
-            points: generateNumber()
+            color: "blue",
+            points: generateNumber(300, 300, 300, 100)
         }
 
         var DATA = [CLUSTER1, CLUSTER2];

@@ -1,12 +1,11 @@
 import React from 'react'
-import { extent as d3ArrayExtent } from 'd3-array';
 import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { select, event as currentEvent } from 'd3-selection'
 import { line as d3Line } from 'd3-shape';
 import * as d3 from "d3";
 // import {event as currentEvent} from 'd3-selection';
 import SVGColors from './svgColorTranslation'
-import { Button, Label,Menu, Icon, Grid } from 'semantic-ui-react'
+
 
 class Plot extends React.Component {
         
@@ -90,7 +89,7 @@ class Plot extends React.Component {
             .on("mouseout", () => {
                 setTimeout(() =>{
                     div.style("display", "None");
-                }, 1000)
+                }, 400)
             });
 
 
