@@ -1,6 +1,7 @@
 import React from 'react'
+import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/treeRecipe"
-import { Card, Image, Grid, Icon, Menu, Button, List, Segment, Divider, Rail, Label, Header, Message, Popup} from 'semantic-ui-react'
+import { Card, Image, Grid, Icon, Menu, Button, List, Table, Divider, Rail, Label, Header, Message, Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
@@ -21,9 +22,11 @@ const DoubleRow = ({first, second}) => {
         );
 }
 
-const SingleRow = ({element})=> {
+const Instructions = ({instructions})=> {
         return(
-            <tr><td >{element}</td></tr>
+            <List ordered>
+                {instructions.map(element => <List.Item>{element}</List.Item>)}
+            </List>
         );
 }
 
@@ -34,28 +37,19 @@ const TextCard = ({image, ingredients, recipeName, color, instructions}) => {
     if (image) {
         showImage = <Image src={image} />;
     }
-    for (var index = 0; index < ingredients.length; index = index + 2) {
-        ingredientTable.push(<DoubleRow first={ingredients[index]} second={ingredients[index + 1]} key={ingredients[index] + ingredients[index + 1]} />);
-    }
 
     return (
         <div>
             {showImage}
         <Card.Meta>Ingredients</Card.Meta>
             <Card.Description>
-                    <table>
-                        <tbody>
-                            {ingredientTable}
-                        </tbody>
-                    </table> 
+                <Label.Group>
+            {ingredients.map((ingredient, index) => <Label basic key={index}>{1+index}<Label.Detail>{ingredient}</Label.Detail></Label>)}
+            </Label.Group>
             </Card.Description>
          <Card.Meta>Instructions</Card.Meta>
             <Card.Description>
-                    <table>
-                        <tbody>
-                            {instructions.map(element => <SingleRow key={element} element={element}/>)}
-                        </tbody>
-                    </table>
+                <Instructions instructions={instructions}/>
             </Card.Description>
         </div>
 
@@ -75,30 +69,54 @@ const RecipeCardHeader = ({color, name}) => (
                 </Header>
 );
 
-const RecipeBottomButtons = ({color}) => (
-    <Button.Group widths={3} attached="bottom">
-        <Button basic color={color} icon="zoom" />
-        <Button basic color={color} icon="arrow right" />
-    </Button.Group>
-);
+class RecipeBottomButtons extends React.Component {
+
+        render(){
+            let color = this.props.color;
+            let showRecipe = this.props.showRecipe;
+            let hideRecipe = this.props.hideRecipe;
+            let toggleTree = this.props.toggleTree;
+            let open = this.props.open;
+
+            return (
+            <Button.Group widths={3} attached="bottom">
+                <Button basic color={color} onClick={showRecipe } icon="zoom" />
+                <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
+                <PopupRecipe open={open} close={hideRecipe}/>
+            </Button.Group>
+        );
+        }
+}
 
 /**PUTTING EVERYTHING TOGETHER */
 
 class RecipeCard extends React.Component{
+    state = { zoom: false, text: false, icon: "arrow right" }
+
+    showRecipe = () => this.setState({zoom: true});
+    hideRecipe = () => this.setState({zoom: false});
+    toggleTree = () => this.setState({text: !this.state.text, icon: this.state.text? "arrow right": "arrow left"})
+
     render(){
-        console.log(this.props)
         let element;
-        if(true)
+        if(this.state.text)
             element = <TextCard {...this.props.element}/>;
-        else element = <Tree data={this.props.trees} height={260} width={200}/>;
+        else element = <Tree data={this.props.trees} height={260} width={260}/>;
         return(
             <Card centered>
                 <RecipeCardHeader color={this.props.element.color} name={this.props.element.recipeName}/>
                 <Card.Content>
-                    <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label>
+                    {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                     {element}
                 </Card.Content>
-                <RecipeBottomButtons color={this.props.element.color}/>
+                <RecipeBottomButtons 
+                    color={this.props.element.color}
+                    open={this.state.zoom}
+                    icon={this.state.icon}
+                    showRecipe={this.showRecipe}
+                    hideRecipe={this.hideRecipe}
+                    toggleTree={this.toggleTree}
+                    />
             </Card>
         );
     }

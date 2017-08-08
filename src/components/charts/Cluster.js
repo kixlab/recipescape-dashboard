@@ -77,7 +77,7 @@ export class Clusters extends React.Component {
     render(){
         return(
             <div style={{overflow: "auto"}}>
-                <div style={{position: "absolute"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
+                <div style={{position: "absolute", display:"None"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
                 <svg ref={node => this.node = node} />
             </div>
         );
