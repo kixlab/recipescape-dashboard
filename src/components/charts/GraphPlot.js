@@ -81,11 +81,11 @@ class Plot extends React.Component {
             .call(d3.axisLeft(y).ticks(0).tickSize(0))
             .attr("class", "axis")
             .on("mouseover", () => {
-                div.style("opacity", .9);
-                div.style("display", "initial")
+                console.log(currentEvent)
+                div.style("display", "inline-block")
                 div.html("relative occurence in recipe")
-                    .style("left", (currentEvent.pageX) + "px")
-                    .style("top", (currentEvent.pageY - 28) + "px");
+                    .style("left", (currentEvent.offsetX + 10) + "px")
+                    .style("top", (currentEvent.offsetY + 50) + "px");
             })
             .on("mouseout", () => {
                 setTimeout(() =>{
@@ -100,7 +100,7 @@ class Plot extends React.Component {
     render(){
         return(
         <div>
-            <div ref={tooltip => this.tooltip = tooltip}/>
+            <div style={{position: "absolute", display: "None"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
             <svg ref={node => this.node = node} ></svg>
         </div>
         );

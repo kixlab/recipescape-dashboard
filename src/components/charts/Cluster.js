@@ -24,6 +24,8 @@ export class Clusters extends React.Component {
 
     createMap(){
         let node = this.node;
+        let tooltip = this.tooltip;
+        let div = select(tooltip)
 
         let margin = {top: 10, right: 20, bottom: 20, left: 25};
         let width = this.props.width - margin.left - margin.right;
@@ -39,17 +41,16 @@ export class Clusters extends React.Component {
             .attr("class", "circles");
 
         this.props.data.map((element) => {
-            this.createCluster(element.points, element.color, circles, element.r)
+            this.createCluster(element.points, element.color, circles, element.r, div)
         });
 
         select(node).call(zoom().scaleExtent([1, 4]).on("zoom", ()=> {
             circles.attr("transform", currentEvent.transform)
-            console.log(circles)
         }));
 
     }
 
-    createCluster(points, color, node, r){
+    createCluster(points, color, node, r, div){
         node.append("g")
             .selectAll("circle")
             .data(points)
@@ -58,15 +59,26 @@ export class Clusters extends React.Component {
             .attr("cx", (d) => d.pos[0])
             .attr("cy", (d) => d.pos[1])
             .attr("r", r)
-            .attr("fill", color);
+            .attr("fill", color)
+            .on("mouseover", () => {
+                div.style("display", "inline-block")
+                div.html("pizza")
+                    .style("left", (currentEvent.layerX + 20) + "px")
+                    .style("top", (currentEvent.layerY - 3) + "px");
+            })
+            .on("mouseout", () => {
+                setTimeout(() =>{
+                    div.style("display", "None");
+                }, 1000)
+            });
     }
 
 
     render(){
         return(
             <div style={{overflow: "auto"}}>
-            <svg ref={node => this.node = node}>
-            </svg>
+                <div style={{position: "absolute"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
+                <svg ref={node => this.node = node} />
             </div>
         );
     }
