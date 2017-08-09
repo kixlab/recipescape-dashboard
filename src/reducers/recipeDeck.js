@@ -9,7 +9,10 @@ const recipeDeck = (state = {}, action) => {
         case 'COMPARE_RECIPES':
             //TODO
             return state
+        // case SAVE_RECIPE_DECK
         default:
       return state
   }
 }
+
+export default recipeDeck;

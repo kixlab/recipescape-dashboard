@@ -10,3 +10,5 @@ const clusters = (state = {}, action) => {
       return state
   }
 }
+
+export default clusters;
