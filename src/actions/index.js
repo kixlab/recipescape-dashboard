@@ -1,13 +1,13 @@
 
 
-export const addRecipeDeck = recipeID => {
+export const addRecipeDeck = (recipeID) => {
     return {
         type: 'ADD_RECIPE_DECK',
         recipeID
     }
 }
 
-export const removeRecipeDeck = recipeID => {
+export const removeRecipeDeck = (recipeID) => {
     return {
         type: 'REMOVE_RECIPE_DECK',
         recipeID

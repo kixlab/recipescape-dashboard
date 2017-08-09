@@ -1,7 +1,7 @@
 import React from 'react'
 import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/treeRecipe"
-import {SaveInput} from './popupInput'
+import {SaveInput} from './SaveInput'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
@@ -104,11 +104,12 @@ class RecipeCard extends React.Component{
     }
 }
 
-const SavedDecks = ({savedDecks}) =>{
+export const SavedDecks = ({savedDecks}) =>{
     return( <Label.Group>
         {savedDecks.map(item => <Label>{item}<Icon name='close' /></Label>)}
             </Label.Group>);
 }
+
 
 class RecipeTopMenu extends React.Component {
     state = { open: false }

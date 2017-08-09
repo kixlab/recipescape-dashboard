@@ -1,5 +1,5 @@
 import React from 'react'
-import {SaveInput} from './popupInput'
+import {SaveInput} from './SaveInput'
 import { Label, Button, List, Divider, Dropdown, Segment } from 'semantic-ui-react'
 
 const ClusterSquare = ({color}) => (
