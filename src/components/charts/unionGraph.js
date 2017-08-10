@@ -26,16 +26,12 @@ export class UnionGraph extends React.Component {
         let width = this.props.width;
         let height = this.props.height;
         let margin = { top: 30, right: 20, bottom: 30, left: 20 };
-        let yPos = 20;
-        let left = [0,0];
-        let right = [0,0];
-        let links = [];
-        let storePosy = [];
+
 
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
 
-        let svg = select(node)
+        select(node)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
 

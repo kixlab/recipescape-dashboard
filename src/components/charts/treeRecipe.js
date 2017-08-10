@@ -44,6 +44,7 @@ export class Tree extends React.Component {
         let svg = select(node)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
+            
         let g = svg.append("g")
                 .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")rotate(180 "+width/2 +" "+ height/2+")");
