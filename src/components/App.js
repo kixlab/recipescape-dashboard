@@ -6,6 +6,7 @@ import { StatRow } from "./statisticsField"
 import { BigRecipeMapContainer } from "./recipeMap"
 import { RecipeDeck } from "./recipeDeck"
 import { Grid } from 'semantic-ui-react'
+import initialize from '../actions/init'
 
 
 const mapStateToProps = state => ({
@@ -22,6 +23,10 @@ class App extends Component {
     super()
     this.increase = () => this.props.increase()
     this.decrease = () => this.props.decrease()
+  }
+
+  componentDidMount() {
+    initialize()
   }
 
   render() {
