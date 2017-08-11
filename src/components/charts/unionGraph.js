@@ -25,7 +25,7 @@ export class UnionGraph extends React.Component {
         let node = this.node;
         let width = this.props.width;
         let height = this.props.height;
-        let margin = { top: 30, right: 20, bottom: 30, left: 20 };
+        let margin = { top: 40, right: 20, bottom: 30, left: 20 };
 
 
         width = width - margin.left - margin.right;
@@ -55,6 +55,7 @@ export class UnionGraph extends React.Component {
 
     addOneRecipe(node, data, width, pos, color){
         let distance = 30;
+        let topOffset = 30;
         let innerLinks = [];
         let prev = 0;
         let xPos = this.getXPos(pos, width)
@@ -68,7 +69,7 @@ export class UnionGraph extends React.Component {
             .attr("cx", (d)=> xPos)
             .attr("cy", (d,i) => {
                 if(i !== 0) innerLinks.push({ySource: prev, yTarget: (i+1) * distance})
-                prev = (i+1) * distance 
+                prev = topOffset+ (i+1) * distance 
                return prev;
             })
             .attr("fill", color)
@@ -78,7 +79,7 @@ export class UnionGraph extends React.Component {
             .text((d) => d)
             .attr("color", "black")
             .attr("x", (d) => this.getXPos(pos, width) + (pos == 'L' ? -50 : 20))
-            .attr("y", (d,i) => (i+1)*distance)
+            .attr("y", (d,i) => topOffset+(i+1)*distance)
 
         select(node).append("g")
                 .selectAll("line")
@@ -110,9 +111,9 @@ export class UnionGraph extends React.Component {
                 .data(unionLinks)
                 .enter().append("line")
                 .attr("x1", (d) => this.getXPos('L', width))
-                .attr("y1", (d, i) => d.recipe1*30)
+                .attr("y1", (d, i) => 30+d.recipe1*30)
                 .attr("x2", (d) => this.getXPos('R', width))
-                .attr("y2", (d) => d.recipe2*30)
+                .attr("y2", (d) => 30+d.recipe2*30)
                 .style("stroke", SVGColors['grey'])
     }
 
