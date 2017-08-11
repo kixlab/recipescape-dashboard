@@ -37,7 +37,7 @@ export class BigRecipeMapContainer extends React.Component {
             <h2 type={"display3"}>RecipeMap</h2>
             <Grid celled>
                 <Grid.Column>
-                <Clusters data={DATA} height={450} width={700}/>
+                <Clusters clusters={this.props.clusters} height={450} width={700}/>
                 <Divider fitted/>
                 <GroupByControls/>
                 <ClusterSelection clusters={this.props.clusters}/>

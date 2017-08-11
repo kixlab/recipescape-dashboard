@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { select} from 'd3-selection'
 import React from 'react'
-import SVGColors from './svgColorTranslation'
+import {SVGColors} from './svgColorTranslation'
 
 export class UnionGraph extends React.Component {
 

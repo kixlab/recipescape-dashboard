@@ -20,6 +20,7 @@ async function initialize(dishname = 'potatosalad') {
       clusters[cluster.title][recipe_id] = coords
     }
   }
+  return clusters;
   // console.timeEnd('init') about 700ms
 }
 

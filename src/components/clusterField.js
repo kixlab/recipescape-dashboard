@@ -18,7 +18,7 @@ export class ClusterSelection extends React.Component {
                 <AllOrNothingButtons />
                 <Divider hidden fitted/>
                 <List horizontal>
-                    {this.props.clusters.map(element => <ClusterSquare color={element.color} key={element.key}/>)}
+                      {/* {this.props.clusters.map(element => element.map( <ClusterSquare color={element.color} key={element.key}/>))}   */}
                 </List>
                 <Divider hidden fitted/>
                 <SaveClusters />

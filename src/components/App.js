@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { INCREMENT, DECREMENT } from '../constants/actionTypes'
 import './App.css';
 import { StatRow } from "./statisticsField"
-import { BigRecipeMapContainer } from "./recipeMap"
+import { BigRecipeMapContainer } from "./BigRecipeMapContainer"
 import { RecipeDeck } from "./recipeDeck"
-import { Grid } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader } from 'semantic-ui-react'
 import initialize from '../actions/init'
 
 
@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends Component {
+  clusters = {}
+  state = {loading: true}
+
   constructor() {
     super()
     this.increase = () => this.props.increase()
@@ -26,24 +29,33 @@ class App extends Component {
   }
 
   componentDidMount() {
-    initialize()
+    initialize().then( (d) => {
+      this.clusters = d;
+      this.setState({loading: false})
+    })
   }
 
   render() {
     const { number } = this.props;
+
     return (
       <div style={{padding: 10}}>
+        {this.state.loading ? 
+         <Dimmer active inverted>
+        <Loader size='large'>Loading</Loader>
+      </Dimmer>
+      :
       <Grid columns='equal'>
         <Grid.Row>
           <Grid.Column>
-            <BigRecipeMapContainer clusters={CLUSTERS}/>
+            <BigRecipeMapContainer clusters={this.clusters}/>
           </Grid.Column>
           <Grid.Column>
             <StatRow  {...INGREDIENTSTATS} labels={LABELS}/>
           </Grid.Column>
         </Grid.Row>
           <RecipeDeck recipes={RECIPES} data={treeData}/>
-      </Grid>
+      </Grid>}
       </div>
     );
   }

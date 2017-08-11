@@ -1,4 +1,4 @@
-const SVGColors = {
+export const SVGColors = {
     red: "#B03060",
     orange: "#FE9A76",
     yellow: "#FFD700",
@@ -13,4 +13,4 @@ const SVGColors = {
     grey: "#A0A0A0",
 }
 
-export default SVGColors;
+export const colorArray = Object.keys(SVGColors).map(key => SVGColors[key]);
