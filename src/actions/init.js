@@ -8,7 +8,7 @@ async function initialize(dishname = 'potatosalad') {
                              .then(resp => resp.data)
   const recipes = {}
   for (let {origin_id, ...recipeInfo} of recipes_resp) {
-    recipes[origin_id] = recipeInfo
+    recipes[origin_id] = {...recipeInfo, origin_id}
   }
 
   const clusters_resp = await axios.get(BASE_URL + `clusters/${dishname}`)
@@ -17,7 +17,7 @@ async function initialize(dishname = 'potatosalad') {
   for (let cluster of clusters_resp) {
     clusters[cluster.title] = {}
     for (let {recipe_id, ...coords} of cluster.points) {
-      clusters[cluster.title][recipe_id] = coords
+      clusters[cluster.title][recipe_id] = {...coords, recipe_id, recipeName: recipes[recipe_id]}
     }
   }
   return clusters;

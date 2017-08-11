@@ -47,8 +47,8 @@ export class Clusters extends React.Component {
         for (let [key, element] of Object.entries(clusters)) {
 
             let cluster = Object.keys(element).map(key => element[key])
-            let empty = {};
-            cluster.map(d => empty[d.cluster_no] = empty[d.cluster_no] ? [...empty[d.cluster_no], d] : [d])
+            let clusterByNo = {};
+            cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
 
             var x = d3.scaleLinear()
                 .domain([d3.min(cluster.map(dot => dot.x)), d3.max(cluster.map(dot => dot.x))])
@@ -58,7 +58,7 @@ export class Clusters extends React.Component {
                 .domain([d3.min(cluster.map(dot => dot.y)), d3.max(cluster.map(dot => dot.y))])
                 .range([0, height]);
                 
-            for (let [key, points] of Object.entries(empty)) {
+            for (let [key, points] of Object.entries(clusterByNo)) {
                 let hull = circles.append("path")
                     .attr("class", "hull")
                 hull.datum(d3.polygonHull(points.map(dot => [x(dot.x), y(dot.y)])))
@@ -74,12 +74,12 @@ export class Clusters extends React.Component {
                     .on("mouseover", () => {
                         hull.attr("fill", "gray")
                             .attr("stroke", "gray");
-
                     })
                     .on("mouseout", () => {
                         hull.attr("fill", colorArray[key])
                             .attr("stroke", colorArray[key]);
-                    });
+                    })
+                    .on("click", () => console.log("attach redux to this, select cluster with id", key));
                 this.createCluster(points, circles, r, div, x, y)
             }
         };
@@ -100,9 +100,9 @@ export class Clusters extends React.Component {
             .attr("cy", (d) => y(d.y))
             .attr("r", r)
             .attr("fill", d => colorArray[d.cluster_no])
-            .on("mouseover", () => {
+            .on("mouseover", (d) => {
                 div.style("display", "inline-block")
-                div.html("pizza")
+                div.html(d.recipeName.title)
                     .style("left", (currentEvent.layerX + 20) + "px")
                     .style("top", (currentEvent.layerY - 3) + "px");
             })
@@ -110,7 +110,8 @@ export class Clusters extends React.Component {
                 setTimeout(() => {
                     div.style("display", "None");
                 }, 300)
-            });
+            })
+            .on("click", (d) => console.log("attach redux to this, select recipe with id", d.recipeName));;
     }
 
 
