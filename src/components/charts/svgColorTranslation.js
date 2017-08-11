@@ -10,6 +10,7 @@ const SVGColors = {
     purple: "#B413EC",
     pink: "#FF1493",
     brown: "#A52A2A",
+    grey: "#A0A0A0",
 }
 
 export default SVGColors;

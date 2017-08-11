@@ -2,6 +2,7 @@ import React from 'react'
 import { ClusterSelection, GroupByControls } from "./clusterField"
 import {Clusters} from "./charts/Cluster"
 import { Grid, Divider } from 'semantic-ui-react'
+import {UnionGraph} from './charts/unionGraph'
 
 export class BigRecipeMapContainer extends React.Component {
     
