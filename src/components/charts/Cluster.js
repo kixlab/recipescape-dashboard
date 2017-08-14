@@ -5,7 +5,7 @@ import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { zoom } from 'd3-zoom';
 import { hull } from 'd3-polygon'
 import * as d3 from "d3";
-import { colorArray } from './svgColorTranslation' // used for colors
+import { colorArray, numbertocolor } from './svgColorTranslation' // used for colors
 
 export class Clusters extends React.Component {
     constructor(props) {
@@ -91,6 +91,7 @@ export class Clusters extends React.Component {
     }
 
     createCluster(points, node, r, div, x, y) {
+        let onClick = this.props.add;
         node.append("g")
             .selectAll("circle")
             .data(points)
@@ -111,7 +112,9 @@ export class Clusters extends React.Component {
                     div.style("display", "None");
                 }, 300)
             })
-            .on("click", (d) => console.log("attach redux to this, select recipe with id", d.recipeName));;
+            .on("click", function(d) { 
+                onClick({...d.recipeName, color : numbertocolor[d.cluster_no]}) 
+            });
     }
 
 

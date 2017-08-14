@@ -1,9 +1,9 @@
 
 
-export const addRecipeDeck = (recipeID) => {
+export const addRecipeDeck = (recipe) => {
     return {
         type: 'ADD_RECIPE_DECK',
-        recipeID
+        recipe
     }
 }
 

@@ -13,4 +13,7 @@ export const SVGColors = {
     grey: "#A0A0A0",
 }
 
+
+
 export const colorArray = Object.keys(SVGColors).map(key => SVGColors[key]);
+export const numbertocolor = Object.keys(SVGColors).map(key => key);

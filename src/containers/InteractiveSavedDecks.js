@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {SavedDecks} from '../components/recipeDeck'
+import {SavedDecks} from '../components/SavedDecks'
 
 
 const mapSavedDecks = (state) => ({
