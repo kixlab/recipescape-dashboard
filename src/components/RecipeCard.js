@@ -40,12 +40,12 @@ return (
 }
 
 
-const RecipeCardHeader = ({color, title, onClick, key}) => (
+const RecipeCardHeader = ({color, title, removeRecipe, id}) => (
 <Header
     attached
     color={color}>
     <List horizontal relaxed>
-        <List.Item><Icon corner color={color} name="delete" onClick={onClick(key)}/></List.Item>
+        <List.Item><Icon corner color={color} name="delete"/><Button  onClick={removeRecipe(id)} /></List.Item>
         <List.Item><Header size='tiny' color={color}>{title}</Header></List.Item>
     </List>
 </Header>
@@ -73,7 +73,6 @@ render(){
 
 export class RecipeCard extends React.Component {
 state = { zoom: false, text: false, icon: "arrow right" }
-
 showRecipe = () => this.setState({zoom: true});
 hideRecipe = () => this.setState({zoom: false});
 toggleTree = () => this.setState({text: !this.state.text, icon: this.state.text? "arrow right": "arrow left"})
@@ -85,7 +84,7 @@ render(){
     else element = <Tree data={this.props.trees} height={260} width={260}/>;
     return(
         <Card centered>
-            <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} onClick={this.props.removeRecipe} id={this.props.key}/>
+            <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
             <Card.Content>
                 {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}

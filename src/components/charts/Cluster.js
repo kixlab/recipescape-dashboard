@@ -91,7 +91,7 @@ export class Clusters extends React.Component {
     }
 
     createCluster(points, node, r, div, x, y) {
-        let onClick = this.props.add;
+        let add = this.props.add;
         node.append("g")
             .selectAll("circle")
             .data(points)
@@ -113,7 +113,7 @@ export class Clusters extends React.Component {
                 }, 300)
             })
             .on("click", function(d) { 
-                onClick({...d.recipeName, color : numbertocolor[d.cluster_no]}) 
+                add({...d.recipeName, color : numbertocolor[d.cluster_no]}) 
             });
     }
 

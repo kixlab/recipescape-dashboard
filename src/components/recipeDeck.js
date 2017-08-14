@@ -39,7 +39,7 @@ export const RecipeCards = ({recipes, trees}) => {
                 </Grid.Row>
                 <Grid.Row className={"inner"}>
                 <Divider/>
-                    {recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id} element={element} trees={trees} />)}
+                    { recipes ? recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id}element={element} trees={trees} />) : 'haha'}
                 </Grid.Row>
             </Grid>
         );
@@ -51,7 +51,7 @@ export const RecipeDeck = ({recipes, data}) => {
                 <h2>Recipe Deck 
                       <Popup
                         trigger={<Icon color="grey" size="tiny" name="question circle" />}
-                        content='Recipes that you clicked in the map on are displayed here'
+                        content='Recipes that you clicked in the map on are displayed her'
                     />
                     </h2>
                 <div className={"Recipes"}>
