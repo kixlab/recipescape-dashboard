@@ -14,8 +14,7 @@
     DisplayedRecipes: [1,20,500,12] //recipe ids of recipes currently being displayed in recipe deck
     DisplayedClusters: [1,2]
     comparing: true //indicate if two recipes are currently being compared//popup should be shown
-    HighlightedRecipe1: 12  //Serves two functions: use to determine which card needs to have highlight on.
-    HighlightedRecipe2: 200 // use for comparition, eg if(comparing) display HighlightRecipe1 vs HighlightRecipe2
+    HighlightedRecipes: {}
 
 
 }

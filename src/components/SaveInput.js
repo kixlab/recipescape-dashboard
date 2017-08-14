@@ -14,7 +14,7 @@ export class SaveInput extends React.Component {
             </Modal.Content>
             <Modal.Actions>
                 <Button onClick={this.props.close}>Cancel</Button>
-                <Button positive onClick={() => {console.log(this.state.value); this.props.close()}}>
+                <Button positive onClick={() => {this.props.saveDeck(this.state.value); this.props.close()}}>
                     Save
                 </Button>
             </Modal.Actions>

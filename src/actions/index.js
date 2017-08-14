@@ -1,9 +1,9 @@
 
 
-export const addRecipeDeck = (recipeID) => {
+export const addRecipeDeck = (recipe) => {
     return {
         type: 'ADD_RECIPE_DECK',
-        recipeID
+        recipe
     }
 }
 
@@ -11,6 +11,27 @@ export const removeRecipeDeck = (recipeID) => {
     return {
         type: 'REMOVE_RECIPE_DECK',
         recipeID
+    }
+}
+
+export const addSavedDeck = (name) => {
+    return{
+        type: 'SAVE_RECIPE_DECK',
+        name
+    }
+}
+
+export const deleteSavedDeck = (name) => {
+    return{
+        type: 'DELETE_RECIPE_DECK',
+        name
+    }
+}
+
+export const loadSavedDeck = (name) => {
+    return{
+        type: 'LOAD_RECIPE_DECK',
+        name
     }
 }
 

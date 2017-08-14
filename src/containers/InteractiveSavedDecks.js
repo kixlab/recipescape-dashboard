@@ -1,17 +1,20 @@
 import { connect } from 'react-redux'
-import {SavedDecks} from '../components/recipeDeck'
+import {SavedDecks} from '../components/SavedDecks'
+import { deleteSavedDeck, loadSavedDeck } from '../actions'
 
 
-const mapSavedDecks = (state) => ({
-    savedDecks: state.decks.map(deck => deck.name)
+const mapStateToProps = (state) => ({
+    savedDecks: state.recipeDeck.SavedDecks.map(deck => deck.name)
 })
 
-// const mapDeleteDeck = (state) => ({
-//     deleteDeck : deleteDeck
-// })
+const mapDispatchToProps = (dispatch) => ({
+    deleteDeck : (name) => dispatch(deleteSavedDeck(name)),
+    loadDeck : (name) => dispatch(loadSavedDeck(name))
+})
 
 const InteractiveSavedDecks = connect(
-    mapSavedDecks
+    mapStateToProps,
+    mapDispatchToProps
 )(SavedDecks)
 
 export default InteractiveSavedDecks
