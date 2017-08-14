@@ -1,15 +1,8 @@
 import React from 'react'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
-import {PopupRecipe} from './popUpRecipe'
-import { Tree } from "./charts/treeRecipe"
+import {PopupRecipe, Instructions} from './popUpRecipe'
+import { Tree } from "./charts/Tree"
 
-const Instructions = ({instructions})=> {
-    return(
-        <List ordered>
-            {instructions.map(element => <List.Item>{element}</List.Item>)}
-        </List>
-    );
-}
 
 
 const TextCard = ({image_url, ingredients, color, sentences}) => {
@@ -63,7 +56,7 @@ render(){
     <Button.Group widths={3} attached="bottom">
         <Button basic color={color} onClick={showRecipe} icon="zoom" />
         <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
-        <PopupRecipe open={open} close={hideRecipe}/>
+        <PopupRecipe sentences={this.props.sentences} ingredients={this.props.ingredients} title={this.props.title} trees={this.props.trees} open={open} close={hideRecipe} />
     </Button.Group>
     );
 }
@@ -92,7 +85,9 @@ render(){
                 {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}
             </Card.Content>
-            <RecipeBottomButtons 
+            <RecipeBottomButtons
+                {...this.props.element}
+                trees = {this.props.trees}
                 color={this.props.element.color}
                 open={this.state.zoom}
                 icon={this.state.icon}

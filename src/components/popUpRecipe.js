@@ -1,33 +1,38 @@
 import React from 'react'
-import {Modal, Button, Header, Grid} from 'semantic-ui-react'
-import {UnionGraph} from './charts/unionGraph'
-import {VennDiagram} from './charts/vennDiagram'
+import {Modal, Button, Header, Grid, List, Label} from 'semantic-ui-react'
+import {Tree} from './charts/Tree'
+
+
+export const Instructions = ({instructions})=> {
+    return(
+        <List ordered>
+            {instructions.map((element, index) => <List.Item key={index}>{element}</List.Item>)}
+        </List>
+    );
+}
 
 export class PopupRecipe extends React.Component {
-    
 
     render(){
-        let data = {
-            Recipe1: { ingredients: ["tomato", "pepper", "sugar", "garlic", "olives", "of", "ingredients"] },
-            Intersection: { ingredients: ["salt", "pasta", "beef", "onions", "it", "will", "adapt", "it", "more"] },
-            Recipe2: {
-                ingredients: ["a", "lot", "of", "ingredients"]
-            },
-        };
         return(
             <Modal dimmer={false} open={this.props.open} onClose={this.props.close}>
-                <Modal.Header>{'butter cookies'} and {'cake'}</Modal.Header>
+                <Modal.Header>{this.props.title}</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
                         <Grid columns={2} divided>
                             <Grid.Row>
                                 <Grid.Column>
-                                    <Header>Instructions</Header>
-                                    <UnionGraph width={400} height={500} />
+                                    <Header>Recipe View</Header>
+                                    <Header size="small">Ingredients</Header>
+                                    <Label.Group>
+                                        {this.props.ingredients.map((ingredient, index) => <Label basic key={index}><Label.Detail>{ingredient}</Label.Detail></Label>)}
+                                    </Label.Group>
+                                    <Header size="small">Instructions</Header>
+                                    <Instructions instructions={this.props.sentences}/>
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <Header>Ingredients</Header>
-                                    <VennDiagram data={data} width={400} height={500} />
+                                    <Header>Tree View</Header>
+                                    <Tree data={this.props.trees} height={600} width={300}/>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

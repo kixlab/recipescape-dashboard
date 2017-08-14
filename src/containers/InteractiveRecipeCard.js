@@ -4,7 +4,8 @@ import { removeRecipeDeck } from '../actions'
 
 
 const mapDispatchToProps = (dispatch) => ({
-  removeRecipe: (recipeId) => dispatch(removeRecipeDeck(recipeId))
+  removeRecipe: (recipeId) => dispatch(removeRecipeDeck(recipeId)),
+  // selectRecipe: (recipeId) => dispatch(selectRecipe(recipeId))
 });
 
 const InteractiveRecipeCard = connect(

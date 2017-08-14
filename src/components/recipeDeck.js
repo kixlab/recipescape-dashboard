@@ -1,6 +1,5 @@
 import React from 'react'
 import {PopupRecipe} from './popUpRecipe'
-import { Tree } from "./charts/treeRecipe"
 import { SaveInput } from './SaveInput'
 import { SavedDecks } from './SavedDecks'
 import {RecipeCard} from './RecipeCard'
