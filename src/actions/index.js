@@ -14,6 +14,27 @@ export const removeRecipeDeck = (recipeID) => {
     }
 }
 
+export const addSavedDeck = (name) => {
+    return{
+        type: 'SAVE_RECIPE_DECK',
+        name
+    }
+}
+
+export const deleteSavedDeck = (name) => {
+    return{
+        type: 'DELETE_RECIPE_DECK',
+        name
+    }
+}
+
+export const loadSavedDeck = (name) => {
+    return{
+        type: 'LOAD_RECIPE_DECK',
+        name
+    }
+}
+
 export const selectCluster = clusterID => {
     return {
         type: 'SELECT_CLUSTER',

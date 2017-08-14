@@ -26,7 +26,7 @@ return (
     <Card.Meta>Ingredients</Card.Meta>
         <Card.Description>
             <Label.Group>
-        {ingredients.slice(1,showNumber).map((ingredient, index) => <Label basic key={index}>{1+index}<Label.Detail>{ingredient}</Label.Detail></Label>)}
+        {ingredients.slice(1,showNumber).map((ingredient, index) => <Label basic key={index}><Label.Detail>{ingredient}</Label.Detail></Label>)}
         </Label.Group>
         ...
         </Card.Description>
@@ -45,7 +45,7 @@ const RecipeCardHeader = ({color, title, removeRecipe, id}) => (
     attached
     color={color}>
     <List horizontal relaxed>
-        <List.Item><Icon corner color={color} name="delete"/><Button  onClick={removeRecipe(id)} /></List.Item>
+        <List.Item><Icon corner color={color} name="delete"   onClick={ () => removeRecipe(id)} /></List.Item>
         <List.Item><Header size='tiny' color={color}>{title}</Header></List.Item>
     </List>
 </Header>
@@ -72,10 +72,13 @@ render(){
 /**PUTTING EVERYTHING TOGETHER */
 
 export class RecipeCard extends React.Component {
-state = { zoom: false, text: false, icon: "arrow right" }
-showRecipe = () => this.setState({zoom: true});
-hideRecipe = () => this.setState({zoom: false});
-toggleTree = () => this.setState({text: !this.state.text, icon: this.state.text? "arrow right": "arrow left"})
+    componentWillMount(){
+        this.setState({ zoom: false, text: false, icon: "arrow right" });
+    }
+    
+    showRecipe = () => this.setState({zoom: true});
+    hideRecipe = () => this.setState({zoom: false});
+    toggleTree = () => this.setState({text: !this.state.text, icon: this.state.text? "arrow right": "arrow left"})
 
 render(){
     let element;

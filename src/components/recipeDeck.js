@@ -5,6 +5,8 @@ import { SaveInput } from './SaveInput'
 import { SavedDecks } from './SavedDecks'
 import {RecipeCard} from './RecipeCard'
 import InteractiveRecipeCard from "../containers/InteractiveRecipeCard"
+import InteractiveSavedDecks from "../containers/InteractiveSavedDecks"
+import InteractiveSaveDeck from "../containers/InteractiveSaveDeck"
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
@@ -23,9 +25,9 @@ class RecipeTopMenu extends React.Component {
         return (
         <List horizontal relaxed>
             <List.Item><Button basic onClick={this.show}>save deck</Button></List.Item>
-            <SaveInput open={this.state.open} close={this.close} text={"save current deck"} />
+            <InteractiveSaveDeck open={this.state.open} close={this.close} text={"save current deck"} />
             <List.Item><List.Header>saved decks : </List.Header></List.Item>
-            <List.Item><SavedDecks savedDecks={['funny looking', 'amaze']} /></List.Item>
+            <List.Item><InteractiveSavedDecks /></List.Item>
         </List>
         );
     }
