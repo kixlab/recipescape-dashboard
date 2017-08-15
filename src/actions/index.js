@@ -35,6 +35,32 @@ export const loadSavedDeck = (name) => {
     }
 }
 
+export const selectRecipe = (recipe) => {
+    return{
+        type: 'SELECT_RECIPE',
+        recipe
+    }
+}
+
+export const unselectRecipe = (recipeID) => {
+    return {
+        type: 'UNSELECT_RECIPE',
+        recipeID
+    }
+}
+
+export const compareRecipes = () => {
+    return{
+        type: 'COMPARE_RECIPES'
+    }
+}
+
+export const stopCompareRecipes = () => {
+    return{
+        type: 'STOP_COMPARING'
+    }
+}
+
 export const selectCluster = clusterID => {
     return {
         type: 'SELECT_CLUSTER',

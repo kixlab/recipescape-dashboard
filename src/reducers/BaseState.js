@@ -10,5 +10,6 @@ export const ClusterBaseState = {
 export const RecipeBaseState = {
     DisplayedRecipes: [],
     SavedDecks: [],
-    HighlightedRecipes: {first: {}, second: {}}
+    HighlightedRecipes: [],
+    open: false,
 }
