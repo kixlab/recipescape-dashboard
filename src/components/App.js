@@ -28,23 +28,28 @@ export class App extends Component {
     const { number } = this.props;
 
     return (
-      <div style={{padding: 10}}>
+      <div >
         {this.state.loading ? 
-         <Dimmer active inverted>
-        <Loader size='large'>Loading</Loader>
-      </Dimmer>
+          <Dimmer active inverted>
+            <Loader size='large'>Loading</Loader>
+          </Dimmer>
       :
-      <Grid columns='equal'>
-        <Grid.Row>
-          <Grid.Column>
-            <BigRecipeMapContainer clusters={this.clusters}/>
-          </Grid.Column>
-          <Grid.Column>
-            <StatRow  {...INGREDIENTSTATS} labels={LABELS}/>
-          </Grid.Column>
-        </Grid.Row>
-          <InteractiveRecipeDeck data={treeData}/>
-      </Grid>}
+          <Grid columns='equal' container>
+            <Grid.Row>
+              <Grid.Column>
+                <BigRecipeMapContainer clusters={this.clusters} />
+              </Grid.Column>
+              <Grid.Column>
+                <StatRow  {...INGREDIENTSTATS}/>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+              <InteractiveRecipeDeck data={treeData} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+      }
       </div>
     );
   }
@@ -53,16 +58,6 @@ export class App extends Component {
  var LABELS =[ "kids birthday", "fun", "spicy food", "tasty looking"]
 
 
-  var CLUSTERS = [
-    {color: "blue", key:"1"},
-    {color: "yellow", key:"2"},
-    {color: "red", key:"3"},
-    {color: "brown", key:"4"},
-    {color: "green", key:"5"},
-    {color: "pink", key:"6"},
-    {color: "violet", key:"7"},
-    {color: "orange", key:"8"},
-]
 
 
 //RECIPE ANALYSIS

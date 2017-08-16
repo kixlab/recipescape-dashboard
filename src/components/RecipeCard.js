@@ -18,9 +18,9 @@ return (
         {showImage}
     <Card.Meta>Ingredients</Card.Meta>
         <Card.Description>
-            <Label.Group>
-        {ingredients.slice(1,showNumber).map((ingredient, index) => <Label basic key={index}><Label.Detail>{ingredient}</Label.Detail></Label>)}
-        </Label.Group>
+            <List ordered>
+        {ingredients.slice(1,showNumber).map((ingredient, index) => <List.Item basic key={index}>{ingredient}</List.Item>)}
+        </List>
         ...
         </Card.Description>
      <Card.Meta>Instructions</Card.Meta>

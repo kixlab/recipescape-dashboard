@@ -13,7 +13,7 @@ let InteractiveCompareRecipesButton = ({ dispatch, show}) => {
         <div>
         {show ? 
         <Message floating>
-            <Header>Do you want to compate the two selected recipes? <Button as={Label} floated='right' color='blue' onClick={() => dispatch(compareRecipes())}>Compare</Button> </Header>
+            <Header>Do you want to compare the two selected recipes? <Button as={Label} floated='right' color='blue' onClick={() => dispatch(compareRecipes())}>Compare</Button> </Header>
         </Message> 
         : 
         ""

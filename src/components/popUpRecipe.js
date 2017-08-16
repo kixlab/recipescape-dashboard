@@ -19,7 +19,7 @@ export class PopupRecipe extends React.Component {
         return(
             <Modal dimmer={false} open={this.props.open} onClose={this.props.close} style={style}>
                 <Modal.Header>{this.props.title}</Modal.Header>
-                <Modal.Content>
+                <Modal.Content scrolling>
                     <Modal.Description>
                         <Grid columns={2} divided>
                             <Grid.Row>
