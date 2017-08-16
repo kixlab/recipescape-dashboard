@@ -6,9 +6,7 @@ import {RecipeCard} from './RecipeCard'
 import InteractiveRecipeCard from "../containers/InteractiveRecipeCard"
 import InteractiveSavedDecks from "../containers/InteractiveSavedDecks"
 import InteractiveSaveDeck from "../containers/InteractiveSaveDeck"
-import InteractiveCompareRecipesButton from "../containers/InteractiveCompareRecipesButton"
-import PopupComparison from './PopupComparison'
-import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup, Rail, Segment} from 'semantic-ui-react'
+import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
@@ -58,9 +56,7 @@ export const RecipeDeck = ({recipes, data}) => {
                     />
                     </h2>
                 <div className={"Recipes"}>
-                    <InteractiveCompareRecipesButton/>
-                    <PopupComparison />
-                    <RecipeCards className={"Recipes"} recipes={recipes} trees={data} />
+                <RecipeCards className={"Recipes"} recipes={recipes} trees={data}/>
                 </div>
             </div>
         );

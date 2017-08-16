@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
   });
   
   const InteractiveSaveDeck = connect(
-      mapStateToProps,
+      null,
       mapDispatchToProps,
   )(SaveInput)
   

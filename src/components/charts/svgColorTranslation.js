@@ -1,16 +1,16 @@
 export const SVGColors = {
-    red: "#DB2828",
-    orange: "#F2711C",
-    yellow: "#FBBD08",
-    olive: "#B5CC18",
-    green: "#21BA45",
-    teal: "#00B5AD",
-    blue: "#2185D0",
-    violet: "#6435C9",
-    purple: "#A333C8",
-    pink: "#E03997",
-    brown: "#A5673F",
-    grey: "#767676",
+    red: "#B03060",
+    orange: "#FE9A76",
+    yellow: "#FFD700",
+    olive: "#32CD32",
+    green: "#016936",
+    teal: "#008080",
+    blue: "#0E6EB8",
+    violet: "#EE82EE",
+    purple: "#B413EC",
+    pink: "#FF1493",
+    brown: "#A52A2A",
+    grey: "#A0A0A0",
 }
 
 

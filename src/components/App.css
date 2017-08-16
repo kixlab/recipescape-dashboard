@@ -25,11 +25,12 @@
 } 
 
 .Recipes .inner{
-  /* max-height: 430px; */
+  max-height: 430px;
   overflow-x: auto; /* or auto, if you don't want the scroll bar visible all of the time. */
   overflow-y: auto;
   display: inline-block;
   position: relative
+
 }
 
 Card {
