@@ -1,7 +1,6 @@
 import React from 'react'
 import {Modal, Button, Header, Grid, List, Label} from 'semantic-ui-react'
 import {Tree} from './charts/Tree'
-import { SVGColors } from './charts/svgColorTranslation'
 
 
 export const Instructions = ({instructions})=> {
@@ -15,9 +14,8 @@ export const Instructions = ({instructions})=> {
 export class PopupRecipe extends React.Component {
 
     render(){
-        let style = {outlineStyle: 'double', outlineColor: SVGColors[this.props.color], outlineWidth: 'thin'}
         return(
-            <Modal dimmer={false} open={this.props.open} onClose={this.props.close} style={style}>
+            <Modal dimmer={false} open={this.props.open} onClose={this.props.close}>
                 <Modal.Header>{this.props.title}</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
