@@ -1,8 +1,9 @@
 //convention: states lowercase, collections Uppercase
 export const ClusterBaseState = {
-
+    ClusterRule : 'dummy',
+    ActiveClusters: [],
     SavedClusters: [],
- //recipe ids of recipes currently being displayed in recipe deck
+    //recipe ids of recipes currently being displayed in recipe deck
     DisplayedClusters: [],
     //indicate if two recipes are currently being compared//popup should be shown
 }

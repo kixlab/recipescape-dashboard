@@ -2,7 +2,7 @@ import { Modal, Input, Button} from 'semantic-ui-react'
 import React from 'react'
 
 export class SaveInput extends React.Component {
-    state = {value: "lazy collection"}
+    state={value: "should not be empty"};
     render(){
         return (
         <Modal size={"mini"} dimmer={false} open={this.props.open} onClose={this.props.close}>

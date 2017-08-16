@@ -1,18 +1,18 @@
 import {connect} from 'react-redux'
 import {SaveInput} from '../components/SaveInput'
-import { addSavedDeck } from '../actions'
+import { saveClusters } from '../actions'
 
 const mapStateToProps = (state) => ({
-   
+    
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    saveDeck: (name) => dispatch(addSavedDeck(name))
+    saveDeck: (name) => dispatch(saveClusters(name))
   });
   
-  const InteractiveSaveDeck = connect(
+  const InteractiveSaveClusters= connect(
       mapStateToProps,
       mapDispatchToProps,
   )(SaveInput)
   
-  export default InteractiveSaveDeck;
+  export default InteractiveSaveClusters;

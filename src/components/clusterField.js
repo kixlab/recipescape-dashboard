@@ -1,13 +1,19 @@
 import React from 'react'
 import {SaveInput} from './SaveInput'
-import { Label, Button, List, Divider, Dropdown, Segment } from 'semantic-ui-react'
+import { Label, Button, List, Divider, Dropdown, Segment, Icon } from 'semantic-ui-react'
+import {numbertocolor} from './charts/svgColorTranslation'
+import AllOrNothingButtons from '../containers/AllOrNothingButtons'
+import InteractiveSaveClusters from '../containers/InteractiveSaveClusters'
+import ClusterDropdown from '../containers/ClusterDropdown'
 
-const ClusterSquare = ({color}) => (
+const ClusterSquare = ({color, selected, onClick}) =>{
+    let icon= selected ? 'checkmark': ''
+    return(
     <List.Item>
-            <Label circular color={color} as={Button}/>
+            <Icon circular color={color} as={Button}  icon={icon} onClick={onClick}/>
     </List.Item>
 
-        );
+    )};
 
 export class ClusterSelection extends React.Component {
 
@@ -18,7 +24,7 @@ export class ClusterSelection extends React.Component {
                 <AllOrNothingButtons />
                 <Divider hidden fitted/>
                 <List horizontal>
-                      {/* {this.props.clusters.map(element => element.map( <ClusterSquare color={element.color} key={element.key}/>))}   */}
+                      {this.props.clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index]}selected={checked} key={index}  onClick={() => this.props.onClick(index)}/>)}  
                 </List>
                 <Divider hidden fitted/>
                 <SaveClusters />
@@ -53,27 +59,12 @@ class SaveClusters extends React.Component {
         return (
             <List horizontal>
                 <List.Item><Button basic onClick={this.show}>save selected clusters</Button></List.Item>
-                <SaveInput open={this.state.open} close={this.close} text={"Save selected clusters"} />
-                <List.Item><Button basic>
-                    <Dropdown text='saved clusters' options={data} simple item />
-                </Button>
-                </List.Item>
+                <InteractiveSaveClusters open={this.state.open} close={this.close} text={"Save selected clusters"} />
+                <List.Item><ClusterDropdown /></List.Item>
             </List>
         );
     }
 }
-
-class AllOrNothingButtons extends React.Component {
-    render(){
-        return(
-            <List horizontal>
-                <List.Item><List.Header>Clusters : </List.Header></List.Item>
-                <List.Item><Button basic>select all</Button></List.Item>
-                <List.Item><Button basic>unselect all</Button></List.Item>
-            </List>
-        );
-    }
-} 
 
 export class GroupByControls extends React.Component {
     render(){

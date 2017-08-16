@@ -8,19 +8,18 @@ import { Grid, Dimmer, Loader } from 'semantic-ui-react'
 import initialize from '../actions/init'
 
 
-class App extends Component {
+export class App extends Component {
   clusters = {}
   state = {loading: true}
 
   constructor() {
     super()
-    this.increase = () => this.props.increase()
-    this.decrease = () => this.props.decrease()
   }
 
   componentDidMount() {
     initialize().then( (d) => {
-      this.clusters = d;
+      this.clusters = d.points;
+      this.props.initActiveClusters(d.buttons)
       this.setState({loading: false})
     })
   }

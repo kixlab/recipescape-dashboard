@@ -3,7 +3,6 @@ import {RecipeBaseState} from './BaseState'
 
 
 const recipeDeck = (state = RecipeBaseState, action) => {
-    console.log(state)
     switch(action.type){
         case ADD_RECIPE_DECK:
             if(state.DisplayedRecipes.find((recipe) => recipe.origin_id == action.recipe.origin_id)) return state;

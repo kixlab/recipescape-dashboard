@@ -1,6 +1,7 @@
 import React from 'react'
 import { ClusterSelection, GroupByControls } from "./clusterField"
 import InteractiveClusters from "../containers/InteractiveClusters"
+import InteractiveClusterSelection from "../containers/InteractiveClusterSelection"
 import { Grid, Divider } from 'semantic-ui-react'
 import {UnionGraph} from './charts/unionGraph'
 
@@ -15,7 +16,7 @@ export class BigRecipeMapContainer extends React.Component {
                 <InteractiveClusters clusters={this.props.clusters} height={450} width={700}/>
                 <Divider fitted/>
                 <GroupByControls/>
-                <ClusterSelection clusters={this.props.clusters}/>
+                <InteractiveClusterSelection/>
                 </Grid.Column>
             </Grid>
         </div>

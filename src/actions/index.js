@@ -61,16 +61,42 @@ export const stopCompareRecipes = () => {
     }
 }
 
-export const selectCluster = clusterID => {
+export const initActiveClusters = (activeClusters) => {
+    return{
+        type: 'INIT_ACTIVE_CLUSTERS',
+        activeClusters
+    }
+}
+
+export const toggleCluster = clusterID => {
     return {
-        type: 'SELECT_CLUSTER',
+        type: 'TOGGLE_CLUSTER',
         clusterID
     }
 }
 
-export const unselectCluster = clusterID => {
+export const selectAll = () => {
     return {
-        type: 'UNSELECT_CLUSTER',
-        clusterID
+        type: 'SELECT_ALL'
+    }
+}
+
+export const unselectAll = () => {
+    return {
+        type: 'UNSELECT_ALL'
+    }
+}
+
+export const saveClusters = (name) => {
+    return {
+        type: 'SAVE_CLUSTER_DECK',
+        name
+    }
+}
+
+export const loadClusters = (name) => {
+    return {
+        type: 'LOAD_CLUSTER_DECK',
+        name
     }
 }
