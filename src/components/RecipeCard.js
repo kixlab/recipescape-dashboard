@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
 import {PopupRecipe, Instructions} from './popUpRecipe'
 import { Tree } from "./charts/Tree"
-
+import { SVGColors } from './charts/svgColorTranslation'
 
 
 const TextCard = ({image_url, ingredients, color, sentences}) => {
@@ -34,14 +34,14 @@ return (
 
 
 const RecipeCardHeader = ({color, title, removeRecipe, id}) => (
-<Header
-    attached
-    color={color}>
-    <List horizontal relaxed>
-        <List.Item><Icon corner color={color} name="delete"   onClick={ () => removeRecipe(id)} /></List.Item>
-        <List.Item><Header size='tiny' color={color}>{title}</Header></List.Item>
-    </List>
-</Header>
+    <Card.Content>
+        <Card.Header color={color}>
+            <List horizontal relaxed>
+                <List.Item><Icon corner color={color} name="delete" onClick={() => removeRecipe(id)} /></List.Item>
+                <List.Item><Header size='small' color={color}>{title}</Header></List.Item>
+            </List>
+        </Card.Header>
+    </Card.Content>
 );
 
 class RecipeBottomButtons extends React.Component {
@@ -53,11 +53,13 @@ render(){
     let open = this.props.open;
 
     return (
-    <Button.Group widths={3} attached="bottom">
-        <Button basic color={color} onClick={showRecipe} icon="zoom" />
-        <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
-        <PopupRecipe sentences={this.props.sentences} ingredients={this.props.ingredients} title={this.props.title} trees={this.props.trees} open={open} close={hideRecipe} />
-    </Button.Group>
+    <Card.Content extra>
+        <Button.Group widths={2}>
+            <Button basic color={color} onClick={showRecipe} icon="zoom" />
+            <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
+            <PopupRecipe sentences={this.props.sentences} ingredients={this.props.ingredients} title={this.props.title} trees={this.props.trees} open={open} close={hideRecipe} color={color}/>
+        </Button.Group>
+    </Card.Content>
     );
 }
 }
@@ -75,13 +77,16 @@ export class RecipeCard extends React.Component {
 
 render(){
     let element;
-    if(this.state.text)
-        element = <TextCard {...this.props.element}/>;
+    let style = {}
+    if(this.props.highlight && this.props.highlight.includes(this.props.element.origin_id)) {
+        style = {outlineStyle: 'double', outlineColor: SVGColors[this.props.element.color], outlineWidth: 'thin'}
+    }
+    if(this.state.text) element = <TextCard {...this.props.element}/>;
     else element = <Tree data={this.props.trees} height={260} width={260}/>;
     return(
-        <Card centered>
+        <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
-            <Card.Content>
+            <Card.Content onClick={() => this.props.selectRecipe(this.props.element)}>
                 {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}
             </Card.Content>

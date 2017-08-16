@@ -15,7 +15,8 @@ export class Tree extends React.Component {
     }
 
     componentDidUpdate() {
-        this.createTree()
+        //we don't need to rerender on update...
+        // this.createTree()
     }
 
     createTree() {
