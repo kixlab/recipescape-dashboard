@@ -68,7 +68,7 @@ export const initActiveClusters = (activeClusters) => {
     }
 }
 
-export const selectCluster = clusterID => {
+export const toggleCluster = clusterID => {
     return {
         type: 'TOGGLE_CLUSTER',
         clusterID
