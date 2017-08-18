@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+#root {
+  padding: 10px;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -20,7 +24,7 @@
 
  
 .Stats {
-  max-height: 652.667px;
+  max-height: 602.667px;
   overflow: auto;
 } 
 

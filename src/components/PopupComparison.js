@@ -30,7 +30,7 @@ let PopupComparison = ({dispatch, open, Ingredients1, Ingredients2, title}) => {
     return (
         <Modal dimmer={false} open={open} onClose={close}>
             <Modal.Header>{title}</Modal.Header>
-            <Modal.Content>
+            <Modal.Content scrolling>
                 <Modal.Description>
                     <Grid columns={2} divided>
                         <Grid.Row>
