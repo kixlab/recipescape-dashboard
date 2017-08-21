@@ -10,7 +10,7 @@ const ClusterSquare = ({color, selected, onClick}) =>{
     let icon= selected ? 'checkmark': ''
     return(
     <List.Item>
-            <Icon circular color={color} as={Button}  icon={icon} onClick={onClick}/>
+            <Icon circular color={color} inverted name={icon} onClick={onClick}/>
     </List.Item>
 
     )};
@@ -40,22 +40,6 @@ class SaveClusters extends React.Component {
     close = () => this.setState({ open: false })
 
     render(){
-        let data =
-            [{
-                "key": "Kellen Schuppe",
-                "text": "Kellen Schuppe",
-                "value": "kellen_schuppe"
-            },
-            {
-                "key": "Cassandra Gutmann",
-                "text": "Cassandra Gutmann",
-                "value": "cassandra_gutmann"
-            },
-            {
-                "key": "Shaina Zulauf IV",
-                "text": "Shaina Zulauf IV",
-                "value": "shaina_zulauf_iv"
-            }];
         return (
             <List horizontal>
                 <List.Item><Button basic onClick={this.show}>save selected clusters</Button></List.Item>

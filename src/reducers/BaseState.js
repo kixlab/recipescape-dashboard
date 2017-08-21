@@ -1,6 +1,7 @@
 //convention: states lowercase, collections Uppercase
 export const ClusterBaseState = {
     ClusterRule : 'dummy',
+    RecipeName: 'potatosalad',
     ActiveClusters: [],
     SavedClusters: [],
     //recipe ids of recipes currently being displayed in recipe deck

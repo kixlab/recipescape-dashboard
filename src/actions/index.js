@@ -35,10 +35,10 @@ export const loadSavedDeck = (name) => {
     }
 }
 
-export const selectRecipe = (recipe) => {
+export const selectRecipe = (recipeID) => {
     return{
         type: 'SELECT_RECIPE',
-        recipe
+        recipeID
     }
 }
 
@@ -100,3 +100,10 @@ export const loadClusters = (name) => {
         name
     }
 }
+
+export const changeClusterRule = (rule) => {
+    return{
+        type: 'CHANGE_CLUSTER_RULE',
+        rule
+    }
+} 

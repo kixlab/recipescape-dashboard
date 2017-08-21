@@ -4,7 +4,8 @@ import {Clusters} from '../components/charts/Cluster'
 
 
 const mapStateToProps = (state) => ({
-  activeCluster : state.clusters.ActiveClusters
+  activeCluster : state.clusters.ActiveClusters,
+  selectedRecipes : state.recipeDeck.DisplayedRecipes.map(d => d.origin_id)
 })
 
 const mapDispatchToProps = (dispatch) => ({

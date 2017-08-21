@@ -4,7 +4,7 @@ import { removeRecipeDeck, selectRecipe, unselectRecipe } from '../actions'
 
 
 const mapStateToProps = (state) => ({
-    highlight: state.recipeDeck.HighlightedRecipes.map(r => r.origin_id)
+    highlight: state.recipeDeck.HighlightedRecipes
   })
 
 const mapDispatchToProps = (dispatch) => ({

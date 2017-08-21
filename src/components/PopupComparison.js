@@ -18,8 +18,8 @@ let PopupComparison = ({dispatch, open, Ingredients1, Ingredients2, title}) => {
     //GIVE ME BETTER DATA
     let close = () => dispatch(stopCompareRecipes());
     let data = {r1: [], intersection:[], r2: []};
-    Ingredients1.map(ingr => Ingredients2.includes(ingr)? data.intersection.push(ingr) : data.r1.push(ingr))
-    data.r2 = Ingredients2.filter((i) => !data.intersection.includes(i));
+    // Ingredients1.map(ingr => Ingredients2.includes(ingr)? data.intersection.push(ingr) : data.r1.push(ingr))
+    // data.r2 = Ingredients2.filter((i) => !data.intersection.includes(i));
     data = {
         Recipe1: { ingredients: ["tomato", "pepper", "sugar", "garlic", "olives", "of", "ingredients"] },
         Intersection: { ingredients: ["salt", "pasta", "beef", "onions", "it", "will", "adapt", "it", "more"] },

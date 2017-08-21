@@ -24,12 +24,13 @@ async function initialize(dishname = 'potatosalad') {
     }
     clusters[cluster.title] = {
       points: Object.keys(clusters[cluster.title]).map(key => clusters[cluster.title][key]),
-      buttons: Object.keys(activeClusters).map(key => activeClusters[key])
+      buttons: Object.keys(activeClusters).map(key => activeClusters[key]),
+      centers: Object.keys(cluster.centers).map(key => cluster.centers[key])
     }
     // clusters[cluster.title].activeClusters = activeClusters;
   }
-  console.log(clusters)
-  return clusters['potato_dummy'];
+
+  return clusters;
   // console.timeEnd('init') about 700ms
 }
 

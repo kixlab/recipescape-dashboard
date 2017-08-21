@@ -3,12 +3,17 @@ import { initActiveClusters} from '../actions'
 import { App } from '../components/App'
 
 
+const mapStateToProps = (state) => ({
+  dishname : state.clusters.RecipeName,
+  clusterRule: state.clusters.ClusterRule
+}) 
+
 const mapDispatchToProps = (dispatch) => ({
   initActiveClusters: (activeClusters) => dispatch(initActiveClusters(activeClusters))
 })
 
 const InitApp = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App)
 

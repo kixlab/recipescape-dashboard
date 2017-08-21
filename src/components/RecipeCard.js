@@ -86,7 +86,7 @@ render(){
     return(
         <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
-            <Card.Content onClick={() => this.props.selectRecipe(this.props.element)}>
+            <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)}>
                 {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}
             </Card.Content>

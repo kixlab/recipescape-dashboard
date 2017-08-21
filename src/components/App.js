@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import { StatRow } from "./statisticsField"
+import  RecipeAnalysis  from "../containers/RecipeAnalysis"
 import { BigRecipeMapContainer } from "./BigRecipeMapContainer"
 import InteractiveRecipeDeck from "../containers/InteractiveRecipeDeck"
 import { Grid, Dimmer, Loader } from 'semantic-ui-react'
@@ -10,6 +10,7 @@ import initialize from '../actions/init'
 
 export class App extends Component {
   clusters = {}
+  clusterName = 'dummy'
   state = {loading: true}
 
   constructor() {
@@ -17,11 +18,21 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    initialize().then( (d) => {
-      this.clusters = d.points;
-      this.props.initActiveClusters(d.buttons)
-      this.setState({loading: false})
+    initialize(this.props.dishname).then( (d) => {
+      let name = this.props.dishname+"_"+this.props.clusterRule
+      this.clusters = {points: d[name].points , centers: d[name].centers};
+      this.props.initActiveClusters(d[name].buttons)
+      this.setState({loading: false, clusters: d, clusterName: name})
     })
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.state.clusterName != this.props.dishname+"_"+this.props.clusterRule){
+      let name = nextProps.dishname+"_"+nextProps.clusterRule
+      this.setState({clusterName: nextProps.dishname+"_"+nextProps.clusterRule})
+      this.clusters = this.state.clusters[name].points;
+      this.props.initActiveClusters(this.state.clusters[name].buttons)
+    }
   }
 
   render() {
@@ -40,7 +51,7 @@ export class App extends Component {
                 <BigRecipeMapContainer clusters={this.clusters} />
               </Grid.Column>
               <Grid.Column>
-                <StatRow  {...INGREDIENTSTATS}/>
+                <RecipeAnalysis  {...INGREDIENTSTATS}/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>

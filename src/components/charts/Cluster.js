@@ -8,8 +8,9 @@ import * as d3 from "d3";
 import { colorArray, numbertocolor } from './svgColorTranslation' // used for colors
 
 export class Clusters extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super()
+        
         this.createMap = this.createMap.bind(this)
         this.createCluster = this.createCluster.bind(this)
         this.hull = [];
@@ -26,7 +27,6 @@ export class Clusters extends React.Component {
 
 
     createMap() {
-        console.log(this.svg)
         let node = this.node;
         let tooltip = this.tooltip;
         let div = select(tooltip)
@@ -50,7 +50,7 @@ export class Clusters extends React.Component {
             .attr("class", "circles");
         }
 
-        let cluster = this.props.clusters
+        let cluster = this.props.clusters.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
 
@@ -100,21 +100,27 @@ export class Clusters extends React.Component {
         let add = this.props.add;
         if (!this.circle[key]) {
             this.circle[key] = node.append("g")
-                .selectAll("circle")
+                .selectAll("path")
                 .data(points)
                 .enter()
-                .append("circle")
+                .append("path")
         } 
 
 
         this.circle[key]
-            .attr("cx", (d) => x(d.x))
-            .attr("cy", (d) => y(d.y))
-            .attr("r", r)
-            .attr("fill", d => colorArray[d.cluster_no])
+            .attr('d', (d) => {
+            return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
+            })
+            .attr('transform',(d) => "translate(" + x(d.x) + "," + y(d.y) + ")")
+            .attr("fill", d => !this.props.selectedRecipes.includes(d.recipe_id)? colorArray[key] : 'none')
+            .attr("stroke", colorArray[key])
+            .attr("stroke-width", .5 + "px")
             .attr("opacity", this.props.activeCluster[key]? 1 : 0.3)
             .on("mouseover", 
                 (d) => {
+                select(currentEvent.target).attr('d', (d) => {
+                    return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
+                    })
                 if(this.props.activeCluster[key]){
                 div.style("display", "inline-block")
                 div.html(d.recipeName.title)
@@ -122,7 +128,10 @@ export class Clusters extends React.Component {
                     .style("top", (currentEvent.layerY - 3) + "px");
                 }
             })
-            .on("mouseout", () => {
+            .on("mouseout", (d) => {
+                select(currentEvent.target).attr('d', (d) => {
+                    return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
+                    })
                 setTimeout(() => {
                     div.style("display", "None");
                 }, 300)
