@@ -2,8 +2,8 @@
   text-align: center;
 }
 
-#root {
-  padding: 10px;
+#root{
+  padding-top: 10px;
 }
 
 .App-logo {
@@ -14,18 +14,20 @@
 .App-header {
   background-color: #222;
   height: 150px;
-  padding: 20px;
+  /* padding: 20px; */
   color: white;
 }
 
 .App-intro {
-  font-size: large;
+  /* font-size: large; */
 }
 
  
 .Stats {
-  max-height: 602.667px;
-  overflow: auto;
+  height: 581px;
+  /* width: 100%; */
+  overflow-y: auto;
+  overflow-x: hidden;
 } 
 
 .Recipes {
@@ -38,10 +40,6 @@
   /*overflow-y: auto; */
   /* display: inline-block;
   position: relative */
-}
-
-Card {
-  max-width: 100px;
 }
 
 @keyframes App-logo-spin {

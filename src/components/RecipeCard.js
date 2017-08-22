@@ -8,24 +8,19 @@ import { SVGColors } from './charts/svgColorTranslation'
 const TextCard = ({image_url, ingredients, color, sentences}) => {
 let showImage;
 let showNumber = 3;
-if (image_url) {
-    showImage = <Image src={image_url} />;
-    showNumber = 2;
-}
 
 return (
     <div>
-        {showImage}
     <Card.Meta>Ingredients</Card.Meta>
         <Card.Description>
             <List ordered>
-        {ingredients.slice(1,showNumber).map((ingredient, index) => <List.Item basic key={index}>{ingredient}</List.Item>)}
+        {ingredients.slice(0,showNumber).map((ingredient, index) => <List.Item key={index}>{ingredient}</List.Item>)}
         </List>
         ...
         </Card.Description>
      <Card.Meta>Instructions</Card.Meta>
         <Card.Description>
-            <Instructions instructions={sentences.slice(1,showNumber)}/>
+            <Instructions instructions={sentences.slice(0,showNumber)}/>
             ...
         </Card.Description>
     </div>
@@ -57,7 +52,16 @@ render(){
         <Button.Group widths={2}>
             <Button basic color={color} onClick={showRecipe} icon="zoom" />
             <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
-            <PopupRecipe sentences={this.props.sentences} ingredients={this.props.ingredients} title={this.props.title} trees={this.props.trees} open={open} close={hideRecipe} color={color}/>
+            <PopupRecipe 
+            sentences={this.props.sentences} 
+            ingredients={this.props.ingredients} 
+            title={this.props.title} 
+            trees={this.props.trees} 
+            open={open} 
+            close={hideRecipe} 
+            color={color} 
+            image={this.props.image_url}
+            />
         </Button.Group>
     </Card.Content>
     );
@@ -86,7 +90,7 @@ render(){
     return(
         <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
-            <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)}>
+            <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)} style={{cursor: 'pointer'}}>
                 {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}
             </Card.Content>

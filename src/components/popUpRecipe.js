@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, Header, Grid, List, Label} from 'semantic-ui-react'
+import {Modal, Button, Header, Grid, List, Label, Image} from 'semantic-ui-react'
 import {Tree} from './charts/Tree'
 import { SVGColors } from './charts/svgColorTranslation'
 
@@ -25,6 +25,7 @@ export class PopupRecipe extends React.Component {
                             <Grid.Row>
                                 <Grid.Column>
                                     <Header>Recipe View</Header>
+                                    <Image src={this.props.image} />
                                     <Header size="small">Ingredients</Header>
                                     <Label.Group>
                                         {this.props.ingredients.map((ingredient, index) => <Label basic key={index}><Label.Detail>{ingredient}</Label.Detail></Label>)}

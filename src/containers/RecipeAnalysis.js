@@ -1,9 +1,11 @@
 import {connect} from 'react-redux'
 import {StatRow} from '../components/statisticsField'
+import {colorArray} from '../components/charts/svgColorTranslation'
 import { addSavedDeck } from '../actions'
 
 const mapStateToProps = (state) => ({
     histogram: state.clusters.Histogram,
+    colors: state.clusters.ActiveClusters.map((d,i) => d? colorArray[i]: 0).filter((d) => d!=0)
  });
  
  const mapDispatchToProps = (dispatch) => ({

@@ -9,7 +9,7 @@ import ClusterDropdown from '../containers/ClusterDropdown'
 const ClusterSquare = ({color, selected, onClick}) =>{
     let icon= selected ? 'checkmark': ''
     return(
-    <List.Item>
+    <List.Item style={{cursor: 'pointer'}}>
             <Icon circular color={color} inverted name={icon} onClick={onClick}/>
     </List.Item>
 

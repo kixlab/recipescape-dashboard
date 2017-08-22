@@ -40,7 +40,7 @@ export const RecipeCards = ({recipes, trees}) => {
                 <Grid.Row>
                     <RecipeTopMenu/>
                 </Grid.Row>
-                <Grid.Row className={"Recipes"}>
+                <Grid.Row>
                 <Divider/>
                     { recipes ? recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id}element={element} trees={trees} />) : 'haha'}
                 </Grid.Row>

@@ -4,7 +4,7 @@ import './App.css';
 import  RecipeAnalysis  from "../containers/RecipeAnalysis"
 import { BigRecipeMapContainer } from "./BigRecipeMapContainer"
 import InteractiveRecipeDeck from "../containers/InteractiveRecipeDeck"
-import { Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader,Container } from 'semantic-ui-react'
 import initialize from '../actions/init'
 
 
@@ -42,16 +42,16 @@ export class App extends Component {
       <div >
         {this.state.loading ? 
           <Dimmer active inverted>
-            <Loader size='large'>Loading</Loader>
+            <Loader size='large'>Loading recipes for you</Loader>
           </Dimmer>
       :
-          <Grid columns='equal' container>
+          <Grid columns='equal' container verticalAlign={'bottom'} >
             <Grid.Row>
               <Grid.Column>
                 <BigRecipeMapContainer clusters={this.clusters} />
               </Grid.Column>
               <Grid.Column>
-                <RecipeAnalysis  {...INGREDIENTSTATS}/>
+                <RecipeAnalysis/>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
@@ -76,11 +76,6 @@ var DATA = [
   {plot: [[12, 13], [14, 40], [15,10],[16, 13], [17, 40], [18,10]], clusterColor: "red" },
   {plot:[[1, 2], [10, 10], [14, 10], [15,3], [16, 2], [17, 10], [18, 10], [20,3]], clusterColor: "blue"}
 ]
-
-var INGREDIENTSTATS = {
-  ingredientStats: [{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]},{data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"patato", top3:["mix", "stirr", "oil"]}],
-  methodStats: [{data: DATA, name:"mix", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"boil", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"mix", top3:["mix", "stirr", "oil"]}, {data: DATA, name:"boil", top3:["mix", "stirr", "oil"]}],
-}
 
 //FOR COMPARISON
 var data = {

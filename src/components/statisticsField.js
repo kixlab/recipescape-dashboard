@@ -1,13 +1,14 @@
 import React from 'react'
 // import { LabelField } from "./labeled"
 import Plot from "./charts/GraphPlot"
-import { Card, Icon, Table,  Label, List, Popup, Loader} from 'semantic-ui-react'
+import { Card, Icon, Table,  Label, List, Popup, Loader, Grid, Item} from 'semantic-ui-react'
 
 
 const GraphTop = ({name, topThree}) => {
   return (
-  <List horizontal><List.Item>{name}</List.Item>
-  {topThree.map((item, i) => <List.Item key={i}><Label>{item}</Label></List.Item>)}
+  <List>
+    <List.Item>{name}</List.Item>
+  {topThree.map((item, i) => <List.Item style={{cursor: 'pointer'}} key={i}><Label size='mini'>{item}</Label></List.Item>)}
   </List>
 )};
 
@@ -15,25 +16,23 @@ class GraphCard extends React.Component {
   render(){
     let name = this.props.action? this.props.action : this.props.ingredient;
     return(      
-      <Card>
-        <Card.Content>
+      <Item>
+        <Item.Description>
           <GraphTop topThree={this.props.neighbors} name={name} />
-        </Card.Content>
-        <Card.Content>
-          <Plot data={this.props.histogram} width={250} height={100} />
-        </Card.Content>
-      </Card>
+        </Item.Description>
+        <Item.Content>
+          <Plot data={this.props.histogram} width={200} height={120} colors={this.props.colors}/>
+        </Item.Content>
+      </Item>
     );
   }
 }
 
 const TableHeader = () => (
-  <Table.Header>
-    <Table.Row>
-      <Table.HeaderCell>Instruction is added : </Table.HeaderCell>
-      <Table.HeaderCell>Ingredient Adding Time : </Table.HeaderCell>
-    </Table.Row>
-  </Table.Header>
+  <Grid.Row>
+      <Grid.Column>Instruction is added : </Grid.Column>
+      <Grid.Column>Ingredient Adding Time : </Grid.Column>
+  </Grid.Row>
 );
 
 export class StatRow extends React.Component {
@@ -67,23 +66,28 @@ export class StatRow extends React.Component {
               {this.state.loading?
                 <Loader active size='large'>Loading</Loader>
               :
-              <Table basic celled>
+              <div className={"RecipeMap"}>
+              <Grid container columns={'equal'}  celled>
           <TableHeader />
-          <Table.Body>
-              <Table.Row verticalAlign='top'>
-                <Table.Cell>
+              <Grid.Row verticalAlign='top'>
+                <Grid.Column>
                   <div className={"Stats"}>
-                    {this.state.histograms.actions.map((methodCard, index) => <GraphCard {...methodCard} key={index} />)}
+                  <Item.Group divided>
+                    {this.state.histograms.actions.map((methodCard, index) => <GraphCard {...methodCard} key={index} colors={this.props.colors}/>)}
+                  </Item.Group>
                   </div>
-                </Table.Cell>
-                <Table.Cell>
+                  
+                </Grid.Column>
+                <Grid.Column>
                   <div className={"Stats"}>
-                    {this.state.histograms.ingredients.map((ingredientCard, index) => <GraphCard {...ingredientCard} key={index} />)}
+                    <Item.Group divided>
+                    {this.state.histograms.ingredients.map((ingredientCard, index) => <GraphCard {...ingredientCard} key={index} colors={this.props.colors}/>)}
+                    </Item.Group>
                   </div>
-                </Table.Cell>
-              </Table.Row>
-              </Table.Body>
-        </Table>
+                </Grid.Column>
+              </Grid.Row>
+        </Grid>
+        </div>
         }
       </div>
     );
