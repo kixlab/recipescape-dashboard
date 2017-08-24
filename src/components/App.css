@@ -24,7 +24,7 @@
 
  
 .Stats {
-  height: 581px;
+  height: 521px;
   /* width: 100%; */
   overflow-y: auto;
   overflow-x: hidden;
@@ -72,4 +72,14 @@
   fill: none;
   stroke: #ccc;
   stroke-width: 2px;
+}
+
+::-webkit-scrollbar {
+  /* -webkit-appearance: none; */
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 2x;
+  background-color: #ccc;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }

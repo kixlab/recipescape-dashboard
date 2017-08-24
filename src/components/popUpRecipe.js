@@ -28,7 +28,7 @@ export class PopupRecipe extends React.Component {
                                     <Image src={this.props.image} />
                                     <Header size="small">Ingredients</Header>
                                     <Label.Group>
-                                        {this.props.ingredients.map((ingredient, index) => <Label basic key={index}><Label.Detail>{ingredient}</Label.Detail></Label>)}
+                                        <Instructions instructions={this.props.ingredients}/>
                                     </Label.Group>
                                     <Header size="small">Instructions</Header>
                                     <Instructions instructions={this.props.sentences}/>

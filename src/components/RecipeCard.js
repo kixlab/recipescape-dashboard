@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
-import {PopupRecipe, Instructions} from './popUpRecipe'
+import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/Tree"
 import { SVGColors } from './charts/svgColorTranslation'
 
@@ -11,16 +11,18 @@ let showNumber = 3;
 
 return (
     <div>
-    <Card.Meta>Ingredients</Card.Meta>
+        <Card.Meta>Ingredients</Card.Meta>
         <Card.Description>
-            <List ordered>
-        {ingredients.slice(0,showNumber).map((ingredient, index) => <List.Item key={index}>{ingredient}</List.Item>)}
-        </List>
-        ...
+            <List ordered size='tiny'>
+                {ingredients.slice(0, showNumber).map((ingredient, index) => <List.Item key={index}>{ingredient}</List.Item>)}
+            </List>
+            ...
         </Card.Description>
-     <Card.Meta>Instructions</Card.Meta>
+        <Card.Meta>Instructions</Card.Meta>
         <Card.Description>
-            <Instructions instructions={sentences.slice(0,showNumber)}/>
+            <List ordered size='tiny'>
+                {sentences.slice(0, showNumber).map((element, index) => <List.Item key={index}>{element}</List.Item>)}
+            </List>
             ...
         </Card.Description>
     </div>
@@ -32,7 +34,7 @@ const RecipeCardHeader = ({color, title, removeRecipe, id}) => (
     <Card.Content>
         <Card.Header color={color}>
             <List horizontal relaxed>
-                <List.Item><Icon corner color={color} name="delete" onClick={() => removeRecipe(id)} /></List.Item>
+                <List.Item style={{cursor: 'pointer'}}><Icon corner color={color} name="delete" onClick={() => removeRecipe(id)} /></List.Item>
                 <List.Item><Header size='small' color={color}>{title}</Header></List.Item>
             </List>
         </Card.Header>
@@ -86,12 +88,12 @@ render(){
         style = {outlineStyle: 'double', outlineColor: SVGColors[this.props.element.color], outlineWidth: 'thin'}
     }
     if(this.state.text) element = <TextCard {...this.props.element}/>;
-    else element = <Tree data={this.props.trees} height={260} width={260}/>;
+    else element = <Tree data={this.props.trees} height={260} width={200}/>;
     return(
+        <Grid.Column width={4} >
         <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
             <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)} style={{cursor: 'pointer'}}>
-                {/* <Label as='a' color={this.props.element.color} ribbon='right'><Icon name="flag"/></Label> */}
                 {element}
             </Card.Content>
             <RecipeBottomButtons
@@ -105,6 +107,7 @@ render(){
                 toggleTree={this.toggleTree}
                 />
         </Card>
+        </Grid.Column>
     );
 }
 }

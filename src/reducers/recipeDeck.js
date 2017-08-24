@@ -7,7 +7,10 @@ const recipeDeck = (state = RecipeBaseState, action) => {
     console.log(state)
     switch(action.type){
         case ADD_RECIPE_DECK:
-            if(state.DisplayedRecipes.find((recipe) => recipe.origin_id == action.recipe.origin_id)) return state;
+            if(state.DisplayedRecipes.find((recipe) => 
+                recipe.origin_id == action.recipe.origin_id)) return Object.assign({}, state, 
+                    { DisplayedRecipes: state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipe.origin_id)}, 
+                    { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipe.origin_id != recipeID)});;
             return Object.assign({}, state, {DisplayedRecipes: [action.recipe, ...state.DisplayedRecipes]})
 
         case REMOVE_RECIPE_DECK:

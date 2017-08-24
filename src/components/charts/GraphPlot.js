@@ -28,7 +28,7 @@ class Plot extends React.Component {
         let tooltip = this.tooltip;
         let data = this.props.data;
         let div = select(tooltip)
-        let trans = d3.transition().duration(750);
+        let trans = d3.transition().duration(1000).ease(d3.easeLinear);
 
         let margin = { top: 10, right: 10, bottom: 20, left: 10 };
         let width = this.props.width - margin.left - margin.right;
@@ -52,12 +52,8 @@ class Plot extends React.Component {
             .domain([0, d3.max(data)]);
 
         this.bar = this.svg.selectAll(".bar")
-            .data(this.props.data)
-
-        //EXIT
-        this.bar
-            .exit()
-            .remove();
+            .data(data)
+        console.log(data)
 
         //ENTER
         this.bar.enter()
@@ -65,16 +61,22 @@ class Plot extends React.Component {
             .attr("class", "bar")
             .attr("x", (d, i) => x(i + 1))
             .attr("width", x.bandwidth())
-            .attr("y", (d, i) => y(d))
-            .attr("height", d => height - y(d))
+            .attr("y", (d, i) => height)
+            .attr("height", d => 0)
             .attr('opacity', 0.7)
             .style("fill", "url(#linear-gradient)")
+            .transition(trans)
+            .attr("y", (d, i) => y(d))
+            .attr("height", (d) => height - y(d));
 
         //UPDATE
-        this.bar.select("rect")
+        this.bar
             .transition(trans)
+            .attr("y", (d, i) => y(d))
+            .attr("height", d => height - y(d))
             .style("fill", "url(#linear-gradient)")
-            .attr("height", (d) => height - y(d));
+
+
 
         
         // add the x Axis
@@ -84,68 +86,42 @@ class Plot extends React.Component {
             .call(d3.axisBottom(x))
         }
 
-        // this.bar
-        //     .exit()
-        //     .remove();
+        this.bar
+            .exit()
+            .remove();
           
-            // add the y Axis
-            // svg.append("g")
-            //     .call(d3.axisLeft(y));
+        // add the y Axis
+        // svg.append("g")
+        //     .call(d3.axisLeft(y));
           
         
-
-        //to replace later
-        // let dataset = d3.range(10).map(function(d, i) { return {"x": i, "y": d3.randomUniform(10)() } })
-        // let minX, maxX, x, y;
-        // this.props.data.forEach((data => {
-
-        //     let line = d3.line()
-        //     .x(function (d) { return x(d[0]); }) // set the x values for the line generator
-        //     .y(function (d) { return y(d[1]); }) // set the y values for the line generator 
-        //     .curve(d3.curveMonotoneX)
-
-        //     minX = d3.min(data.plot.map(d=> d[0]));
-        //     maxX = d3.max(data.plot.map(d=> d[0]));
-
-        //     x = d3.scaleLinear()
-        //     .domain([minX, maxX])
-        //     .range([0, width]);
-
-        //     y = d3.scaleLinear()
-        //     .domain([d3.min(data.plot.map(d=> d[1])), d3.max(data.plot.map(d=> d[1]))])
-        //     .range([height, 0]);
-
-        // svg.append("path")
-        //     .datum(data.plot)
-        //     .attr("class", "line")
-        //     .attr("d", line)
-        //     .style("stroke", SVGColors[data.clusterColor])
-        //     .style("fill", "none")
-        //     .style("stroke-width", 1.5)
-
-        // }), this);
+        let line = d3.line()
+        .x(function (d,i) { return x(i+1)+x.bandwidth()/2; }) 
+        .y(function (d,i) { return y(d); })
+        .curve(d3.curveMonotoneX)
 
 
-        // svg.append("g")
-        //     .attr("transform", "translate(0," + height + ")")
-        //     .call(d3.axisBottom(x).tickValues([minX,maxX/2, maxX]).tickFormat((d, i) => ['beginning', 'middle', 'end'][i]))
-        //     .attr("class", "axis")
+        if(this.props.overlayData.length != 0){
+            this.props.overlayData.then(data =>{
+
+            if(!this.path) this.path = this.svg.append("path")
+                this.path.datum(data, d => d)
+                .transition(trans)
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke", 'black')
+                .style("fill", "none")
+                .style("stroke-width", 1.5)
+            
+            })
+        } else {
+            select(node).selectAll('.line').remove();
+            this.path = undefined;
+        }
 
 
-        // svg.append("g")
-        //     .call(d3.axisLeft(y).ticks(0).tickSize(0))
-        //     .attr("class", "axis")
-        //     .on("mouseover", () => {
-        //         div.style("display", "inline-block")
-        //         div.html("relative occurence in recipe")
-        //             .style("left", (currentEvent.offsetX + 10) + "px")
-        //             .style("top", (currentEvent.offsetY + 50) + "px");
-        //     })
-        //     .on("mouseout", () => {
-        //         setTimeout(() =>{
-        //             div.style("display", "None");
-        //         }, 400)
-        //     });
+
+
 
 
     }

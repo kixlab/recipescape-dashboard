@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
     Ingredients1 : state.recipeDeck.HighlightedRecipes[0] ? state.recipeDeck.HighlightedRecipes[0].ingredients: [],
     Ingredients2 : state.recipeDeck.HighlightedRecipes[1] ? state.recipeDeck.HighlightedRecipes[1].ingredients: [],
     open : state.recipeDeck.open,
-    title : state.recipeDeck.HighlightedRecipes[1] && state.recipeDeck.HighlightedRecipes[0] ? (state.recipeDeck.HighlightedRecipes[0].title + " vs " + state.recipeDeck.HighlightedRecipes[1].title) : "",
+    title : state.recipeDeck.DisplayedRecipes.filter(d => state.recipeDeck.HighlightedRecipes.includes(d.origin_id)).map(d => d.title).join(' vs '),
 });
 
 

@@ -25,7 +25,7 @@ class RecipeTopMenu extends React.Component {
 
         return (
         <List horizontal relaxed>
-            <List.Item><Button basic onClick={this.show}>save deck</Button></List.Item>
+            <List.Item><Button basic onClick={this.show} size='small'>save deck</Button></List.Item>
             <InteractiveSaveDeck open={this.state.open} close={this.close} text={"save current deck"} />
             <List.Item><List.Header>saved decks : </List.Header></List.Item>
             <List.Item><InteractiveSavedDecks /></List.Item>
@@ -40,7 +40,7 @@ export const RecipeCards = ({recipes, trees}) => {
                 <Grid.Row>
                     <RecipeTopMenu/>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row className={'Recipes'}>
                 <Divider/>
                     { recipes ? recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id}element={element} trees={trees} />) : 'haha'}
                 </Grid.Row>
@@ -60,7 +60,7 @@ export const RecipeDeck = ({recipes, data}) => {
                 <div>
                     <InteractiveCompareRecipesButton/>
                     <PopupComparison />
-                    <RecipeCards recipes={recipes} trees={data} />
+                    <RecipeCards recipes={recipes} trees={data}/>
                 </div>
             </div>
         );

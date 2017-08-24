@@ -7,8 +7,8 @@ let AllOrNothingButtons = ({dispatch}) => {
         return(
             <List horizontal>
                 <List.Item><List.Header>Clusters : </List.Header></List.Item>
-                <List.Item><Button basic onClick={() => dispatch(selectAll())}>select all</Button></List.Item>
-                <List.Item><Button basic onClick={() => dispatch(unselectAll())}>unselect all</Button></List.Item>
+                <List.Item><Button size='small' basic onClick={() => dispatch(selectAll())}>select all</Button></List.Item>
+                <List.Item><Button size='small' basic onClick={() => dispatch(unselectAll())}>unselect all</Button></List.Item>
             </List>
         );
 }

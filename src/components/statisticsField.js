@@ -2,23 +2,19 @@ import React from 'react'
 // import { LabelField } from "./labeled"
 import Plot from "./charts/GraphPlot"
 import { Card, Icon, Table,  Label, List, Popup, Loader, Grid, Item} from 'semantic-ui-react'
+import TopThreeClickable from '../containers/TopThreeClickable'
+import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 
 
-const GraphTop = ({name, topThree}) => {
-  return (
-  <List>
-    <List.Item>{name}</List.Item>
-  {topThree.map((item, i) => <List.Item style={{cursor: 'pointer'}} key={i}><Label size='mini'>{item}</Label></List.Item>)}
-  </List>
-)};
 
 class GraphCard extends React.Component {
   render(){
+    let action = this.props.action? true: false;
     let name = this.props.action? this.props.action : this.props.ingredient;
     return(      
       <Item>
         <Item.Description>
-          <GraphTop topThree={this.props.neighbors} name={name} />
+          <TopThreeClickable topThree={this.props.neighbors} name={name} action={action}/>
         </Item.Description>
         <Item.Content>
           <Plot data={this.props.histogram} width={200} height={120} colors={this.props.colors}/>
@@ -73,7 +69,7 @@ export class StatRow extends React.Component {
                 <Grid.Column>
                   <div className={"Stats"}>
                   <Item.Group divided>
-                    {this.state.histograms.actions.map((methodCard, index) => <GraphCard {...methodCard} key={index} colors={this.props.colors}/>)}
+                    {this.state.histograms.actions.map((methodCard, index) => <InteractiveGraphCard {...methodCard} key={index} colors={this.props.colors}/>)}
                   </Item.Group>
                   </div>
                   
@@ -81,7 +77,7 @@ export class StatRow extends React.Component {
                 <Grid.Column>
                   <div className={"Stats"}>
                     <Item.Group divided>
-                    {this.state.histograms.ingredients.map((ingredientCard, index) => <GraphCard {...ingredientCard} key={index} colors={this.props.colors}/>)}
+                    {this.state.histograms.ingredients.map((ingredientCard, index) => <InteractiveGraphCard {...ingredientCard} key={index} colors={this.props.colors}/>)}
                     </Item.Group>
                   </div>
                 </Grid.Column>

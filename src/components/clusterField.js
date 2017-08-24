@@ -42,7 +42,7 @@ class SaveClusters extends React.Component {
     render(){
         return (
             <List horizontal>
-                <List.Item><Button basic onClick={this.show}>save selected clusters</Button></List.Item>
+                <List.Item><Button size='small' basic onClick={this.show}>save selected clusters</Button></List.Item>
                 <InteractiveSaveClusters open={this.state.open} close={this.close} text={"Save selected clusters"} />
                 <List.Item><ClusterDropdown /></List.Item>
             </List>
@@ -56,8 +56,8 @@ export class GroupByControls extends React.Component {
             <Segment vertical>
                 <List horizontal>
                     <List.Item><List.Header>Group by: </List.Header></List.Item>
-                    <List.Item><Button toggle basic>Ingredients</Button></List.Item>
-                    <List.Item><Button toggle basic>Instructions</Button></List.Item>
+                    <List.Item><Button size='small' toggle basic>Ingredients</Button></List.Item>
+                    <List.Item><Button size='small' toggle basic>Instructions</Button></List.Item>
                 </List>
             </Segment>
         );

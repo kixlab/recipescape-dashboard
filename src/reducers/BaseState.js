@@ -6,6 +6,8 @@ export const ClusterBaseState = {
     SavedClusters: [],
     //recipe ids of recipes currently being displayed in recipe deck
     DisplayedClusters: [],
+    InstructionCombos: [],
+    IngredientCombos: [],
     //indicate if two recipes are currently being compared//popup should be shown
 }
 

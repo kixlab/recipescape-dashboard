@@ -107,3 +107,11 @@ export const changeClusterRule = (rule) => {
         rule
     }
 } 
+
+export const setIngredientInstructionCombo = (source,ingredient_action) => {
+    return{
+        type: 'INGREDIENT_INSTRUCTION_COMBO',
+        source,
+        ingredient_action,
+    }
+}

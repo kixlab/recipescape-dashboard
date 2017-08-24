@@ -88,34 +88,25 @@ var data = {
 
 //RECIPE TREE
 var treeData =
+
   {
-    "name": "Present nicely",
-    "children": [
-      {
-        "name": "put on top",
-        "children": [
-          { "name": "basil",},
-          {"name": "salt"}
-        ]
-      },
-      {"name": "bake",
-        "children":
-    [
-        { "name": "top",
-          "children": [
-          { "name": "cheese",},
-          {"name": "mix",
-        "children" :
-        [
-          { "name": "flour",},
-          {"name": "oil"}
-        ]
-             }
-    ]
-            },
-          {"name": "tomatos"}
-        ]
-    }
-    ]
-  };
+    children: ["potatoes", "mayonnaise", "mixture", "salt", "pepper", {
+    children: ["mayonnaise", "mustard", "onion",  {
+    children: ["potatoes", "vinegar",  {
+    children: ["potatoes", {
+    children: ["potatoes", {
+    children: ["potatoes", "water"],
+    name: "cover"
+  }],
+    name: "drain"
+  }],
+    name: "peel"
+  }],
+    name: "toss"
+  }],
+    name: "stir"
+  }],
+    name: "toss"
+  }
+
 export default App;
