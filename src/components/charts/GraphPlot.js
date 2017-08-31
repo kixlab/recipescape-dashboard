@@ -53,7 +53,6 @@ class Plot extends React.Component {
 
         this.bar = this.svg.selectAll(".bar")
             .data(data)
-        console.log(data)
 
         //ENTER
         this.bar.enter()

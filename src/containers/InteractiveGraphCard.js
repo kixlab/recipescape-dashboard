@@ -19,11 +19,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 async function getVal(state, ownProps, overlay){
-    console.log({cluster_name: state.clusters.ClusterRule,
-        selected_clusters: state.clusters.ActiveClusters.map((d,i) => d? i : -1).filter(d=> d > -1),
-        action: overlay.action,
-        ingredient: overlay.ingredient
-        })
+
     const val =await axios.post(BASE_URL + `histogram/${state.clusters.RecipeName}`, 
     {cluster_name: state.clusters.ClusterRule,
     selected_clusters: state.clusters.ActiveClusters.map((d,i) => d? i : -1).filter(d=> d > -1),

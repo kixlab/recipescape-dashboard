@@ -21,7 +21,7 @@ export class UnionGraph extends React.Component {
 
     buildUnionGraph(){
         //assumed structureing of data
-        let dummydata = {recipe1: ['boil', 'mix', 'chop', "oil"], recipe2: ['oil', 'mix', 'stirr', 'fry']}
+        let dummydata = this.props.data;
         let node = this.node;
         let width = this.props.width;
         let height = this.props.height;
@@ -29,7 +29,7 @@ export class UnionGraph extends React.Component {
 
 
         width = width - margin.left - margin.right;
-        height = height - margin.top - margin.bottom;
+        height = (dummydata.recipe1.length > dummydata.recipe2.length? dummydata.recipe1.length: dummydata.recipe2.length)*30 + margin.top + margin.bottom;
 
         select(node)
             .attr("width", width + margin.left + margin.right)

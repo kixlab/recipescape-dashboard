@@ -20,7 +20,7 @@ export class VennDiagram extends React.Component {
     createVenn(){
         const node = this.node;
         //replace with default prameters
-        const width = this.props.width,
+        let width = this.props.width,
         height = this.props.height,
         data = this.props.data;
 
@@ -41,6 +41,8 @@ export class VennDiagram extends React.Component {
                             data.Intersection.ingredients.length+1) * lineHeight*spreadValue;
         let cx1 = width/3, cx2 = width/3*2;
         let cy1, cy2;
+
+        height = Math.max(ry1,ry2)*lineHeight
 
 
         //ensure that eclipes start at same height
