@@ -4,7 +4,7 @@ import { select, event as currentEvent } from 'd3-selection'
 import { line as d3Line } from 'd3-shape';
 import * as d3 from "d3";
 // import {event as currentEvent} from 'd3-selection';
-import { SVGColors } from './svgColorTranslation'
+import { colorArray } from './svgColorTranslation'
 
 
 class Plot extends React.Component {
@@ -23,7 +23,7 @@ class Plot extends React.Component {
     }
 
     createPlot() {
-
+        
         let node = this.node;
         let tooltip = this.tooltip;
         let data = this.props.data;
@@ -42,58 +42,95 @@ class Plot extends React.Component {
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         }
 
+        
+        //groups
+        // Transpose the data into layers
+        let addedData = []
+        let stack = d3.stack().keys(this.props.selected_clusters)
+        this.props.histogram_detail.map((d,i) => {
+            let temp = Object.assign({},Array(this.props.selected_clusters.length).fill(0));
+            d.map( internal => temp[internal[0]]= temp[internal[0]]? (temp[internal[0]]+1):1)
+            addedData.push(temp)
+            return 0;
+        })
+        
         let x = d3.scaleBand()
             .range([0, width])
             .padding(0.1);
         x.domain(data.map((d, i) => i + 1));
 
         let y = d3.scaleLinear()
-            .range([height, 0])
-            .domain([0, d3.max(data)]);
-
-        this.bar = this.svg.selectAll(".bar")
-            .data(data)
-
-        //ENTER
-        this.bar.enter()
-            .append("rect")
-            .attr("class", "bar")
-            .attr("x", (d, i) => x(i + 1))
-            .attr("width", x.bandwidth())
-            .attr("y", (d, i) => height)
-            .attr("height", d => 0)
-            .attr('opacity', 0.7)
-            .style("fill", "url(#linear-gradient)")
-            .transition(trans)
-            .attr("y", (d, i) => y(d))
-            .attr("height", (d) => height - y(d));
-
-        //UPDATE
-        this.bar
-            .transition(trans)
-            .attr("y", (d, i) => y(d))
-            .attr("height", d => height - y(d))
-            .style("fill", "url(#linear-gradient)")
-
-
-
+        .range([height, 0])
+        .domain([0, d3.max(stack(addedData), function(d) {  return d3.max(d, function(d) { return d[0] + d[1]; });  })])
+        
         
         // add the x Axis
         if(!this.axis){
         this.axis = this.svg.append("g")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
-        }
+        // console.log(stack(addedData)
 
-        this.bar
-            .exit()
-            .remove();
+        // this.bar = this.svg.selectAll(".bar")
+        //     .data(data)
+
+        // //ENTER
+        // this.bar.enter()
+        //     .append("rect")
+        //     .attr("class", "bar")
+        //     .attr("x", (d, i) => x(i + 1))
+        //     .attr("width", x.bandwidth())
+        //     .attr("y", (d, i) => height)
+        //     .attr("height", d => 0)
+        //     .attr('opacity', 0.7)
+        //     .style("fill", 'grey')
+        //     .transition(trans)
+        //     .attr("y", (d, i) => y(d))
+        //     .attr("height", (d) => height - y(d));
+
+        // //UPDATE
+        // this.bar
+        //     .transition(trans)
+        //     .attr("y", (d, i) => y(d))
+        //     .attr("height", d => height - y(d))
+        //     .style("fill", 'grey')
+
+
+
+        }
+        console.log(addedData, stack(addedData))
+        if(this.groups) this.groups.remove()
+        this.groups = select(node).selectAll(".stack")
+        
+        let groups = this.groups.data(stack(addedData), (d)=> d[2])
+        
+        let stacks = groups.enter()
+            .append("g")
+            .attr("class", ".stack")
+            .style("fill", function (d, i) {
+            return colorArray[i];
+        });
+
+        this.rect = stacks.selectAll("rect")
+            .data(d => d)
+            
+
+        this.rect.enter().append("rect")
+            .attr("x", function (d, i) { return x(i + 1); })
+            .attr("y", function (d) { return y(d[0] + d[1]); })
+            .attr("height", function (d) { return y(d[0]) - y(d[0] + d[1]); })
+            .attr("width", x.bandwidth())
+            .on("mouseover", function () { })
+            .on("mouseout", function () { })
+            .on("mousemove", function (d) {
+            });
+        
           
         // add the y Axis
         // svg.append("g")
         //     .call(d3.axisLeft(y));
           
-        
+        //line overlay
         let line = d3.line()
         .x(function (d,i) { return x(i+1)+x.bandwidth()/2; }) 
         .y(function (d,i) { return y(d); })
@@ -131,10 +168,6 @@ class Plot extends React.Component {
         <div>
              <div style={{position: "absolute", display: "None"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/> 
             <svg ref={node => this.node = node} >
-            <linearGradient id="linear-gradient" gradientTransform="rotate(90)">
-                {this.props.colors.map((d,i) => <stop key={d} offset={i/this.props.colors.length} stopColor={d}></stop>)
-                }
-            </linearGradient>
             </svg>
         </div>
         );

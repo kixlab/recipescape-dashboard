@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 
     return ({
         currentOverlay: overlay,
-        overlayData: val
+        overlayData: val,
+        selected_clusters: state.clusters.ActiveClusters.map((d,i) => d? i : -1).filter(d=> d > -1)
      });
 
 }

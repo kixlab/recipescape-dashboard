@@ -15,9 +15,9 @@ class GraphCard extends React.Component {
             </Item.Description>
             <Item.Content>
               {this.props.overlayData? 
-                  <Plot data={this.props.histogram} overlayData={this.props.overlayData} width={200} height={120} colors={this.props.colors}/>
+                  <Plot data={this.props.histogram} histogram_detail={this.props.histogram_detail} selected_clusters={this.props.selected_clusters} overlayData={this.props.overlayData} width={200} height={120} colors={this.props.colors}/>
                 :
-                <Plot data={this.props.histogram} overlayData={[]} width={200} height={120} colors={this.props.colors}/>  
+                <Plot data={this.props.histogram} histogram_detail={this.props.histogram_detail} selected_clusters={this.props.selected_clusters} overlayData={[]} width={200} height={120} colors={this.props.colors}/>  
               }
             </Item.Content>
           </Item>

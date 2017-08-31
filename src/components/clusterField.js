@@ -24,7 +24,7 @@ export class ClusterSelection extends React.Component {
                 <AllOrNothingButtons />
                 <Divider hidden fitted/>
                 <List horizontal>
-                      {this.props.clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index]}selected={checked} key={index}  onClick={() => this.props.onClick(index)}/>)}  
+                      {this.props.clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index+1]} selected={checked} key={index}  onClick={() => this.props.onClick(index)}/>)}  
                 </List>
                 <Divider hidden fitted/>
                 <SaveClusters />

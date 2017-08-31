@@ -50,6 +50,7 @@ export class StatRow extends React.Component {
   }
 
   render(){
+    console.log(this.state.histograms)
     return (
       <div>
         <h2>

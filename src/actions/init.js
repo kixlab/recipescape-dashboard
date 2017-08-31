@@ -19,7 +19,7 @@ function toD3Tree(nodes) {
 }
 
 async function initialize(dishname = 'chocochip') {
-  // console.time('init')
+
   const recipes_resp = await axios.get(BASE_URL + `recipes/${dishname}`)
                              .then(resp => resp.data)
   const recipes = {}
@@ -45,19 +45,24 @@ async function initialize(dishname = 'chocochip') {
 
   for (let cluster of clusters_resp) {
     clusters[cluster.title] = {}
+    activeClusters[cluster.title] = {}
     for (let {recipe_id, ...coords} of cluster.points) {
       clusters[cluster.title][recipe_id] = {...coords, recipe_id, 
         recipeName: {...recipes[recipe_id], trees: trees[recipe_id]}, 
       }
-      activeClusters[coords.cluster_no] = true
+
+      activeClusters[cluster.title][coords.cluster_no] = coords;
     }
+    let centers = Object.keys(cluster.centers).map(key => cluster.centers[key]);
     clusters[cluster.title] = {
       points: Object.keys(clusters[cluster.title]).map(key => clusters[cluster.title][key]),
-      buttons: Object.keys(activeClusters).map(key => activeClusters[key]),
-      centers: Object.keys(cluster.centers).map(key => cluster.centers[key])
+      buttons: Object.keys(activeClusters[cluster.title]).map(key => true),
+      centers: centers
     }
     // clusters[cluster.title].activeClusters = activeClusters;
+
   }
+  
   return clusters;
   // console.timeEnd('init') about 700ms
 }

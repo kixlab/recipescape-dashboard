@@ -25,6 +25,12 @@ export class Clusters extends React.Component {
         this.createMap()
     }
 
+    transform(t) {
+        return function(d) {
+          return "translate(" + t.apply(d) + ")";
+        };
+      }
+
 
     createMap() {
         let node = this.node;
@@ -53,7 +59,7 @@ export class Clusters extends React.Component {
         let cluster = this.props.clusters.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
-
+        console.log(clusterByNo)
         var x = d3.scaleLinear()
             .domain([d3.min(cluster.map(dot => dot.x)), d3.max(cluster.map(dot => dot.x))])
             .range([0, width]);
@@ -63,6 +69,7 @@ export class Clusters extends React.Component {
             .range([0, height]);
 
         for (let [key, points] of Object.entries(clusterByNo)) {
+            console.log(key, points)
             if (!this.hull[key]) {
                 this.hull[key] = this.circles.append("path")
                                  .attr("class", "hull"+key)
@@ -76,15 +83,13 @@ export class Clusters extends React.Component {
             )
             this.hull[key].datum(convexHull)
                 .attr("d", function (d) {
-                    if (!d)
-                        debugger;
                     return "M" + d.join("L") + "Z";
                 })
                 .attr("fill", colorArray[key])
                 .attr("stroke", colorArray[key])
                 .attr("stroke-width", 15 + "px")
                 .attr("line-join", "rounded")
-                .attr("opacity", this.props.activeCluster[key]? 0.3 : 0)
+                .attr("opacity", this.props.activeCluster[key-1]? 0.3 : 0)
                 .attr("stroke-linejoin", "round")
                 .on("mouseover", () => {
                     this.hull[key].attr("fill", "gray")
@@ -100,7 +105,9 @@ export class Clusters extends React.Component {
         }
 
         select(node).call(zoom().scaleExtent([1, 4]).on("zoom", () => {
-            this.circles.attr("transform", currentEvent.transform)
+            this.circles.attr("transform", 
+            currentEvent.transform
+        )
         }));
 
     }
@@ -124,13 +131,13 @@ export class Clusters extends React.Component {
             .attr("fill", colorArray[key])
             .attr("stroke", d =>{ if(this.props.selectedRecipes.includes(d.recipe_id)) return 'white'})
             .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": 0+'px')
-            .attr("opacity", this.props.activeCluster[key]? 1 : 0.3)
+            .attr("opacity", this.props.activeCluster[key-1]? 1 : 0.3)
             .on("mouseover",
                 (d) => {
                 select(currentEvent.target).attr('d', (d) => {
                     return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
                     })
-                if(this.props.activeCluster[key]){
+                if(this.props.activeCluster[key-1]){
                 div.style("display", "inline-block")
                 div.html(d.recipeName.title)
                     .style("left", (currentEvent.layerX + 30) + "px")

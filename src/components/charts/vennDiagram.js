@@ -42,7 +42,7 @@ export class VennDiagram extends React.Component {
         let cx1 = width/3, cx2 = width/3*2;
         let cy1, cy2;
 
-        height = Math.max(ry1,ry2)*lineHeight
+        height = Math.max(ry1,ry2)*lineHeight+2*padding
 
 
         //ensure that eclipes start at same height
