@@ -6,6 +6,7 @@ import React from 'react'
 export class Tree extends React.Component {
 
     constructor(props) {
+
         super(props)
         this.createTree = this.createTree.bind(this)
     }

@@ -2,6 +2,22 @@ import axios from 'axios'
 
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
+
+function toD3Tree(nodes) {
+    if (nodes.length === 0)
+      return null
+    var node = nodes[0]
+    var treeData = {}
+    treeData.name = node.word
+    treeData.children = node.ingredient.map(function(v) { 
+      return {name: v}
+    })
+    var next = toD3Tree(nodes.slice(1))
+    if (next)
+      treeData.children.push(next)
+    return treeData
+}
+
 async function initialize(dishname = 'chocochip') {
   // console.time('init')
   const recipes_resp = await axios.get(BASE_URL + `recipes/${dishname}`)
@@ -24,7 +40,7 @@ async function initialize(dishname = 'chocochip') {
 
   const trees = {}
   for (let {id, ...treeInfo} of trees_resp) {
-    trees[id] = treeInfo
+    trees[id] = toD3Tree(treeInfo.tree.reverse())
   }
   
     
@@ -38,9 +54,7 @@ async function initialize(dishname = 'chocochip') {
     clusters[cluster.title] = {}
     for (let {recipe_id, ...coords} of cluster.points) {
       clusters[cluster.title][recipe_id] = {...coords, recipe_id, 
-        recipeName: recipes[recipe_id], 
-        trees: trees[recipe_id],
-        ingredients_actions: nodes[recipe_id]
+        recipeName: {...recipes[recipe_id], trees: trees[recipe_id],ingredients_actions: nodes[recipe_id]}, 
       }
       activeClusters[coords.cluster_no] = true
     }

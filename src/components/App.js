@@ -56,7 +56,7 @@ export class App extends Component {
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-              <InteractiveRecipeDeck data={treeData} />
+              <InteractiveRecipeDeck />
               </Grid.Column>
             </Grid.Row>
           </Grid>

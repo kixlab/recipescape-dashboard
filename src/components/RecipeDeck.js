@@ -42,7 +42,7 @@ export const RecipeCards = ({recipes, trees}) => {
                 </Grid.Row>
                 <Grid.Row className={'Recipes'}>
                 <Divider/>
-                    { recipes ? recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id}element={element} trees={trees} />) : 'haha'}
+                    { recipes ? recipes.map((element, index) => <InteractiveRecipeCard key={element.origin_id} element={element}/>) : 'haha'}
                 </Grid.Row>
             </Grid>
         );
@@ -60,7 +60,7 @@ export const RecipeDeck = ({recipes, data}) => {
                 <div>
                     <InteractiveCompareRecipesButton/>
                     <PopupComparison />
-                    <RecipeCards recipes={recipes} trees={data}/>
+                    <RecipeCards recipes={recipes}/>
                 </div>
             </div>
         );

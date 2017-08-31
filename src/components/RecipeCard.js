@@ -88,7 +88,7 @@ render(){
         style = {outlineStyle: 'double', outlineColor: SVGColors[this.props.element.color], outlineWidth: 'thin'}
     }
     if(this.state.text) element = <TextCard {...this.props.element}/>;
-    else element = <Tree data={this.props.trees} height={260} width={200}/>;
+    else element = <Tree data={this.props.element.trees} height={260} width={200}/>;
     return(
         <Grid.Column width={4} >
         <Card centered style={style}>
@@ -98,7 +98,6 @@ render(){
             </Card.Content>
             <RecipeBottomButtons
                 {...this.props.element}
-                trees = {this.props.trees}
                 color={this.props.element.color}
                 open={this.state.zoom}
                 icon={this.state.icon}
