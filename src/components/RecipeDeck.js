@@ -7,6 +7,7 @@ import InteractiveRecipeCard from "../containers/InteractiveRecipeCard"
 import InteractiveSavedDecks from "../containers/InteractiveSavedDecks"
 import InteractiveSaveDeck from "../containers/InteractiveSaveDeck"
 import InteractiveCompareRecipesButton from "../containers/InteractiveCompareRecipesButton"
+import RemoveAllRecipes from '../containers/RemoveAllRecipes'
 import PopupComparison from './PopupComparison'
 import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup, Rail, Segment} from 'semantic-ui-react'
 
@@ -25,6 +26,7 @@ class RecipeTopMenu extends React.Component {
 
         return (
         <List horizontal relaxed>
+            <List.Item><RemoveAllRecipes/></List.Item>
             <List.Item><Button basic onClick={this.show} size='small'>save deck</Button></List.Item>
             <InteractiveSaveDeck open={this.state.open} close={this.close} text={"save current deck"} />
             <List.Item><List.Header>saved decks : </List.Header></List.Item>

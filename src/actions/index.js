@@ -49,6 +49,12 @@ export const unselectRecipe = (recipeID) => {
     }
 }
 
+export const unselectAllRecipes = () => {
+    return {
+        type: 'UNSELECT_ALL_RECIPES'
+    }
+}
+
 export const compareRecipes = () => {
     return{
         type: 'COMPARE_RECIPES'

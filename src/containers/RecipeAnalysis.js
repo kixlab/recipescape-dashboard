@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     IngredientCombos: state.clusters.IngredientCombos,
     InstructionCombos: state.clusters.InstructionCombos,
     histogram: state.clusters.Histogram,
-    colors: state.clusters.ActiveClusters.map((d,i) => d? colorArray[i]: 0).filter((d) => d!=0)
+    colors: state.clusters.ActiveClusters.map((d,i) => d? colorArray[i+1]: 0).filter((d) => d!=0)
  });
  
  const mapDispatchToProps = (dispatch) => ({

@@ -1,4 +1,4 @@
-import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, UNSELECT_RECIPE, STOP_COMPARING} from '../constants/actionTypes'
+import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, UNSELECT_RECIPE, STOP_COMPARING, UNSELECT_ALL_RECIPES} from '../constants/actionTypes'
 import {RecipeBaseState} from './BaseState'
 import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
@@ -16,7 +16,10 @@ const recipeDeck = (state = RecipeBaseState, action) => {
         case REMOVE_RECIPE_DECK:
             let remaining = state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipeID)
             if(remaining) return Object.assign({}, state, {DisplayedRecipes: remaining}, { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipeID != recipeID)});
-            return  Object.assign({}, state, {DisplayedRecipes: []}, { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipeID != recipeID)});
+            return  Object.assign({}, state, {DisplayedRecipes: []}, { HighlightedRecipes: []});
+        
+        case UNSELECT_ALL_RECIPES:
+            return Object.assign({}, state, {DisplayedRecipes: []}, { HighlightedRecipes: []});
 
         case SAVE_RECIPE_DECK:
             return Object.assign({}, state, {SavedDecks: [...state.SavedDecks, { name: action.name, recipes: state.DisplayedRecipes}]});

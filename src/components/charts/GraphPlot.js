@@ -28,6 +28,7 @@ class Plot extends React.Component {
         let tooltip = this.tooltip;
         let data = this.props.data;
         let div = select(tooltip)
+        let colors = this.props.colors;
         let trans = d3.transition().duration(1000).ease(d3.easeLinear);
 
         let margin = { top: 10, right: 10, bottom: 20, left: 10 };
@@ -54,6 +55,8 @@ class Plot extends React.Component {
             return 0;
         })
         
+
+        //get scaling for graph
         let x = d3.scaleBand()
             .range([0, width])
             .padding(0.1);
@@ -69,46 +72,25 @@ class Plot extends React.Component {
         this.axis = this.svg.append("g")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
-        // console.log(stack(addedData)
-
-        // this.bar = this.svg.selectAll(".bar")
-        //     .data(data)
-
-        // //ENTER
-        // this.bar.enter()
-        //     .append("rect")
-        //     .attr("class", "bar")
-        //     .attr("x", (d, i) => x(i + 1))
-        //     .attr("width", x.bandwidth())
-        //     .attr("y", (d, i) => height)
-        //     .attr("height", d => 0)
-        //     .attr('opacity', 0.7)
-        //     .style("fill", 'grey')
-        //     .transition(trans)
-        //     .attr("y", (d, i) => y(d))
-        //     .attr("height", (d) => height - y(d));
-
-        // //UPDATE
-        // this.bar
-        //     .transition(trans)
-        //     .attr("y", (d, i) => y(d))
-        //     .attr("height", d => height - y(d))
-        //     .style("fill", 'grey')
-
-
-
         }
-        console.log(addedData, stack(addedData))
-        if(this.groups) this.groups.remove()
-        this.groups = select(node).selectAll(".stack")
+
+
+        console.log(this.props.colors)
+        if(!this.work)this.work = this.svg.append('g')
+        //add the stacked bar graph
+
+        this.groups = this.work.selectAll("g")
+
         
-        let groups = this.groups.data(stack(addedData), (d)=> d[2])
+        let groups = this.groups.data(stack(addedData), (d,i) => d)
+
+        groups.exit().remove()
         
         let stacks = groups.enter()
             .append("g")
             .attr("class", ".stack")
             .style("fill", function (d, i) {
-            return colorArray[i];
+            return colors[i];
         });
 
         this.rect = stacks.selectAll("rect")
