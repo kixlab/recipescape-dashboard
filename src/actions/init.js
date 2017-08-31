@@ -11,6 +11,24 @@ async function initialize(dishname = 'chocochip') {
     recipes[origin_id] = {...recipeInfo, origin_id}
   }
 
+  const nodes = {}
+  const nodes_resp = await axios.get(BASE_URL + `nodes/${dishname}`)
+  .then(resp => resp.data)
+
+  for (let {id, ...nodeInfo} of nodes_resp) {
+    nodes[id] = nodeInfo
+  }
+
+  const trees_resp = await axios.get(BASE_URL + `trees/${dishname}`)
+  .then(resp => resp.data)
+
+  const trees = {}
+  for (let {id, ...treeInfo} of trees_resp) {
+    trees[id] = treeInfo
+  }
+  
+    
+
   const clusters_resp = await axios.get(BASE_URL + `clusters/${dishname}`)
                                     .then(resp => resp.data)
   const clusters = {}
@@ -19,7 +37,11 @@ async function initialize(dishname = 'chocochip') {
   for (let cluster of clusters_resp) {
     clusters[cluster.title] = {}
     for (let {recipe_id, ...coords} of cluster.points) {
-      clusters[cluster.title][recipe_id] = {...coords, recipe_id, recipeName: recipes[recipe_id]}
+      clusters[cluster.title][recipe_id] = {...coords, recipe_id, 
+        recipeName: recipes[recipe_id], 
+        trees: trees[recipe_id],
+        ingredients_actions: nodes[recipe_id]
+      }
       activeClusters[coords.cluster_no] = true
     }
     clusters[cluster.title] = {
@@ -29,7 +51,7 @@ async function initialize(dishname = 'chocochip') {
     }
     // clusters[cluster.title].activeClusters = activeClusters;
   }
-
+  console.log(clusters)
   return clusters;
   // console.timeEnd('init') about 700ms
 }
