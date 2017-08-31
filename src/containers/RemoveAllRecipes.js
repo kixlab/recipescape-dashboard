@@ -7,7 +7,7 @@ import React from 'react'
 
 let RemoveAllRecipes = ({ dispatch}) => {
     return (
-        <Button basic size='small' onClick={() => dispatch(unselectAllRecipes())}>unselect all</Button>
+        <Button basic size='small' onClick={() => dispatch(unselectAllRecipes())}>remove all</Button>
     )
   }
   RemoveAllRecipes = connect(
