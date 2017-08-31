@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 import GraphCard from '../components/GraphCard'
 import axios from 'axios'
+import { setHighlight, deleteHighlight } from '../actions'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const mapStateToProps = (state, ownProps) => {
@@ -31,7 +32,8 @@ async function getVal(state, ownProps, overlay){
 };
  
  const mapDispatchToProps = (dispatch) => ({
-     
+     setHighlight : (recipes) => dispatch(setHighlight(recipes)),
+     deleteHighlight: () => dispatch(deleteHighlight())
      
    });
    

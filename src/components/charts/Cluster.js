@@ -128,8 +128,9 @@ export class Clusters extends React.Component {
             return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(40)() : d3.symbol().type(d3.symbolStar)()
             })
             .attr('transform',(d) => "translate(" + x(d.x) + "," + y(d.y) + ")")
-            .attr("fill", colorArray[key])
-            .attr("stroke", d =>{ if(this.props.selectedRecipes.includes(d.recipe_id)) return '#767676'})
+            .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id))?  'black' : colorArray[key])
+            .attr("stroke", d =>{ 
+                if(this.props.selectedRecipes.includes(d.recipe_id)) return '#767676'})
             .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": 0+'px')
             .attr("opacity", this.props.activeCluster[key-1]? 1 : 0.3)
             .on("mouseover",

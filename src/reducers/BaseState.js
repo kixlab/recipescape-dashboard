@@ -8,6 +8,7 @@ export const ClusterBaseState = {
     DisplayedClusters: [],
     InstructionCombos: [],
     IngredientCombos: [],
+    highlights: []
     //indicate if two recipes are currently being compared//popup should be shown
 }
 

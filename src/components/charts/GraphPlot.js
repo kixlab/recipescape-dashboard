@@ -47,7 +47,7 @@ class Plot extends React.Component {
         //groups
         // Transpose the data into layers
         let addedData = []
-        let stack = d3.stack().keys(this.props.selected_clusters)
+        let stack = d3.stack().keys(this.props.selected_clusters).value( (d,key) => {return d[key] })
         this.props.histogram_detail.map((d,i) => {
             let temp = Object.assign({},Array(this.props.selected_clusters.length).fill(0));
             d.map( internal => temp[internal[0]]= temp[internal[0]]? (temp[internal[0]]+1):1)
@@ -75,7 +75,6 @@ class Plot extends React.Component {
         }
 
 
-        console.log(this.props.colors)
         if(!this.work)this.work = this.svg.append('g')
         //add the stacked bar graph
 
@@ -86,9 +85,11 @@ class Plot extends React.Component {
 
         groups.exit().remove()
         
+        let selected_clusters= this.props.selected_clusters
+
         let stacks = groups.enter()
             .append("g")
-            .attr("class", ".stack")
+            .attr("class", (d,i) => selected_clusters[i])
             .style("fill", function (d, i) {
             return colors[i];
         });
@@ -96,14 +97,23 @@ class Plot extends React.Component {
         this.rect = stacks.selectAll("rect")
             .data(d => d)
             
+        let det = this.props.histogram_detail;
+        let set = this.props.setHighlight;
+        let deletes = this.props.deleteHighlight;
 
         this.rect.enter().append("rect")
             .attr("x", function (d, i) { return x(i + 1); })
             .attr("y", function (d) { return y(d[0] + d[1]); })
             .attr("height", function (d) { return y(d[0]) - y(d[0] + d[1]); })
             .attr("width", x.bandwidth())
-            .on("mouseover", function () { })
-            .on("mouseout", function () { })
+            .on("mouseover", function (d,i) {
+                let clusterNo = currentEvent.path[0].parentNode.className.baseVal
+                set(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
+                console.log(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
+            })
+            .on("mouseout", function () { 
+                deletes()
+            })
             .on("mousemove", function (d) {
             });
         

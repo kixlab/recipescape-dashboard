@@ -121,3 +121,17 @@ export const setIngredientInstructionCombo = (source,ingredient_action) => {
         ingredient_action,
     }
 }
+
+export const setHighlight = (recipes) => {
+    return{
+        type: 'SET_HIGHLIGHT',
+        recipes
+    }
+}
+
+export const deleteHighlight = () => {
+    return{
+        type: 'DELETE_HIGHLIGHT'
+
+    }
+}
