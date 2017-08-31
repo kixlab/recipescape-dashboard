@@ -10,7 +10,7 @@ import { colorArray, numbertocolor } from './svgColorTranslation' // used for co
 export class Clusters extends React.Component {
     constructor() {
         super()
-        
+
         this.createMap = this.createMap.bind(this)
         this.createCluster = this.createCluster.bind(this)
         this.hull = [];
@@ -64,11 +64,20 @@ export class Clusters extends React.Component {
 
         for (let [key, points] of Object.entries(clusterByNo)) {
             if (!this.hull[key]) {
-            this.hull[key] = this.circles.append("path")
-                .attr("class", "hull"+key)
+                this.hull[key] = this.circles.append("path")
+                                 .attr("class", "hull"+key)
             }
-            this.hull[key].datum(d3.polygonHull(points.map(dot => [x(dot.x), y(dot.y)])))
+
+            const scaledPoints = points.map(dot => [x(dot.x), y(dot.y)])
+            const convexHull = (
+                scaledPoints.length < 3 ?
+                scaledPoints :
+                d3.polygonHull(scaledPoints)
+            )
+            this.hull[key].datum(convexHull)
                 .attr("d", function (d) {
+                    if (!d)
+                        debugger;
                     return "M" + d.join("L") + "Z";
                 })
                 .attr("fill", colorArray[key])
@@ -104,7 +113,7 @@ export class Clusters extends React.Component {
                 .data(points)
                 .enter()
                 .append("path")
-        } 
+        }
 
 
         this.circle[key]
@@ -116,7 +125,7 @@ export class Clusters extends React.Component {
             .attr("stroke", d =>{ if(this.props.selectedRecipes.includes(d.recipe_id)) return 'white'})
             .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": 0+'px')
             .attr("opacity", this.props.activeCluster[key]? 1 : 0.3)
-            .on("mouseover", 
+            .on("mouseover",
                 (d) => {
                 select(currentEvent.target).attr('d', (d) => {
                     return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
