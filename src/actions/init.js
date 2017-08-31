@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
-async function initialize(dishname = 'potatosalad') {
+async function initialize(dishname = 'chocochip') {
   // console.time('init')
   const recipes_resp = await axios.get(BASE_URL + `recipes/${dishname}`)
                              .then(resp => resp.data)
