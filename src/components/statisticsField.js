@@ -57,7 +57,7 @@ export class StatRow extends React.Component {
           Recipe Analysis
           <Popup
             trigger={<Icon color="grey" size="tiny" name="question circle" />}
-            content="I don't know what to put here"
+            content="Shows you when ingredients or actions are added in the cooking process"
           />
         </h2>
               {this.state.loading?
