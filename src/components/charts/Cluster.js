@@ -59,7 +59,6 @@ export class Clusters extends React.Component {
         let cluster = this.props.clusters.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
-        console.log(clusterByNo)
         var x = d3.scaleLinear()
             .domain([d3.min(cluster.map(dot => dot.x)), d3.max(cluster.map(dot => dot.x))])
             .range([0, width]);
@@ -69,7 +68,6 @@ export class Clusters extends React.Component {
             .range([0, height]);
 
         for (let [key, points] of Object.entries(clusterByNo)) {
-            console.log(key, points)
             if (!this.hull[key]) {
                 this.hull[key] = this.circles.append("path")
                                  .attr("class", "hull"+key)
@@ -105,9 +103,11 @@ export class Clusters extends React.Component {
         }
 
         select(node).call(zoom().scaleExtent([1, 4]).on("zoom", () => {
+            let semanticT = currentEvent.transform
             this.circles.attr("transform", 
-            currentEvent.transform
-        )
+            currentEvent.transform)
+        console.log(currentEvent.transform)
+            
         }));
 
     }

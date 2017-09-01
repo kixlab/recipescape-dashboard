@@ -91,7 +91,6 @@ class Plot extends React.Component {
             .append("g")
             .attr("class", (d,i) => selected_clusters[i])
             .style("fill", function (d, i) {
-            console.log(i)
             return colors[i];
         });
 
@@ -110,7 +109,6 @@ class Plot extends React.Component {
             .on("mouseover", function (d,i) {
                 let clusterNo = currentEvent.path[0].parentNode.className.baseVal
                 set(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
-                console.log(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
             })
             .on("mouseout", function () { 
                 deletes()
