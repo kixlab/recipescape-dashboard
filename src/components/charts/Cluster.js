@@ -106,8 +106,12 @@ export class Clusters extends React.Component {
             let semanticT = currentEvent.transform
             this.circles.attr("transform", 
             currentEvent.transform)
-        console.log(currentEvent.transform)
-            
+
+            //for semantic zoom
+            for (let [key, points] of Object.entries(clusterByNo)) {
+                this.currentTransform = currentEvent.transform.k
+                this.circle[key].attr('transform', (d) => "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / currentEvent.transform.k + ')')
+            }
         }));
 
     }
@@ -127,12 +131,12 @@ export class Clusters extends React.Component {
             .attr('d', (d) => {
             return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
             })
-            .attr('transform',(d) => "translate(" + x(d.x) + "," + y(d.y) + ")")
+            .attr('transform',(d) => (this.currentTransform)?  "translate(" + x(d.x) + "," + y(d.y) + ")"+'scale('+1/this.currentTransform+')' :"translate(" + x(d.x) + "," + y(d.y) + ")" )
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id))?  'black' : colorArray[key])
             .attr("stroke", d =>{ 
                 let color = ';'
                 if(this.props.clusters.centers.includes(d.recipe_id)) {color = 'white';}
-                if(this.props.selectedRecipes.includes(d.recipe_id)) {color= '#767676'}
+                if(this.props.selectedRecipes.includes(d.recipe_id)) {color= 'black'}
                 return color
             })
             .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": .5+'px')
