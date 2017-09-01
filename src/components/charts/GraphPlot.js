@@ -64,7 +64,7 @@ class Plot extends React.Component {
 
         let y = d3.scaleLinear()
         .range([height, 0])
-        .domain([0, d3.max(stack(addedData), function(d) {  return d3.max(d, function(d) { return d[0] + d[1]; });  })])
+        .domain([0, d3.max(stack(addedData), function(d) {  return d3.max(d, (d) =>  d[1] );  })])
         
         
         // add the x Axis
@@ -103,8 +103,8 @@ class Plot extends React.Component {
 
         this.rect.enter().append("rect")
             .attr("x", function (d, i) { return x(i + 1); })
-            .attr("y", function (d) { return y(d[0] + d[1]); })
-            .attr("height", function (d) { return y(d[0]) - y(d[0] + d[1]); })
+            .attr("y", function (d) { return y(d[1]); })
+            .attr("height", function (d) { console.log(d[1]-d[0]); return y(d[0])-y(d[1]); })
             .attr("width", x.bandwidth())
             .on("mouseover", function (d,i) {
                 let clusterNo = currentEvent.path[0].parentNode.className.baseVal
