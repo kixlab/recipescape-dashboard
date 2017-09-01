@@ -89,7 +89,7 @@ export class Clusters extends React.Component {
                 .attr("stroke", colorArray[key])
                 .attr("stroke-width", 15 + "px")
                 .attr("line-join", "rounded")
-                .attr("opacity", this.props.activeCluster[key-1]? 0.3 : 0)
+                .attr("opacity", this.props.activeCluster[key]? 0.3 : 0)
                 .attr("stroke-linejoin", "round")
                 .on("mouseover", () => {
                     this.hull[key].attr("fill", "gray")
@@ -132,13 +132,13 @@ export class Clusters extends React.Component {
             .attr("stroke", d =>{ 
                 if(this.props.selectedRecipes.includes(d.recipe_id)) return '#767676'})
             .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": 0+'px')
-            .attr("opacity", this.props.activeCluster[key-1]? 1 : 0.3)
+            .attr("opacity", this.props.activeCluster[key]? 1 : 0.3)
             .on("mouseover",
                 (d) => {
                 select(currentEvent.target).attr('d', (d) => {
                     return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
                     })
-                if(this.props.activeCluster[key-1]){
+                if(this.props.activeCluster[key]){
                 div.style("display", "inline-block")
                 div.html(d.recipeName.title)
                     .style("left", (currentEvent.layerX + 30) + "px")
