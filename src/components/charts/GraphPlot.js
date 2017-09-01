@@ -91,6 +91,7 @@ class Plot extends React.Component {
             .append("g")
             .attr("class", (d,i) => selected_clusters[i])
             .style("fill", function (d, i) {
+            console.log(i)
             return colors[i];
         });
 
