@@ -15,6 +15,7 @@ export class UnionGraph extends React.Component {
     }
 
     componentDidUpdate() {
+        d3.select(".uniongraph").selectAll("*").remove()
         this.buildUnionGraph()
     }
 
@@ -35,17 +36,17 @@ export class UnionGraph extends React.Component {
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
 
-        this.createLinks(this.svg, width, dummydata.recipe1, dummydata.recipe2);  
+        this.createLinks(this.svg, width, dummydata.recipe1, dummydata.recipe2);
         this.addOneRecipe(this.svg, dummydata.recipe1 ,width, 'L', SVGColors['blue']);
         this.addOneRecipe(this.svg, dummydata.recipe2 ,width, 'R', SVGColors['red']);
-                     
+
 
 
     }
 
     getXPos(pos, width){
         switch(pos){
-            case "L": 
+            case "L":
                 return 1/3*width;
                 break;
             case "R": return 2/3*width;
@@ -61,30 +62,30 @@ export class UnionGraph extends React.Component {
         let xPos = this.getXPos(pos, width)
 
         if(this.g) this.g.remove()
-        
+
         this.g = this.svg.append("g")
             .attr("class", "nodes")
             .selectAll("g")
             .data(data)
-            
+
 
         this.g.enter().append("circle")
             .attr("r", 6)
             .attr("cx", (d)=> xPos)
             .attr("cy", (d,i) => {
                 if(i !== 0) innerLinks.push({ySource: prev, yTarget: (i+1) * distance})
-                prev = topOffset+ (i+1) * distance 
+                prev = topOffset+ (i+1) * distance
                return prev;
             })
             .attr("fill", color)
             .attr("class", (d, i) => i)
-            
+
         this.g.enter().append("text")
             .text((d) => d)
             .attr("color", "black")
             .attr("x", (d) => this.getXPos(pos, width) + (pos == 'L' ? -50 : 20))
             .attr("y", (d,i) => topOffset+(i+1)*distance)
-        
+
         this.g.exit().remove()
 
         if(this.inner) this.inner.remove()
@@ -130,7 +131,7 @@ export class UnionGraph extends React.Component {
 
     render(){
         return(
-            <svg ref={node => this.node = node}/>
+            <svg className="uniongraph" ref={node => this.node = node}/>
         );
     }
 
