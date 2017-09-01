@@ -6,6 +6,7 @@ import { zoom } from 'd3-zoom';
 import { hull } from 'd3-polygon'
 import * as d3 from "d3";
 import { colorArray, numbertocolor } from './svgColorTranslation' // used for colors
+import {Icon , List} from 'semantic-ui-react'
 
 export class Clusters extends React.Component {
     constructor() {
@@ -26,10 +27,10 @@ export class Clusters extends React.Component {
     }
 
     transform(t) {
-        return function(d) {
-          return "translate(" + t.apply(d) + ")";
+        return function (d) {
+            return "translate(" + t.apply(d) + ")";
         };
-      }
+    }
 
 
     createMap() {
@@ -42,18 +43,17 @@ export class Clusters extends React.Component {
         let width = this.props.width - margin.left - margin.right;
         let height = this.props.height - margin.top - margin.bottom;
 
-
         if (!this.svg) {
-        this.svg = select(node)
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            this.svg = select(node)
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         }
 
         if (!this.circles) {
-        this.circles = this.svg.append("g")
-            .attr("class", "circles");
+            this.circles = this.svg.append("g")
+                .attr("class", "circles");
         }
 
         let cluster = this.props.clusters.points
@@ -70,14 +70,14 @@ export class Clusters extends React.Component {
         for (let [key, points] of Object.entries(clusterByNo)) {
             if (!this.hull[key]) {
                 this.hull[key] = this.circles.append("path")
-                                 .attr("class", "hull"+key)
+                    .attr("class", "hull" + key)
             }
 
             const scaledPoints = points.map(dot => [x(dot.x), y(dot.y)])
             const convexHull = (
                 scaledPoints.length < 3 ?
-                scaledPoints :
-                d3.polygonHull(scaledPoints)
+                    scaledPoints :
+                    d3.polygonHull(scaledPoints)
             )
             this.hull[key].datum(convexHull)
                 .attr("d", function (d) {
@@ -87,7 +87,7 @@ export class Clusters extends React.Component {
                 .attr("stroke", colorArray[key])
                 .attr("stroke-width", 15 + "px")
                 .attr("line-join", "rounded")
-                .attr("opacity", this.props.activeCluster[key]? 0.3 : 0)
+                .attr("opacity", this.props.activeCluster[key] ? 0.3 : 0)
                 .attr("stroke-linejoin", "round")
                 .on("mouseover", () => {
                     this.hull[key].attr("fill", "gray")
@@ -102,21 +102,35 @@ export class Clusters extends React.Component {
 
         }
 
-        select(node).call(zoom().scaleExtent([1, 4]).on("zoom", () => {
+        let zooms = zoom().scaleExtent([1, 4]).on("zoom", () => {
             let semanticT = currentEvent.transform
-            this.circles.attr("transform", 
-            currentEvent.transform)
+            this.circles.attr("transform",
+                currentEvent.transform)
 
             //for semantic zoom
             for (let [key, points] of Object.entries(clusterByNo)) {
                 this.currentTransform = currentEvent.transform.k
                 this.circle[key].attr('transform', (d) => "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / currentEvent.transform.k + ')')
             }
-        }));
+        })
+
+        select(node).call(zooms);
+
+        select('#zoom-in').on('click', function () {
+            // Smooth zooming
+            zooms.scaleBy(select(node).transition().duration(750), 1.3);
+        });
+
+        select('#zoom-out').on('click', function () {
+            // Smooth zooming
+            zooms.scaleBy(select(node).transition().duration(750), 1/1.3);
+        });
+
+
 
     }
 
-    createCluster(points, node, r, div, x, y,key) {
+    createCluster(points, node, r, div, x, y, key) {
         let add = this.props.add;
         if (!this.circle[key]) {
             this.circle[key] = node.append("g")
@@ -129,34 +143,34 @@ export class Clusters extends React.Component {
 
         this.circle[key]
             .attr('d', (d) => {
-            return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
+                return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
             })
-            .attr('transform',(d) => (this.currentTransform)?  "translate(" + x(d.x) + "," + y(d.y) + ")"+'scale('+1/this.currentTransform+')' :"translate(" + x(d.x) + "," + y(d.y) + ")" )
-            .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id))?  'black' : colorArray[key])
-            .attr("stroke", d =>{ 
+            .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
+            .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
+            .attr("stroke", d => {
                 let color = ';'
-                if(this.props.clusters.centers.includes(d.recipe_id)) {color = 'white';}
-                if(this.props.selectedRecipes.includes(d.recipe_id)) {color= 'black'}
+                if (this.props.clusters.centers.includes(d.recipe_id)) { color = 'white'; }
+                if (this.props.selectedRecipes.includes(d.recipe_id)) { color = 'black' }
                 return color
             })
-            .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id)? .5 + "px": .5+'px')
-            .attr("opacity", this.props.activeCluster[key]? 1 : 0.3)
+            .attr("stroke-width", d => this.props.selectedRecipes.includes(d.recipe_id) ? .5 + "px" : .5 + 'px')
+            .attr("opacity", this.props.activeCluster[key] ? 1 : 0.3)
             .on("mouseover",
-                (d) => {
+            (d) => {
                 select(currentEvent.target).attr('d', (d) => {
-                    return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
-                    })
-                if(this.props.activeCluster[key]){
-                div.style("display", "inline-block")
-                div.html(d.recipeName.title)
-                    .style("left", (currentEvent.layerX + 30) + "px")
-                    .style("top", (currentEvent.layerY - 3) + "px");
+                    return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
+                })
+                if (this.props.activeCluster[key]) {
+                    div.style("display", "inline-block")
+                    div.html(d.recipeName.title)
+                        .style("left", (currentEvent.layerX + 30) + "px")
+                        .style("top", (currentEvent.layerY - 3) + "px");
                 }
             })
             .on("mouseout", (d) => {
                 select(currentEvent.target).attr('d', (d) => {
-                    return !this.props.clusters.centers.includes(d.recipe_id)? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
-                    })
+                    return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
+                })
                 setTimeout(() => {
                     div.style("display", "None");
                 }, 300)
@@ -167,9 +181,17 @@ export class Clusters extends React.Component {
     }
 
 
+
+
+
     render(){
+        
         return(
             <div style={{overflow: "auto"}}>
+                <List style={{ position: "absolute" }}>
+                    <List.Item><Icon circle size='small' id={'zoom-in'} name={'plus'} /></List.Item>
+                    <List.Item><Icon circle size='small' id={'zoom-out'} name={'minus'} /></List.Item>
+                </List>
                 <div style={{position: "absolute", display:"none"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
                 <svg ref={node => this.node = node} />
             </div>
