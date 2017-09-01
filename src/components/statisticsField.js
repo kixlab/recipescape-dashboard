@@ -7,27 +7,10 @@ import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 
 
 
-class GraphCard extends React.Component {
-  render(){
-    let action = this.props.action? true: false;
-    let name = this.props.action? this.props.action : this.props.ingredient;
-    return(      
-      <Item>
-        <Item.Description>
-          <TopThreeClickable topThree={this.props.neighbors} name={name} action={action}/>
-        </Item.Description>
-        <Item.Content>
-          <Plot data={this.props.histogram} width={200} height={120} colors={this.props.colors}/>
-        </Item.Content>
-      </Item>
-    );
-  }
-}
-
 const TableHeader = () => (
   <Grid.Row>
-      <Grid.Column>Instruction is added : </Grid.Column>
-      <Grid.Column>Ingredient Adding Time : </Grid.Column>
+      <Grid.Column>Time when cooking action is used : </Grid.Column>
+      <Grid.Column>Time when ingredient is used: </Grid.Column>
   </Grid.Row>
 );
 

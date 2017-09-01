@@ -17,7 +17,7 @@ class GraphCard extends React.Component {
               {this.props.overlayData? 
                   <Plot {...this.props} data={this.props.histogram} overlayData={this.props.overlayData} width={200} height={120} />
                 :
-                <Plot {...this.props} data={this.props.histogram}  overlayData={[]} width={200} height={120} />  
+                <Plot {...this.props} data={this.props.histogram}  overlayData={[]} width={180} height={120} />  
               }
             </Item.Content>
           </Item>
