@@ -1,7 +1,8 @@
 import * as d3 from "d3";
 // import { layout } from 'd3';
-import { select} from 'd3-selection'
+import { select, event as currentEvent} from 'd3-selection'
 import React from 'react'
+
 
 export class Tree extends React.Component {
 
@@ -78,19 +79,24 @@ export class Tree extends React.Component {
         // adds the circle to the node
         node_tree.append("circle")
             .style("stroke", (d) => d.children ? "steelblue": "brown")
-            .attr("r", 5);
+            .attr("r", 3)
+            // .on('mouseover', () => select(currentEvent.path[0]).attr('opacity', 1))
+            // .on('mouseout', () => height < 300? select(currentEvent.path[0]).attr('opacity', 0) : 1)
+            // .on('click', () => console.log(currentEvent))
 
         // adds the text to the node
-        node_tree.append("g")
+        let treeT = node_tree.append("g")
             .attr("transform", function(d){
                 return "rotate(180)"
             // return "translate("+(d.x)+","+(d.y)+")rotate(180)translate("+(d.x)+","+(d.y)+")";
             })
-            .append("text")
+        let text = treeT.append("text")
+            .attr('opacity', height > 300? 1 : 0)
             .attr("dy", ".35em")
             .attr("y", function (d) { return d.children ? 15 : -15; })
             .style("text-anchor", "middle")
             .text(function (d) { return d.data.name; })
+
 
     }
 
