@@ -31,13 +31,13 @@ export class UnionGraph extends React.Component {
         width = width - margin.left - margin.right;
         height = (dummydata.recipe1.length > dummydata.recipe2.length? dummydata.recipe1.length: dummydata.recipe2.length)*30 + margin.top + margin.bottom;
 
-        select(node)
+        if(!this.svg) this.svg = select(node)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
 
-        this.createLinks(node, width, dummydata.recipe1, dummydata.recipe2);  
-        this.addOneRecipe(node, dummydata.recipe1 ,width, 'L', SVGColors['blue']);
-        this.addOneRecipe(node, dummydata.recipe2 ,width, 'R', SVGColors['red']);
+        this.createLinks(this.svg, width, dummydata.recipe1, dummydata.recipe2);  
+        this.addOneRecipe(this.svg, dummydata.recipe1 ,width, 'L', SVGColors['blue']);
+        this.addOneRecipe(this.svg, dummydata.recipe2 ,width, 'R', SVGColors['red']);
                      
 
 
@@ -59,12 +59,16 @@ export class UnionGraph extends React.Component {
         let innerLinks = [];
         let prev = 0;
         let xPos = this.getXPos(pos, width)
-        let g = select(node).append("g")
+
+        if(this.g) this.g.remove()
+        
+        this.g = this.svg.append("g")
             .attr("class", "nodes")
-            .selectAll("circle")
+            .selectAll("g")
             .data(data)
-            .enter()
-            g.append("circle")
+            
+
+        this.g.enter().append("circle")
             .attr("r", 6)
             .attr("cx", (d)=> xPos)
             .attr("cy", (d,i) => {
@@ -73,24 +77,29 @@ export class UnionGraph extends React.Component {
                return prev;
             })
             .attr("fill", color)
-            .attr("class", (d, i) => i);
-
-            g.append("text")
+            .attr("class", (d, i) => i)
+            
+        this.g.enter().append("text")
             .text((d) => d)
             .attr("color", "black")
             .attr("x", (d) => this.getXPos(pos, width) + (pos == 'L' ? -50 : 20))
             .attr("y", (d,i) => topOffset+(i+1)*distance)
+        
+        this.g.exit().remove()
 
-        select(node).append("g")
+        if(this.inner) this.inner.remove()
+
+        this.inner = this.svg.append("g")
                 .selectAll("line")
                 .data(innerLinks)
-                .enter().append("line")
+        this.inner.enter().append("line")
                 .attr("z", 1)
                 .attr("x1", (d) => xPos)
                 .attr("y1", (d, i) => d.ySource)
                 .attr("x2", (d) => xPos)
                 .attr("y2", (d) => d.yTarget)
                 .style("stroke", color)
+        this.inner.exit().remove()
     }
 
     getInbetweenLinks(recipe1, recipe2){
@@ -106,15 +115,17 @@ export class UnionGraph extends React.Component {
 
     createLinks(node, width, recipe1, recipe2){
         let unionLinks = this.getInbetweenLinks(recipe1, recipe2)
-        select(node).append("g")
+        if(this.link) this.link.remove()
+        this.link = this.svg.append("g")
                 .selectAll("line")
                 .data(unionLinks)
-                .enter().append("line")
+        this.link.enter().append("line")
                 .attr("x1", (d) => this.getXPos('L', width))
                 .attr("y1", (d, i) => 30+d.recipe1*30)
                 .attr("x2", (d) => this.getXPos('R', width))
                 .attr("y2", (d) => 30+d.recipe2*30)
                 .style("stroke", SVGColors['grey'])
+        this.link.exit().remove()
     }
 
     render(){

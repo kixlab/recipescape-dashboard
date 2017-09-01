@@ -45,7 +45,7 @@ export class App extends Component {
             <Loader size='large'>Loading recipes for you</Loader>
           </Dimmer>
       :
-          <Grid columns='equal' container verticalAlign={'bottom'} >
+          <Grid columns='equal' container verticalAlign={'top'} >
             <Grid.Row>
               <Grid.Column>
                 <BigRecipeMapContainer clusters={this.clusters} />

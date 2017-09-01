@@ -55,22 +55,29 @@ export class VennDiagram extends React.Component {
             cy2 = y+(ry2-ry1);
         }
 
+        if (!this.svg) {
+            this.svg = select(node)
+                .attr("width", width + padding + padding)
+                .attr("height", height + padding + padding)
+                .append("g")
+                .attr("transform", "translate(" + padding + "," + padding + ")")
+        }
+
 
         //HANDLE ELLIPSES
 
-        let g1 = select(node)
-            .append("g");
-            g1.append("ellipse")
-            .attr("cx", cx1)
+        if(!this.g1)this.g1 = this.svg
+            .append("g").append("ellipse")
+            
+        this.g1.attr("cx", cx1)
             .attr("cy", cy1)
             .attr("rx", rx1)
             .attr("ry", ry1)
             .style("fill", "brown")
             .style("fill-opacity", ".5");
             
-        let g2 = select(node).append("g");
-            g2.append("ellipse")
-            .attr("cx", cx2)
+        if(!this.g2)this.g2 = this.svg.append("g").append("ellipse")
+        this.g2.attr("cx", cx2)
             .attr("cy", cy2)
             .attr("rx", rx2)
             .attr("ry", ry2)
@@ -78,33 +85,48 @@ export class VennDiagram extends React.Component {
             .style("fill-opacity", ".5");
 
         //HANDLE TEXT DISPLAY
-
-        g1.selectAll("text").data(data.Recipe1.ingredients)
-            .enter()
+        if(this.x) this.x.remove()
+        this.x = this.svg.append("g")
+        let text1 = this.x.selectAll("text").data(data.Recipe1.ingredients)
+        
+        text1.enter()
             .append("text")
             .text(d => d)
             .attr("x", cx1-padding)
             .attr("y", (d,i) => (cy1-ry1)+(i+1)*lineHeight)
             .style("fill", "#4D1313")
             .attr("text-anchor","middle");
-
-        g2.selectAll("text").data(data.Recipe2.ingredients)
-            .enter()
+        text1.exit().remove()
+       
+        if(this.z) this.z.remove()
+            this.z = this.svg.append("g")
+        let text2= this.z.selectAll("text").data(data.Recipe2.ingredients)
+        text2.enter()
             .append("text")
             .text(d => d)
             .attr("x", cx2+padding)
             .attr("y", (d,i) => (cy1-ry1)+(i+1)*lineHeight)
             .style("fill", "#274863")
             .attr("text-anchor","middle");
+        text2.exit().remove()
+        
 
-        select(node).append("g").selectAll("text").data(data.Intersection.ingredients)
-            .enter()
+        if(this.t) this.t.remove()
+        
+        this.t = this.svg.append("g")
+
+        let text3= this.t.selectAll("text").data(data.Intersection.ingredients)
+
+        text3.enter()
             .append("text")
             .text(d => d)
             .attr("x", (cx1 + cx2)/2)
             .attr("y", (d,i) => (cy1-ry1)+(i+1.5)*(lineHeight)) // offset intersection by a bit
             .attr("text-anchor","middle")
             .style("fill", "#4D3848");
+        // text3.exit().remove();
+
+        
 
     }
         render(){
