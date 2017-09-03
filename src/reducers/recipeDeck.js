@@ -1,10 +1,9 @@
-import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, UNSELECT_RECIPE, STOP_COMPARING, UNSELECT_ALL_RECIPES} from '../constants/actionTypes'
+import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, STOP_COMPARING, UNSELECT_ALL_RECIPES} from '../constants/actionTypes'
 import {RecipeBaseState} from './BaseState'
 import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const recipeDeck = (state = RecipeBaseState, action) => {
-    console.log(state)
     switch(action.type){
         case ADD_RECIPE_DECK:
             if(state.DisplayedRecipes.find((recipe) => 
@@ -32,7 +31,7 @@ const recipeDeck = (state = RecipeBaseState, action) => {
         case LOAD_RECIPE_DECK:
             let loadedDeck = state.SavedDecks.find((deck) => deck.name == action.name)
             if (loadedDeck) return  Object.assign({}, state, {DisplayedRecipes: loadedDeck.recipes}, {HighlightedRecipes: []});
-
+                return state
         case SELECT_RECIPE :
             if(state.HighlightedRecipes.find((recipeID) => recipeID == action.recipeID)) 
                 return Object.assign({}, state, { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipeID != recipeID)});

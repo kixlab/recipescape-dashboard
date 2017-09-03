@@ -5,7 +5,6 @@ import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const clusters = (state = ClusterBaseState, action) => {
-    console.log(state)
     switch(action.type){
         case TOGGLE_CLUSTER:
             let activeClusters =  state.ActiveClusters.map((e, i) => i==action.clusterID? !e: e)
@@ -22,6 +21,7 @@ const clusters = (state = ClusterBaseState, action) => {
         case LOAD_CLUSTER_DECK:
             let loadedClusters = state.SavedClusters.find((deck) => deck.name == action.name)
             if (loadedClusters) return  Object.assign({}, state, {ActiveClusters: loadedClusters.clusters},{ClusterRule: loadedClusters.ClusterRule}, {Histogram: setHistogram(state, loadedClusters.clusters)});     
+            return state;
         case CHANGE_CLUSTER_RULE:
             return Object.assign({}, state, {ClusterRule: action.clusterRule});
         case INGREDIENT_INSTRUCTION_COMBO:

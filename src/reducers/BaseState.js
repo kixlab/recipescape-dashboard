@@ -4,12 +4,10 @@ export const ClusterBaseState = {
     RecipeName: 'chocochip',
     ActiveClusters: [],
     SavedClusters: [],
-    //recipe ids of recipes currently being displayed in recipe deck
-    DisplayedClusters: [],
+    DisplayedClusters: [],//recipe ids of recipes currently being displayed in recipe deck
     InstructionCombos: [],
     IngredientCombos: [],
-    highlights: []
-    //indicate if two recipes are currently being compared//popup should be shown
+    highlights: []//indicate if two recipes are currently being compared//popup should be shown
 }
 
 export const RecipeBaseState = {

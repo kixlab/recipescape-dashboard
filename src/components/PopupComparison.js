@@ -4,9 +4,6 @@ import {UnionGraph} from './charts/unionGraph'
 import {VennDiagram} from './charts/vennDiagram'
 import { stopCompareRecipes } from '../actions'
 import {connect} from 'react-redux'
-import axios from 'axios'
-
-const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const mapStateToProps = (state) => ({
     Ingredients : state.recipeDeck.HighlightedRecipes[0] & state.recipeDeck.HighlightedRecipes[1] 
@@ -26,10 +23,6 @@ class _PopupComparison extends React.Component {
 
     state = {loading: true}
     histograms = {}
-  
-    constructor(){
-      super();
-    }
   
     componentWillReceiveProps(nextProps) {
       if(nextProps.recipeData)nextProps.recipeData.then(d=>
@@ -78,7 +71,7 @@ class _PopupComparison extends React.Component {
                             </Grid.Column>
                             <Grid.Column>
                                 <Header>Ingredients</Header>
-                                <VennDiagram data={ingredientData} width={400} height={500} />
+                                <VennDiagram other={this.props} data={ingredientData} width={400} height={500} />
                             </Grid.Column>
                         </Grid.Row>
                             :

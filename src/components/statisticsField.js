@@ -1,8 +1,5 @@
 import React from 'react'
-// import { LabelField } from "./labeled"
-import Plot from "./charts/GraphPlot"
-import { Card, Icon, Table,  Label, List, Popup, Loader, Grid, Item, Message} from 'semantic-ui-react'
-import TopThreeClickable from '../containers/TopThreeClickable'
+import { Icon, Popup, Loader, Grid, Item, Message} from 'semantic-ui-react'
 import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 
 
@@ -19,10 +16,6 @@ export class StatRow extends React.Component {
   state = {loading: true}
   histograms = {}
 
-  constructor(){
-    super();
-  }
-
   componentDidMount() {
     this.props.histogram.then(d=>
       {
@@ -33,7 +26,6 @@ export class StatRow extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps)
     if (this.props.histogram != nextProps.histogram) {
       this.setState({ loading: true })
       nextProps.histogram.then(d => {
@@ -67,7 +59,7 @@ export class StatRow extends React.Component {
                 <Grid.Column>
                   <div className={"Stats"}>
                     <Item.Group divided>
-                      {this.state.histograms.actions.map((methodCard, index) => <InteractiveGraphCard {...methodCard} key={index} colors={this.props.colors} />)}
+                      {this.state.histograms.actions.map((methodCard, index) => <InteractiveGraphCard {...methodCard} key={this.props.colors+index} colors={this.props.colors} />)}
                     </Item.Group>
                   </div>
 
@@ -75,7 +67,7 @@ export class StatRow extends React.Component {
                 <Grid.Column>
                   <div className={"Stats"}>
                     <Item.Group divided>
-                      {this.state.histograms.ingredients.map((ingredientCard, index) => <InteractiveGraphCard {...ingredientCard} key={index} colors={this.props.colors} />)}
+                      {this.state.histograms.ingredients.map((ingredientCard, index) => <InteractiveGraphCard {...ingredientCard} key={this.props.colors+index} colors={this.props.colors} />)}
                     </Item.Group>
                   </div>
                 </Grid.Column>

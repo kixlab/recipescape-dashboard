@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {ClusterSelection} from '../components/clusterField'
-import { addSavedDeck, toggleCluster } from '../actions'
+import { toggleCluster } from '../actions'
 
 const mapStateToProps = (state) => ({
     clusters: state.clusters.ActiveClusters

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import { Dropdown, Button, Menu } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 import { loadClusters } from '../actions'
 import React from 'react'
 
@@ -17,6 +17,8 @@ let ClusterDropdown = ({dispatch, data}) => {
         </Dropdown>
     );
   }
+
+  
   ClusterDropdown = connect(
     mapStateToProps
   )(ClusterDropdown)

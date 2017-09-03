@@ -7,7 +7,7 @@ import { SVGColors } from './charts/svgColorTranslation'
 export const Instructions = ({instructions})=> {
     return(
         <List ordered>
-            {instructions.map((element, index) => <List.Item key={index}>{element}</List.Item>)}
+            {instructions.map((element, index) => <List.Item key={element+index}>{element}</List.Item>)}
         </List>
     );
 }
@@ -35,7 +35,7 @@ export class PopupRecipe extends React.Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                     <Header>Tree View</Header>
-                                    <Tree data={this.props.trees} height={600} width={300}/>
+                                    <Tree data={this.props.trees} height={600} width={420}/>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

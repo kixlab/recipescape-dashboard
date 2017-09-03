@@ -1,6 +1,5 @@
 import React from 'react'
-import {SaveInput} from './SaveInput'
-import { Label, Button, List, Divider, Dropdown, Segment, Icon } from 'semantic-ui-react'
+import { Button, List, Divider, Segment, Icon } from 'semantic-ui-react'
 import {numbertocolor} from './charts/svgColorTranslation'
 import AllOrNothingButtons from '../containers/AllOrNothingButtons'
 import InteractiveSaveClusters from '../containers/InteractiveSaveClusters'
@@ -15,24 +14,19 @@ const ClusterSquare = ({color, selected, onClick}) =>{
 
     )};
 
-export class ClusterSelection extends React.Component {
-
-    render(){
-        return (
-            <div className={"ClusterSelection"}>
-            <Segment vertical>
-                <AllOrNothingButtons />
-                <Divider hidden fitted/>
-                <List horizontal>
-                      {this.props.clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index]} selected={checked} key={index}  onClick={() => this.props.onClick(index)}/>)}  
-                </List>
-                <Divider hidden fitted/>
-                <SaveClusters />
-            </Segment>
-            </div>
-        );
-    }
-}
+export const ClusterSelection = ({clusters, onClick}) =>(
+    <div className={"ClusterSelection"}>
+        <Segment vertical>
+            <AllOrNothingButtons />
+            <Divider hidden fitted />
+            <List horizontal>
+                {clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index]} selected={checked} key={numbertocolor[index] + index} onClick={() => onClick(index)} />)}
+            </List>
+            <Divider hidden fitted />
+            <SaveClusters />
+        </Segment>
+    </div>
+);
 
 class SaveClusters extends React.Component {
     state = { open: false }
@@ -50,9 +44,7 @@ class SaveClusters extends React.Component {
     }
 }
 
-export class GroupByControls extends React.Component {
-    render(){
-        return (
+export const GroupByControls = () =>  (
             <Segment vertical>
                 <List horizontal>
                     <List.Item><List.Header>Group by: </List.Header></List.Item>
@@ -60,7 +52,5 @@ export class GroupByControls extends React.Component {
                     <List.Item><Button size='small' toggle basic>Instructions</Button></List.Item>
                 </List>
             </Segment>
-        );
-    }
-}
+);
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addRecipeDeck, toggleCluster, removeRecipeDeck } from '../actions'
+import { addRecipeDeck, toggleCluster} from '../actions'
 import {Clusters} from '../components/charts/Cluster'
 
 

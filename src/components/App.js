@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import './App.css';
 import  RecipeAnalysis  from "../containers/RecipeAnalysis"
 import { BigRecipeMapContainer } from "./BigRecipeMapContainer"
 import InteractiveRecipeDeck from "../containers/InteractiveRecipeDeck"
-import { Grid, Dimmer, Loader,Container } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader} from 'semantic-ui-react'
 import initialize from '../actions/init'
 
 
@@ -12,10 +11,6 @@ export class App extends Component {
   clusters = {}
   clusterName = 'dummy'
   state = {loading: true}
-
-  constructor() {
-    super()
-  }
 
   componentDidMount() {
     initialize(this.props.dishname).then( (d) => {
@@ -36,7 +31,6 @@ export class App extends Component {
   }
 
   render() {
-    const { number } = this.props;
 
     return (
       <div >
@@ -65,48 +59,5 @@ export class App extends Component {
     );
   }
 }
-
- var LABELS =[ "kids birthday", "fun", "spicy food", "tasty looking"]
-
-
-
-
-//RECIPE ANALYSIS
-var DATA = [
-  {plot: [[12, 13], [14, 40], [15,10],[16, 13], [17, 40], [18,10]], clusterColor: "red" },
-  {plot:[[1, 2], [10, 10], [14, 10], [15,3], [16, 2], [17, 10], [18, 10], [20,3]], clusterColor: "blue"}
-]
-
-//FOR COMPARISON
-var data = {
-    Recipe1 : {ingredients : ["tomato", "pepper", "sugar", "garlic", "olives","of","ingredients"] },
-    Intersection: {ingredients : ["salt", "pasta", "beef", "onions", "it", "will", "adapt", "it", "more"]},
-    Recipe2 :  {ingredients : ["a", "lot","of","ingredients"]
-    },
-};
-
-
-//RECIPE TREE
-var treeData =
-
-  {
-    children: ["potatoes", "mayonnaise", "mixture", "salt", "pepper", {
-    children: ["mayonnaise", "mustard", "onion",  {
-    children: ["potatoes", "vinegar",  {
-    children: ["potatoes", {
-    children: ["potatoes", {
-    children: ["potatoes", "water"],
-    name: "cover"
-  }],
-    name: "drain"
-  }],
-    name: "peel"
-  }],
-    name: "toss"
-  }],
-    name: "stir"
-  }],
-    name: "toss"
-  }
 
 export default App;

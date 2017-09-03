@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
-
+//converts recieved format to tree format
 function toD3Tree(nodes) {
     if (nodes.length === 0)
       return null
@@ -20,6 +20,7 @@ function toD3Tree(nodes) {
 
 async function initialize(dishname = 'chocochip') {
 
+  //load all recipes
   const recipes_resp = await axios.get(BASE_URL + `recipes/${dishname}`)
                              .then(resp => resp.data)
   const recipes = {}
@@ -27,7 +28,7 @@ async function initialize(dishname = 'chocochip') {
     recipes[origin_id] = {...recipeInfo, origin_id}
   }
 
-
+  //load all trees
   const trees_resp = await axios.get(BASE_URL + `trees/${dishname}`)
   .then(resp => resp.data)
 
@@ -37,7 +38,7 @@ async function initialize(dishname = 'chocochip') {
   }
   
     
-
+  //load the clusters
   const clusters_resp = await axios.get(BASE_URL + `clusters/${dishname}`)
                                     .then(resp => resp.data)
   const clusters = {}
@@ -47,24 +48,25 @@ async function initialize(dishname = 'chocochip') {
     clusters[cluster.title] = {}
     activeClusters[cluster.title] = {}
     for (let {recipe_id, ...coords} of cluster.points) {
+
+      //add recipe and tree to cluster pounts
       clusters[cluster.title][recipe_id] = {...coords, recipe_id, 
         recipeName: {...recipes[recipe_id], trees: trees[recipe_id]}, 
       }
-
+      //find out number of clusters
       activeClusters[cluster.title][coords.cluster_no] = coords;
     }
     let centers = Object.keys(cluster.centers).map(key => cluster.centers[key]);
+
+    //define final data structure
     clusters[cluster.title] = {
       points: Object.keys(clusters[cluster.title]).map(key => clusters[cluster.title][key]),
       buttons: Object.keys(activeClusters[cluster.title]).map(key => true),
       centers: centers
     }
-    // clusters[cluster.title].activeClusters = activeClusters;
-
   }
   
   return clusters;
-  // console.timeEnd('init') about 700ms
 }
 
 export default initialize;

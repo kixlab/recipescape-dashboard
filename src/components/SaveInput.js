@@ -2,7 +2,7 @@ import { Modal, Input, Button} from 'semantic-ui-react'
 import React from 'react'
 
 export class SaveInput extends React.Component {
-    state={value: "should not be empty"};
+    state={value: ''};
     render(){
         return (
         <Modal size={"mini"} dimmer={false} open={this.props.open} onClose={this.props.close}>
@@ -14,7 +14,8 @@ export class SaveInput extends React.Component {
             </Modal.Content>
             <Modal.Actions>
                 <Button onClick={this.props.close}>Cancel</Button>
-                <Button positive onClick={() => {this.props.saveDeck(this.state.value); this.props.close()}}>
+                <Button positive onClick={() => {
+                    if(this.state.value !== '') {this.props.saveDeck(this.state.value); this.props.close()}}}>
                     Save
                 </Button>
             </Modal.Actions>

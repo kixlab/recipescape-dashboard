@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-// import { layout } from 'd3';
 import { select, event as currentEvent} from 'd3-selection'
 import React from 'react'
 
@@ -25,6 +24,10 @@ export class Tree extends React.Component {
         let node = this.node;
         let width = this.props.width;
         let height = this.props.height;
+
+        let tooltip = this.tooltip;
+        let div = select(tooltip)
+        
         let treeData = this.props.data;
         let margin = { top: 30, right: 20, bottom: 30, left: 20 };
 
@@ -42,8 +45,7 @@ export class Tree extends React.Component {
         nodes = treemap(nodes);
 
         // append the svg obgect to the body of the page
-        // appends a 'group' element to 'svg'
-        // moves the 'group' element to the top left margin
+
         let svg = select(node)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
@@ -58,9 +60,11 @@ export class Tree extends React.Component {
             .enter().append("path")
             .attr("class", "link")
             .attr("d", function (d) {
-                return "M" + d.x + "," + d.y
-                    + "C" + d.x + "," + (d.y + d.parent.y) / 2
-                    + " " + d.parent.x + "," + (d.y + d.parent.y) / 2
+                let y = 0
+                !d.children ? y = d.y : y = d.y 
+                return "M" + d.x + "," + y
+                    + "C" + d.x + "," + (y + d.parent.y) / 2
+                    + " " + d.parent.x + "," + (y + d.parent.y) / 2
                     + " " + d.parent.x + "," + d.parent.y;
             });
 
@@ -69,30 +73,42 @@ export class Tree extends React.Component {
             .data(nodes.descendants())
             .enter().append("g")
             .attr("class", function (d) {
+                if(!d.children);
                 return "node" +
                     (d.children ? " node--internal" : " node--leaf");
             })
             .attr("transform", function (d) {
-                return "translate(" + d.x + "," + d.y + ")";
+                let y = 0
+                !d.children ? y = d.y : y = d.y 
+                return "translate(" + d.x + "," + y + ")";
             });
 
         // adds the circle to the node
         node_tree.append("circle")
             .style("stroke", (d) => d.children ? "steelblue": "brown")
             .attr("r", 3)
-            // .on('mouseover', () => select(currentEvent.path[0]).attr('opacity', 1))
-            // .on('mouseout', () => height < 300? select(currentEvent.path[0]).attr('opacity', 0) : 1)
-            // .on('click', () => console.log(currentEvent))
+            .on("mouseover", (d) => {
+                if(width > 300) div.style("display", "inline")
+                div.html(d.data.name)
+                    .style("left", (currentEvent.offsetX -5) + "px")
+                    .style("top", (currentEvent.offsetY-5) + "px");
+            })
+            .on("mouseout", (d) => {
+                setTimeout(() => {
+                    div.style("display", "None");
+                }, 300)
+            })
+
+
 
         // adds the text to the node
         let treeT = node_tree.append("g")
             .attr("transform", function(d){
                 return "rotate(180)"
-            // return "translate("+(d.x)+","+(d.y)+")rotate(180)translate("+(d.x)+","+(d.y)+")";
             })
-        let text = treeT.append("text")
+        treeT.append("text")
             .attr('opacity', height > 300? 1 : 0)
-            .attr("dy", ".35em")
+            .attr("dy", ".30em")
             .attr("y", function (d) { return d.children ? 15 : -15; })
             .style("text-anchor", "middle")
             .text(function (d) { return d.data.name; })
@@ -103,7 +119,10 @@ export class Tree extends React.Component {
 
         render(){
             return(
-            <svg ref={node => this.node = node} ></svg>
+                <div>
+                    <svg ref={node => this.node = node} ></svg>
+                    <div style={{ position: "absolute", display:'none'}} className="ui pointing below basic label" ref={tooltip => this.tooltip = tooltip} />
+                </div>
             );
         }
 

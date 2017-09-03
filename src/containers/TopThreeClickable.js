@@ -8,13 +8,13 @@ const GraphTop = ({name, topThree, action, clicked, addCombo}) => {
     return (
     <List>
       <List.Item>{name}</List.Item>
-    {topThree.map((item, i) => {
-      let pair = {ingredient: action? item : name, action: action? name: item},
-      highlight= false;
-      if(clicked) highlight = clicked.ingredient == pair.ingredient && clicked.action == pair.action
-      return(<List.Item style={{cursor: 'pointer'}} onClick={() => addCombo(action, pair)} key={i}><Label size='mini' basic={highlight}>{item}</Label></List.Item>);
+      {topThree.map((item, i) => {
+        let pair = { ingredient: action ? item : name, action: action ? name : item },
+          highlight = false;
+        if (clicked) highlight = clicked.ingredient == pair.ingredient && clicked.action == pair.action
+        return (<List.Item style={{ cursor: 'pointer' }} onClick={() => addCombo(action, pair)} key={item + i}><Label size='mini' basic={highlight}>{item}</Label></List.Item>);
       })
-    }
+      }
     </List>
   )};
 

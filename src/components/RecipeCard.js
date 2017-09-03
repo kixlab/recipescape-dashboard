@@ -1,12 +1,12 @@
 import React from 'react'
-import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup} from 'semantic-ui-react'
+import { Card,  Grid, Icon, Button, List,  Header, } from 'semantic-ui-react'
 import {PopupRecipe} from './popUpRecipe'
 import { Tree } from "./charts/Tree"
 import { SVGColors } from './charts/svgColorTranslation'
 
 
 const TextCard = ({image_url, ingredients, color, sentences}) => {
-let showImage;
+
 let showNumber = 3;
 
 return (
@@ -14,14 +14,14 @@ return (
         <Card.Meta>Ingredients</Card.Meta>
         <Card.Description>
             <List ordered size='tiny'>
-                {ingredients.slice(0, showNumber).map((ingredient, index) => <List.Item key={index}>{ingredient}</List.Item>)}
+                {ingredients.slice(0, showNumber).map((ingredient, index) => <List.Item key={ingredient+index}>{ingredient}</List.Item>)}
             </List>
             ...
         </Card.Description>
         <Card.Meta>Instructions</Card.Meta>
         <Card.Description>
             <List ordered size='tiny'>
-                {sentences.slice(0, showNumber).map((element, index) => <List.Item key={index}>{element}</List.Item>)}
+                {sentences.slice(0, showNumber).map((element, index) => <List.Item key={element+index}>{element}</List.Item>)}
             </List>
             ...
         </Card.Description>

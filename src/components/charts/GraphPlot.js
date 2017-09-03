@@ -1,10 +1,7 @@
 import React from 'react'
-import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { select, event as currentEvent } from 'd3-selection'
-import { line as d3Line } from 'd3-shape';
 import * as d3 from "d3";
-// import {event as currentEvent} from 'd3-selection';
-import { colorArray } from './svgColorTranslation'
+
 
 
 class Plot extends React.Component {
@@ -76,13 +73,9 @@ class Plot extends React.Component {
 
 
         if(!this.work)this.work = this.svg.append('g')
-        //add the stacked bar graph
 
-        this.groups = this.work.selectAll("g")
-
-        
+        this.groups = this.work.selectAll("g")        
         let groups = this.groups.data(stack(addedData), (d,i) => d)
-
         groups.exit().remove()
         
         let selected_clusters= this.props.selected_clusters
@@ -101,12 +94,13 @@ class Plot extends React.Component {
         let set = this.props.setHighlight;
         let deletes = this.props.deleteHighlight;
 
+        //handle individual rectangles
         this.rect.enter().append("rect")
-            .attr("x", function (d, i) { return x(i + 1); })
-            .attr("y", function (d) { return y(d[1]); })
-            .attr("height", function (d) { console.log(d[1]-d[0]); return y(d[0])-y(d[1]); })
+            .attr("x", (d, i) => x(i + 1))
+            .attr("y",  (d) => y(d[1]) )
+            .attr("height", (d)=>y(d[0])-y(d[1]))
             .attr("width", x.bandwidth())
-            .on("mouseover", function (d,i) {
+            .on("mouseover", (d,i) =>  {
                 let clusterNo = currentEvent.path[0].parentNode.className.baseVal
                 set(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
             })
@@ -117,14 +111,10 @@ class Plot extends React.Component {
             });
         
           
-        // add the y Axis
-        // svg.append("g")
-        //     .call(d3.axisLeft(y));
-          
         //line overlay
         let line = d3.line()
-        .x(function (d,i) { return x(i+1)+x.bandwidth()/2; }) 
-        .y(function (d,i) { return y(d); })
+        .x((d,i) => x(i+1)+x.bandwidth()/2) 
+        .y((d,i) =>  y(d))
         .curve(d3.curveMonotoneX)
 
 
@@ -145,12 +135,6 @@ class Plot extends React.Component {
             select(node).selectAll('.line').remove();
             this.path = undefined;
         }
-
-
-
-
-
-
     }
 
 

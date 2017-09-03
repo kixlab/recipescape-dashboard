@@ -73,7 +73,7 @@ export class VennDiagram extends React.Component {
             .attr("cy", cy1)
             .attr("rx", rx1)
             .attr("ry", ry1)
-            .style("fill", "brown")
+            .style("fill", '#DB2828')
             .style("fill-opacity", ".5");
             
         if(!this.g2)this.g2 = this.svg.append("g").append("ellipse")
@@ -81,7 +81,7 @@ export class VennDiagram extends React.Component {
             .attr("cy", cy2)
             .attr("rx", rx2)
             .attr("ry", ry2)
-            .style("fill", "steelblue")
+            .style("fill", '#2185D0')
             .style("fill-opacity", ".5");
 
         //HANDLE TEXT DISPLAY
@@ -94,7 +94,7 @@ export class VennDiagram extends React.Component {
             .text(d => d)
             .attr("x", cx1-padding)
             .attr("y", (d,i) => (cy1-ry1)+(i+1)*lineHeight)
-            .style("fill", "#4D1313")
+            .style("fill", "black")
             .attr("text-anchor","middle");
         text1.exit().remove()
        
@@ -106,7 +106,7 @@ export class VennDiagram extends React.Component {
             .text(d => d)
             .attr("x", cx2+padding)
             .attr("y", (d,i) => (cy1-ry1)+(i+1)*lineHeight)
-            .style("fill", "#274863")
+            .style("fill", "black")
             .attr("text-anchor","middle");
         text2.exit().remove()
         
@@ -123,7 +123,7 @@ export class VennDiagram extends React.Component {
             .attr("x", (cx1 + cx2)/2)
             .attr("y", (d,i) => (cy1-ry1)+(i+1.5)*(lineHeight)) // offset intersection by a bit
             .attr("text-anchor","middle")
-            .style("fill", "#4D3848");
+            .style("fill", 'black');
         // text3.exit().remove();
 
         
@@ -138,7 +138,6 @@ export class VennDiagram extends React.Component {
         );
     }
 }
-//Constants
 
 
 

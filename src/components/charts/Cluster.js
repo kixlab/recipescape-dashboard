@@ -1,17 +1,14 @@
 import React from 'react'
-import { extent as d3ArrayExtent } from 'd3-array';
 import { select, event as currentEvent } from 'd3-selection'
-import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { zoom } from 'd3-zoom';
-import { hull } from 'd3-polygon'
 import * as d3 from "d3";
 import { colorArray, numbertocolor } from './svgColorTranslation' // used for colors
 import {Icon , List} from 'semantic-ui-react'
 
 export class Clusters extends React.Component {
+
     constructor() {
         super()
-
         this.createMap = this.createMap.bind(this)
         this.createCluster = this.createCluster.bind(this)
         this.hull = [];
@@ -25,13 +22,6 @@ export class Clusters extends React.Component {
     componentDidUpdate() {
         this.createMap()
     }
-
-    transform(t) {
-        return function (d) {
-            return "translate(" + t.apply(d) + ")";
-        };
-    }
-
 
     createMap() {
         let node = this.node;
@@ -56,9 +46,12 @@ export class Clusters extends React.Component {
                 .attr("class", "circles");
         }
 
+        //get cluster into correct format
         let cluster = this.props.clusters.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
+        
+        //define scaling
         var x = d3.scaleLinear()
             .domain([d3.min(cluster.map(dot => dot.x)), d3.max(cluster.map(dot => dot.x))])
             .range([0, width]);
@@ -67,6 +60,8 @@ export class Clusters extends React.Component {
             .domain([d3.min(cluster.map(dot => dot.y)), d3.max(cluster.map(dot => dot.y))])
             .range([0, height]);
 
+
+        //for each cluster
         for (let [key, points] of Object.entries(clusterByNo)) {
             if (!this.hull[key]) {
                 this.hull[key] = this.circles.append("path")
@@ -79,6 +74,7 @@ export class Clusters extends React.Component {
                     scaledPoints :
                     d3.polygonHull(scaledPoints)
             )
+            //Draw Hull
             this.hull[key].datum(convexHull)
                 .attr("d", function (d) {
                     return "M" + d.join("L") + "Z";
@@ -88,6 +84,7 @@ export class Clusters extends React.Component {
                 .attr("stroke-width", 15 + "px")
                 .attr("line-join", "rounded")
                 .attr("opacity", this.props.activeCluster[key] ? 0.3 : 0)
+                .attr('visibility', this.props.activeCluster[key] ? 'visible' : 'hidden')
                 .attr("stroke-linejoin", "round")
                 .on("mouseover", () => {
                     this.hull[key].attr("fill", "gray")
@@ -98,10 +95,16 @@ export class Clusters extends React.Component {
                         .attr("stroke", colorArray[key]);
                 })
                 .on("click", () => this.props.select(key));
-            this.createCluster(points, this.circles, r, div, x, y, key)
+            
 
         }
 
+        //Draw points (must not be overlayed by cluster)
+        for (let [key, points] of Object.entries(clusterByNo)){
+            this.createCluster(points, this.circles, r, div, x, y, key)
+        }
+
+        //DEFINE ZOOM
         let zooms = zoom().scaleExtent([1, 4]).on("zoom", () => {
             let semanticT = currentEvent.transform
             this.circles.attr("transform",
@@ -114,15 +117,14 @@ export class Clusters extends React.Component {
             }
         })
 
+        //HANDLE ZOOM
         select(node).call(zooms);
 
         select('#zoom-in').on('click', function () {
-            // Smooth zooming
             zooms.scaleBy(select(node).transition().duration(750), 1.3);
         });
 
         select('#zoom-out').on('click', function () {
-            // Smooth zooming
             zooms.scaleBy(select(node).transition().duration(750), 1/1.3);
         });
 
@@ -130,6 +132,7 @@ export class Clusters extends React.Component {
 
     }
 
+    //handle drawings of circles for one cluster
     createCluster(points, node, r, div, x, y, key) {
         let add = this.props.add;
         if (!this.circle[key]) {
@@ -140,11 +143,8 @@ export class Clusters extends React.Component {
                 .append("path")
         }
 
-
         this.circle[key]
-            .attr('d', (d) => {
-                return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
-            })
+            .attr('d', (d) => !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
             .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
             .attr("stroke", d => {
@@ -181,16 +181,13 @@ export class Clusters extends React.Component {
     }
 
 
-
-
-
     render(){
         
         return(
             <div style={{overflow: "auto"}}>
                 <List style={{ position: "absolute" }}>
-                    <List.Item><Icon circle size='small' id={'zoom-in'} name={'plus'} /></List.Item>
-                    <List.Item><Icon circle size='small' id={'zoom-out'} name={'minus'} /></List.Item>
+                    <List.Item><Icon style={{cursor: 'pointer'}} circular size='small' id={'zoom-in'} name={'plus'} /></List.Item>
+                    <List.Item><Icon style={{cursor: 'pointer'}} circular size='small' id={'zoom-out'} name={'minus'} /></List.Item>
                 </List>
                 <div style={{position: "absolute", display:"none"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
                 <svg ref={node => this.node = node} />

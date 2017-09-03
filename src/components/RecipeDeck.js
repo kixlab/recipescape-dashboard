@@ -1,15 +1,11 @@
 import React from 'react'
-import {PopupRecipe} from './popUpRecipe'
-import { SaveInput } from './SaveInput'
-import { SavedDecks } from './SavedDecks'
-import {RecipeCard} from './RecipeCard'
 import InteractiveRecipeCard from "../containers/InteractiveRecipeCard"
 import InteractiveSavedDecks from "../containers/InteractiveSavedDecks"
 import InteractiveSaveDeck from "../containers/InteractiveSaveDeck"
 import InteractiveCompareRecipesButton from "../containers/InteractiveCompareRecipesButton"
 import RemoveAllRecipes from '../containers/RemoveAllRecipes'
 import PopupComparison from './PopupComparison'
-import { Card, Image, Grid, Icon, Button, List, Divider, Label, Header,  Popup, Rail, Segment} from 'semantic-ui-react'
+import {  Grid, Icon, Button, List, Divider,  Popup} from 'semantic-ui-react'
 
 // import NavigationClose from 'material-ui/svg-icons/navigation/close';
 /**Order: From Small to Big */
@@ -22,8 +18,6 @@ class RecipeTopMenu extends React.Component {
     close = () => this.setState({ open: false })
 
     render() {
-    // let savedDecks = this.props.savedDecks;
-
         return (
         <List horizontal relaxed>
             <List.Item><RemoveAllRecipes/></List.Item>
@@ -53,16 +47,16 @@ export const RecipeCards = ({recipes, trees}) => {
 export const RecipeDeck = ({recipes, data}) => {
         return (
             <div>
-                <h2>Recipe Deck 
+                <h2>Recipe Deck
                       <Popup
                         trigger={<Icon color="grey" size="tiny" name="question circle" />}
                         content='Recipes that you clicked in the map on are displayed her'
                     />
-                    </h2>
+                </h2>
                 <div>
-                    <InteractiveCompareRecipesButton/>
+                    <InteractiveCompareRecipesButton />
                     <PopupComparison />
-                    <RecipeCards recipes={recipes}/>
+                    <RecipeCards recipes={recipes} />
                 </div>
             </div>
         );

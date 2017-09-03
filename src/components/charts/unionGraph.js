@@ -44,6 +44,7 @@ export class UnionGraph extends React.Component {
 
     }
 
+    //give position of alignment
     getXPos(pos, width){
         switch(pos){
             case "L":

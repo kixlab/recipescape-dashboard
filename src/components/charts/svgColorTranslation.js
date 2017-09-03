@@ -1,3 +1,4 @@
+//use to convert from semantic ui colors to hex
 export const SVGColors = {
     red: "#DB2828",
     orange: "#F2711C",
@@ -13,7 +14,8 @@ export const SVGColors = {
     grey: "#767676",
 }
 
+//use to convert from cluster number to hex color
+export const colorArray = Object.keys(SVGColors).map(key => SVGColors[key]); 
 
-
-export const colorArray = Object.keys(SVGColors).map(key => SVGColors[key]);
+//use to convert from clusternumber to color name
 export const numbertocolor = Object.keys(SVGColors).map(key => key);
