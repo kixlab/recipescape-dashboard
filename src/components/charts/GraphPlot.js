@@ -32,12 +32,28 @@ class Plot extends React.Component {
         let width = this.props.width - margin.left - margin.right;
         let height = this.props.height - margin.top - margin.bottom;
 
+        let det = this.props.histogram_detail;
+        let set = this.props.setHighlight;
+        let deletes = this.props.deleteHighlight;
+
+        //get all recipes
+        let allRecipes = [];
+        this.props.histogram_detail.map((d, i) => d.map(da => allRecipes.push(da[1])))
+
+        // hightligth all
+        //     set(allRecipes)
+        // })
+        //remove all
+        //     deletes()
+        // })
+
         if (!this.svg) {
             this.svg = select(node)
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                .on('mouseenter', () => deletes())
         }
 
         
@@ -51,7 +67,9 @@ class Plot extends React.Component {
             addedData.push(temp)
             return 0;
         })
-        
+
+
+
 
         //get scaling for graph
         let x = d3.scaleBand()
@@ -90,9 +108,7 @@ class Plot extends React.Component {
         this.rect = stacks.selectAll("rect")
             .data(d => d)
             
-        let det = this.props.histogram_detail;
-        let set = this.props.setHighlight;
-        let deletes = this.props.deleteHighlight;
+
 
         //handle individual rectangles
         this.rect.enter().append("rect")

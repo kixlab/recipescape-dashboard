@@ -42,7 +42,7 @@ export class App extends Component {
           <Grid columns='equal' container verticalAlign={'top'} >
             <Grid.Row>
               <Grid.Column>
-                <BigRecipeMapContainer clusters={this.clusters} />
+                <BigRecipeMapContainer clusters={this.clusters} name={this.props.dishname}/>
               </Grid.Column>
               <Grid.Column>
                 <RecipeAnalysis/>

@@ -130,6 +130,7 @@ export class Clusters extends React.Component {
 
 
 
+
     }
 
     //handle drawings of circles for one cluster
@@ -143,7 +144,7 @@ export class Clusters extends React.Component {
                 .append("path")
         }
 
-        this.circle[key]
+        return this.circle[key]
             .attr('d', (d) => !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
             .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
@@ -178,6 +179,8 @@ export class Clusters extends React.Component {
             .on("click", function (d) {
                 add({ ...d.recipeName, color: numbertocolor[d.cluster_no] })
             })
+
+            
     }
 
 
