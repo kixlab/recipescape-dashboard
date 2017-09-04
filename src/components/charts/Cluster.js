@@ -104,6 +104,8 @@ export class Clusters extends React.Component {
             this.createCluster(points, this.circles, r, div, x, y, key)
         }
 
+        select(node).selectAll('.first').raise()
+
         //DEFINE ZOOM
         let zooms = zoom().scaleExtent([1, 4]).on("zoom", () => {
             let semanticT = currentEvent.transform
@@ -148,6 +150,7 @@ export class Clusters extends React.Component {
             .attr('d', (d) => !this.props.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
             .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
+            .classed('first', (d) => this.props.highlights.includes(d.recipe_id) )
             .attr("stroke", d => {
                 let color = ';'
                 if (this.props.centers.includes(d.recipe_id)) { color = 'white'; }

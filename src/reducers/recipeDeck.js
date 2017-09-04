@@ -5,7 +5,6 @@ import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const recipeDeck = (state = RecipeBaseState, action) => {
-    console.log(state)
     switch(action.type){
         
         case 'SAVE_ALL':
