@@ -28,7 +28,7 @@ class Plot extends React.Component {
         let colors = this.props.colors;
         let trans = d3.transition().duration(1000).ease(d3.easeLinear);
 
-        let margin = { top: 10, right: 10, bottom: 20, left: 10 };
+        let margin = { top: 10, right: 10, bottom: 20, left: 25 };
         let width = this.props.width - margin.left - margin.right;
         let height = this.props.height - margin.top - margin.bottom;
 
@@ -86,7 +86,9 @@ class Plot extends React.Component {
         if(!this.axis){
         this.axis = this.svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
+            // .call(d3.axisBottom(x))
+            .call(d3.axisBottom(x).tickValues([1, 5, 9]).tickFormat((d, i) => ['beginning', 'middle', 'end'][i]))
+            .attr("class", "axis")
         }
 
 
