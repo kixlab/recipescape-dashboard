@@ -34,7 +34,7 @@ async function initialize(dishname = 'chocochip') {
 
   const trees = {}
   for (let {id, ...treeInfo} of trees_resp) {
-    trees[id] = toD3Tree(treeInfo.tree.reverse())
+    trees[id] = {...toD3Tree(treeInfo.tree.reverse()), length: treeInfo.tree.length}
   }
   
     

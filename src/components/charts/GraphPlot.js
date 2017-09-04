@@ -124,7 +124,11 @@ class Plot extends React.Component {
                 deletes()
             })
             .on("mousemove", function (d) {
-            });
+            })
+            .on('click', (d, i) => {
+                let clusterNo = currentEvent.path[0].parentNode.className.baseVal
+                this.props.addRecipes(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
+            })
         
           
         //line overlay

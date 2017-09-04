@@ -3,8 +3,8 @@ import {StatRow} from '../components/statisticsField'
 import {colorArray} from '../components/charts/svgColorTranslation'
 
 const mapStateToProps = (state) => ({
-    IngredientCombos: state.clusters.IngredientCombos,
-    InstructionCombos: state.clusters.InstructionCombos,
+    IngredientCombos: state.histograms.IngredientCombos,
+    InstructionCombos: state.histograms.InstructionCombos,
     histogram: state.clusters.Histogram,
     colors: state.clusters.ActiveClusters.map((d,i) => d? colorArray[i]: 0).filter((d) => d!==0)
  });

@@ -1,16 +1,23 @@
 import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, STOP_COMPARING, UNSELECT_ALL_RECIPES} from '../constants/actionTypes'
 import {RecipeBaseState} from './BaseState'
+import { numbertocolor } from '../components/charts/svgColorTranslation' 
 import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const recipeDeck = (state = RecipeBaseState, action) => {
+    console.log(state)
     switch(action.type){
+        
+        case 'SAVE_ALL':
+            return Object.assign({}, state, {points: action.all.points}, {centers: action.all.centers})
+            
         case ADD_RECIPE_DECK:
+            let recipe = state.points.find(d => d.recipe_id == action.recipe)
             if(state.DisplayedRecipes.find((recipe) => 
-                recipe.origin_id == action.recipe.origin_id)) return Object.assign({}, state, 
-                    { DisplayedRecipes: state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipe.origin_id)}, 
-                    { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipe.origin_id != recipeID)});;
-            return Object.assign({}, state, {DisplayedRecipes: [action.recipe, ...state.DisplayedRecipes]})
+                recipe.origin_id == action.recipe)) return Object.assign({}, state, 
+                    { DisplayedRecipes: state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipe)}, 
+                    { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipe != recipeID)});;
+            return Object.assign({}, state, {DisplayedRecipes: [{...recipe.recipeName,  color: numbertocolor[recipe.cluster_no] }, ...state.DisplayedRecipes]})
 
         case REMOVE_RECIPE_DECK:
             let remaining = state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipeID)

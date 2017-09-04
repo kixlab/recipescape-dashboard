@@ -18,10 +18,12 @@ const GraphTop = ({name, topThree, action, clicked, addCombo}) => {
     </List>
   )};
 
-const mapStateToProps = (state) => ({
-    IngredientCombos: state.clusters.IngredientCombos,
-    InstructionCombos: state.clusters.InstructionCombos
+const mapStateToProps = (state) => {
+  return ({
+    IngredientCombos: state.histograms.IngredientCombos,
+    InstructionCombos: state.histograms.InstructionCombos
  });
+}
  
  const mapDispatchToProps = (dispatch) => ({
      addCombo: (action, ingredient_instruction) =>  dispatch(setIngredientInstructionCombo(action, ingredient_instruction)),

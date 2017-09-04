@@ -135,3 +135,10 @@ export const deleteHighlight = () => {
 
     }
 }
+
+export const saveAll = (all) => {
+    return {
+        type: 'SAVE_ALL',
+        all
+    }
+}

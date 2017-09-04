@@ -27,13 +27,19 @@ export class Tree extends React.Component {
 
         let tooltip = this.tooltip;
         let div = select(tooltip)
+
+        let popUp = this.props.popUp
+
+
         
         let treeData = this.props.data;
         let margin = { top: 30, right: 20, bottom: 30, left: 20 };
+        
 
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
 
+        if(popUp) height = treeData.length*25
 
         let treemap = d3.tree()
             .size([width, height]);
@@ -88,7 +94,7 @@ export class Tree extends React.Component {
             .style("stroke", (d) => d.children ? "steelblue": "brown")
             .attr("r", 3)
             .on("mouseover", (d) => {
-                if(width > 300) div.style("display", "inline")
+                if(popUp) div.style("display", "inline")
                 div.html(d.data.name)
                     .style("left", (currentEvent.offsetX -5) + "px")
                     .style("top", (currentEvent.offsetY-5) + "px");
@@ -107,9 +113,9 @@ export class Tree extends React.Component {
                 return "rotate(180)"
             })
         treeT.append("text")
-            .attr('opacity', height > 300? 1 : 0)
+            .attr('opacity', popUp? 1 : 0)
             .attr("dy", ".30em")
-            .attr("y", function (d) { return d.children ? 15 : -15; })
+            .attr("y", function (d) { return d.children ? 10 : -10; })
             .style("text-anchor", "middle")
             .text(function (d) { return d.data.name; })
 

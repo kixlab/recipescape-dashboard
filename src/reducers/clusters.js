@@ -24,16 +24,7 @@ const clusters = (state = ClusterBaseState, action) => {
             return state;
         case CHANGE_CLUSTER_RULE:
             return Object.assign({}, state, {ClusterRule: action.clusterRule});
-        case INGREDIENT_INSTRUCTION_COMBO:
-            if(!action.source) {
-                if(state.IngredientCombos.find( d=> d.action == action.ingredient_action.action && d.ingredient == action.ingredient_action.ingredient)){
-                    return Object.assign({}, state, {IngredientCombos: state.IngredientCombos.filter(e => e.ingredient != action.ingredient_action.ingredient)});
-
-                } else return Object.assign({}, state, {IngredientCombos: [ action.ingredient_action, ...state.IngredientCombos.filter(e => e.ingredient != action.ingredient_action.ingredient)]});
-            } else if(state.InstructionCombos.find( d=> d.action == action.ingredient_action.action && d.ingredient == action.ingredient_action.ingredient)){
-                return Object.assign({}, state, {InstructionCombos: state.InstructionCombos.filter(e => e.action != action.ingredient_action.action)});
-            } else return Object.assign({}, state, {InstructionCombos: [ action.ingredient_action ,...state.InstructionCombos.filter(e => e.action != action.ingredient_action.action)]});
-        case DELETE_HIGHLIGHT:
+       case DELETE_HIGHLIGHT:
             return Object.assign({}, state, {highlights: []})
         case SET_HIGHLIGHT:
             return Object.assign({}, state, {highlights: action.recipes})

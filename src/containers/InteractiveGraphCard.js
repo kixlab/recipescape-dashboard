@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
 import GraphCard from '../components/GraphCard'
 import axios from 'axios'
-import { setHighlight, deleteHighlight } from '../actions'
+import { setHighlight, deleteHighlight, addRecipeDeck } from '../actions'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const mapStateToProps = (state, ownProps) => {
-    let overlay = ownProps.ingredient? state.clusters.IngredientCombos.find(d => d.ingredient == ownProps.ingredient)
-    : state.clusters.InstructionCombos.find(d => d.action == ownProps.action);
+    let overlay = ownProps.ingredient? state.histograms.IngredientCombos.find(d => d.ingredient == ownProps.ingredient)
+    : state.histograms.InstructionCombos.find(d => d.action == ownProps.action);
     let val = undefined;
     if(overlay) {
         val = getVal(state, ownProps,overlay)
@@ -33,7 +33,8 @@ async function getVal(state, ownProps, overlay){
  
  const mapDispatchToProps = (dispatch) => ({
      setHighlight : (recipes) => dispatch(setHighlight(recipes)),
-     deleteHighlight: () => dispatch(deleteHighlight())
+     deleteHighlight: () => dispatch(deleteHighlight()),
+     addRecipes: (recipes) =>  recipes.map(d => dispatch(addRecipeDeck(d))),
      
    });
    

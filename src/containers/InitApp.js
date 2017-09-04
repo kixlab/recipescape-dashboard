@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
-import { initActiveClusters} from '../actions'
+import { initActiveClusters, saveAll} from '../actions'
 import { App } from '../components/App'
 
 
 const mapStateToProps = (state) => ({
   dishname : state.clusters.RecipeName,
-  clusterRule: state.clusters.ClusterRule
+  clusterRule: state.clusters.ClusterRule,
+  clusters: {points: state.recipeDeck.points, centers: state.recipeDeck.centers}
 }) 
 
 const mapDispatchToProps = (dispatch) => ({
-  initActiveClusters: (activeClusters) => dispatch(initActiveClusters(activeClusters))
+  initActiveClusters: (activeClusters) => dispatch(initActiveClusters(activeClusters)),
+  setClusters: (clusters) => dispatch(saveAll(clusters)),
 })
 
 const InitApp = connect(

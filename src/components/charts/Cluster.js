@@ -47,7 +47,7 @@ export class Clusters extends React.Component {
         }
 
         //get cluster into correct format
-        let cluster = this.props.clusters.points
+        let cluster = this.props.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
         
@@ -145,12 +145,12 @@ export class Clusters extends React.Component {
         }
 
         return this.circle[key]
-            .attr('d', (d) => !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
+            .attr('d', (d) => !this.props.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
             .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
             .attr("stroke", d => {
                 let color = ';'
-                if (this.props.clusters.centers.includes(d.recipe_id)) { color = 'white'; }
+                if (this.props.centers.includes(d.recipe_id)) { color = 'white'; }
                 if (this.props.selectedRecipes.includes(d.recipe_id)) { color = 'black' }
                 return color
             })
@@ -159,7 +159,7 @@ export class Clusters extends React.Component {
             .on("mouseover",
             (d) => {
                 select(currentEvent.target).attr('d', (d) => {
-                    return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
+                    return !this.props.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(64)() : d3.symbol().type(d3.symbolStar).size(86)()
                 })
                 if (this.props.activeCluster[key]) {
                     div.style("display", "inline-block")
@@ -170,14 +170,14 @@ export class Clusters extends React.Component {
             })
             .on("mouseout", (d) => {
                 select(currentEvent.target).attr('d', (d) => {
-                    return !this.props.clusters.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
+                    return !this.props.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)()
                 })
                 setTimeout(() => {
                     div.style("display", "None");
                 }, 300)
             })
             .on("click", function (d) {
-                add({ ...d.recipeName, color: numbertocolor[d.cluster_no] })
+                add(d.recipe_id)
             })
 
             

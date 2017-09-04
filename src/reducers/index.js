@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import recipeDeck from './recipeDeck'
 import clusters from './clusters'
+import histograms from './histograms'
 
 const recipeApp = combineReducers({
     recipeDeck,
-    clusters
+    clusters,
+    histograms
 })
 
 export default recipeApp

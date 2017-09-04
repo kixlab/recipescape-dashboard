@@ -35,7 +35,7 @@ export class PopupRecipe extends React.Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                     <Header>Tree View</Header>
-                                    <Tree data={this.props.trees} height={600} width={420}/>
+                                    <Tree data={this.props.trees} height={600} width={420} popUp={true}/>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
