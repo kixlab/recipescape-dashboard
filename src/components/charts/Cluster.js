@@ -41,7 +41,8 @@ export class Clusters extends React.Component {
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
         this.circles = this.svg.append("g")
-            .attr("class", "circles");
+            .attr("class", "circles")
+            .attr('transform', this.transform)
 
 
         //get cluster into correct format
@@ -104,7 +105,7 @@ export class Clusters extends React.Component {
 
         //DEFINE ZOOM
         let zooms = zoom().scaleExtent([1, 4]).on("zoom", () => {
-            let semanticT = currentEvent.transform
+            this.transform = currentEvent.transform;
             this.circles.attr("transform",
                 currentEvent.transform)
 
