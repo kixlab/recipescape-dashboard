@@ -1,5 +1,5 @@
 import React from 'react'
-import { GroupByControls } from "./clusterField"
+import InteractiveGroupByControls from "../containers/InteractiveGroupByControls"
 import InteractiveClusters from "../containers/InteractiveClusters"
 import InteractiveClusterSelection from "../containers/InteractiveClusterSelection"
 import { Grid, Divider,Icon } from 'semantic-ui-react'
@@ -13,7 +13,7 @@ export const BigRecipeMapContainer = ({clusters, name}) => (
             <Grid.Column>
                 <InteractiveClusters clusters={clusters} height={350} width={500} />
                 <Divider fitted />
-                <GroupByControls />
+                <InteractiveGroupByControls />
                 <InteractiveClusterSelection />
             </Grid.Column>
         </Grid>

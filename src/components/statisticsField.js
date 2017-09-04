@@ -7,7 +7,7 @@ import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 const TableHeader = () => (
   <Grid.Row>
       <Grid.Column>Time when cooking action is used : </Grid.Column>
-      <Grid.Column>Time when ingredient is used: </Grid.Column>
+      <Grid.Column>Time when ingredient is used : </Grid.Column>
   </Grid.Row>
 );
 

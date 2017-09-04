@@ -3,7 +3,7 @@ import { select, event as currentEvent } from 'd3-selection'
 import { zoom } from 'd3-zoom';
 import * as d3 from "d3";
 import { colorArray, numbertocolor } from './svgColorTranslation' // used for colors
-import {Icon , List} from 'semantic-ui-react'
+import { Icon, List } from 'semantic-ui-react'
 
 export class Clusters extends React.Component {
 
@@ -20,6 +20,7 @@ export class Clusters extends React.Component {
     }
 
     componentDidUpdate() {
+        d3.select(".clusters").selectAll("*").remove()
         this.createMap()
     }
 
@@ -33,24 +34,21 @@ export class Clusters extends React.Component {
         let width = this.props.width - margin.left - margin.right;
         let height = this.props.height - margin.top - margin.bottom;
 
-        if (!this.svg) {
-            this.svg = select(node)
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        }
+        this.svg = select(node)
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-        if (!this.circles) {
-            this.circles = this.svg.append("g")
-                .attr("class", "circles");
-        }
+        this.circles = this.svg.append("g")
+            .attr("class", "circles");
+
 
         //get cluster into correct format
         let cluster = this.props.points
         let clusterByNo = {};
         cluster.map(d => clusterByNo[d.cluster_no] = clusterByNo[d.cluster_no] ? [...clusterByNo[d.cluster_no], d] : [d])
-        
+
         //define scaling
         var x = d3.scaleLinear()
             .domain([d3.min(cluster.map(dot => dot.x)), d3.max(cluster.map(dot => dot.x))])
@@ -63,10 +61,8 @@ export class Clusters extends React.Component {
 
         //for each cluster
         for (let [key, points] of Object.entries(clusterByNo)) {
-            if (!this.hull[key]) {
-                this.hull[key] = this.circles.append("path")
-                    .attr("class", "hull" + key)
-            }
+            this.hull[key] = this.circles.append("path")
+                .attr("class", "hull" + key)
 
             const scaledPoints = points.map(dot => [x(dot.x), y(dot.y)])
             const convexHull = (
@@ -95,12 +91,12 @@ export class Clusters extends React.Component {
                         .attr("stroke", colorArray[key]);
                 })
                 .on("click", () => this.props.select(key));
-            
+
 
         }
 
         //Draw points (must not be overlayed by cluster)
-        for (let [key, points] of Object.entries(clusterByNo)){
+        for (let [key, points] of Object.entries(clusterByNo)) {
             this.createCluster(points, this.circles, r, div, x, y, key)
         }
 
@@ -127,30 +123,26 @@ export class Clusters extends React.Component {
         });
 
         select('#zoom-out').on('click', function () {
-            zooms.scaleBy(select(node).transition().duration(750), 1/1.3);
+            zooms.scaleBy(select(node).transition().duration(750), 1 / 1.3);
         });
-
-
-
 
     }
 
     //handle drawings of circles for one cluster
     createCluster(points, node, r, div, x, y, key) {
         let add = this.props.add;
-        if (!this.circle[key]) {
-            this.circle[key] = node.append("g")
-                .selectAll("path")
-                .data(points)
-                .enter()
-                .append("path")
-        }
+        this.circle[key] = node.append("g")
+            .selectAll("path")
+            .data(points)
+            .enter()
+            .append("path")
+
 
         return this.circle[key]
             .attr('d', (d) => !this.props.centers.includes(d.recipe_id) ? d3.symbol().type(d3.symbolCircle).size(30)() : d3.symbol().type(d3.symbolStar)())
             .attr('transform', (d) => (this.currentTransform) ? "translate(" + x(d.x) + "," + y(d.y) + ")" + 'scale(' + 1 / this.currentTransform + ')' : "translate(" + x(d.x) + "," + y(d.y) + ")")
             .attr("fill", (d) => (this.props.highlights.includes(d.recipe_id)) ? 'black' : colorArray[key])
-            .classed('first', (d) => this.props.highlights.includes(d.recipe_id) )
+            .classed('first', (d) => this.props.highlights.includes(d.recipe_id))
             .attr("stroke", d => {
                 let color = ';'
                 if (this.props.centers.includes(d.recipe_id)) { color = 'white'; }
@@ -183,7 +175,6 @@ export class Clusters extends React.Component {
                 add(d.recipe_id)
             })
 
-            
     }
 
 
@@ -196,7 +187,7 @@ export class Clusters extends React.Component {
                     <List.Item><Icon style={{cursor: 'pointer'}} circular size='small' id={'zoom-out'} name={'minus'} /></List.Item>
                 </List>
                 <div style={{position: "absolute", display:"none"}} className="ui left pointing basic label" ref={tooltip => this.tooltip = tooltip}/>
-                <svg ref={node => this.node = node} />
+                <svg ref={node => this.node = node} className={'clusters'}/>
             </div>
         );
     }

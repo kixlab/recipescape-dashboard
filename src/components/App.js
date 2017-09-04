@@ -18,18 +18,27 @@ export class App extends Component {
       let clusters = {points: d[name].points , centers: d[name].centers};
       this.props.initActiveClusters(d[name].buttons)
       this.props.setClusters(clusters)
-      this.setState({loading: false, clusters: d, clusterName: name})
+      this.setState({loading: false, clusters: d,})
     })
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   if(this.state.clusterName != this.props.dishname+"_"+this.props.clusterRule){
+  componentWillReceiveProps(nextProps){
+    if(this.props.clusterRule !== nextProps.clusterRule){
+      let name = this.props.dishname+"_"+nextProps.clusterRule;
+      let d = this.state.clusters
+      let clusters = {points: d[name].points , centers: d[name].centers};
+
+      this.props.setClusters(clusters)
+      this.props.initActiveClusters(this.state.clusters[name].buttons)
+    }
+    if(this.props.clusterName !== nextProps.clusterName){
+      console.log('change recipe')
   //     let name = nextProps.dishname+"_"+nextProps.clusterRule
   //     this.setState({clusterName: nextProps.dishname+"_"+nextProps.clusterRule})
   //     // this.clusters = this.state.clusters[name].points;
   //     // this.props.initActiveClusters(this.state.clusters[name].buttons)
-  //   }
-  // }
+    }
+  }
 
   render() {
 

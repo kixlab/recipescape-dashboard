@@ -5,6 +5,7 @@ import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const clusters = (state = ClusterBaseState, action) => {
+
     switch(action.type){
         case TOGGLE_CLUSTER:
             let activeClusters =  state.ActiveClusters.map((e, i) => i==action.clusterID? !e: e)
@@ -23,7 +24,7 @@ const clusters = (state = ClusterBaseState, action) => {
             if (loadedClusters) return  Object.assign({}, state, {ActiveClusters: loadedClusters.clusters},{ClusterRule: loadedClusters.ClusterRule}, {Histogram: setHistogram(state, loadedClusters.clusters)});     
             return state;
         case CHANGE_CLUSTER_RULE:
-            return Object.assign({}, state, {ClusterRule: action.clusterRule});
+            return Object.assign({}, state, {ClusterRule: action.rule});
        case DELETE_HIGHLIGHT:
             return Object.assign({}, state, {highlights: []})
         case SET_HIGHLIGHT:

@@ -5,9 +5,8 @@ import { GroupByControls } from '../components/clusterField'
 
 
 const mapDispatchToProps = (dispatch) => ({
-  groupByIngredients: () => dispatch(changeClusterRule('ingredients')),
-  groupByInstructions: () => dispatch(changeClusterRule('actions')),
-  groupByDefault: () => dispatch(changeClusterRule('default'))
+  groupByIngredients: () => dispatch(changeClusterRule('ingredient')),
+  groupByStructure: () => dispatch(changeClusterRule('tree')),
 
 })
 
