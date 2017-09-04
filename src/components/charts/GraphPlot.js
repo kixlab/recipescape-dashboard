@@ -53,7 +53,7 @@ class Plot extends React.Component {
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                .on('mouseenter', () => deletes())
+                // .on('mouseenter', () => deletes())
         }
 
         
@@ -119,7 +119,6 @@ class Plot extends React.Component {
             .attr("height", (d)=>y(d[0])-y(d[1]))
             .attr("width", x.bandwidth())
             .on("mouseover", (d,i) =>  {
-                deletes()
                 let clusterNo = currentEvent.path[0].parentNode.className.baseVal
                 set(det[i].filter( d => d[0] == clusterNo).map(d => d[1]))
             })

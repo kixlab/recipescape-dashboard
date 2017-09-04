@@ -65,7 +65,7 @@ async function initialize(dishname = 'chocochip') {
       centers: centers
     }
   }
-
+  
   return clusters;
 }
 

@@ -5,7 +5,6 @@ import axios from 'axios'
 const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
 
 const clusters = (state = ClusterBaseState, action) => {
-
     switch(action.type){
         case TOGGLE_CLUSTER:
             let activeClusters =  state.ActiveClusters.map((e, i) => i==action.clusterID? !e: e)
@@ -29,6 +28,8 @@ const clusters = (state = ClusterBaseState, action) => {
             return Object.assign({}, state, {highlights: []})
         case SET_HIGHLIGHT:
             return Object.assign({}, state, {highlights: action.recipes})
+        case 'CHANGE_RECIPE':
+            return Object.assign({}, state, {RecipeName: action.name})
         default:
       return state
   }

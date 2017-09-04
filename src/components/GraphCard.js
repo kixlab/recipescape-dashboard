@@ -13,7 +13,9 @@ const GraphCard = ({action, ingredient, neighbors, currentOverlay, histogram, ov
       <Item.Description> 
         <TopThreeClickable topThree={neighbors} clicked={currentOverlay} name={name} action={action ? true : false} />
       </Item.Description>
-      <Item.Content onMouseEnter={() => other.setHighlight(allRecipes)} onMouseLeave={() => other.deleteHighlight()}>
+      <Item.Content 
+      //onMouseEnter={() => other.setHighlight(allRecipes)} onMouseLeave={() => other.deleteHighlight()}
+      >
         {overlayData ?
           <Plot {...other} histogram_detail={histogram_detail} data={histogram} overlayData={overlayData} width={200} height={120} />
           :

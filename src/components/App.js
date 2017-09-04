@@ -31,9 +31,24 @@ export class App extends Component {
       this.props.setClusters(clusters)
       this.props.initActiveClusters(this.state.clusters[name].buttons)
     }
-    if(this.props.clusterName !== nextProps.clusterName){
+
+    if(this.props.dishname !== nextProps.dishname){
+
       console.log('change recipe')
-  //     let name = nextProps.dishname+"_"+nextProps.clusterRule
+      this.setState({loading: true})
+
+      initialize(nextProps.dishname).then( (d) => {
+        let name = nextProps.dishname+"_"+this.props.clusterRule
+        let clusters = {points: d[name].points , centers: d[name].centers};
+        this.props.initActiveClusters(d[name].buttons)
+        this.props.setClusters(clusters)
+        this.setState({loading: false, clusters: d,})
+      })
+  //     let d = this.state.clusters
+  //     let clusters = {points: d[name].points , centers: d[name].centers};
+  //     this.props.setClusters(clusters)
+  //     this.props.initActiveClusters(this.state.clusters[name].buttons)
+  // //     let name = nextProps.dishname+"_"+nextProps.clusterRule
   //     this.setState({clusterName: nextProps.dishname+"_"+nextProps.clusterRule})
   //     // this.clusters = this.state.clusters[name].points;
   //     // this.props.initActiveClusters(this.state.clusters[name].buttons)
@@ -52,7 +67,7 @@ export class App extends Component {
           <Grid columns='equal' container verticalAlign={'top'} >
             <Grid.Row>
               <Grid.Column>
-                <BigRecipeMapContainer name={this.props.dishname}/>
+                <BigRecipeMapContainer name={this.props.dishname} changeDishname={this.props.changeDishname}/>
               </Grid.Column>
               <Grid.Column>
                 <RecipeAnalysis/>

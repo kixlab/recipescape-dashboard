@@ -142,3 +142,10 @@ export const saveAll = (all) => {
         all
     }
 }
+
+export const changeRecipe = (name) => {
+    return {
+        type: 'CHANGE_RECIPE',
+        name
+    }
+}
