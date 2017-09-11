@@ -104,7 +104,7 @@ export class Clusters extends React.Component {
         select(node).selectAll('.first').raise()
 
         //DEFINE ZOOM
-        let zooms = zoom().scaleExtent([1, 4]).on("zoom", () => {
+        let zooms = zoom().scaleExtent([1, 5]).on("zoom", () => {
             this.transform = currentEvent.transform;
             this.circles.attr("transform",
                 currentEvent.transform)

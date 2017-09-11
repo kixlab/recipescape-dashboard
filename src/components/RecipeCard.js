@@ -90,7 +90,7 @@ render(){
     if(this.state.text) element = <TextCard {...this.props.element}/>;
     else element = <Tree data={this.props.element.trees} height={260} width={200}/>;
     return(
-        <Grid.Column width={4} >
+        <Grid.Column width={8} >
         <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
             <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)} style={{cursor: 'pointer'}}>
