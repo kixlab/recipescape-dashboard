@@ -23,7 +23,7 @@ export const ClusterSelection = ({clusters, onClick}) =>(
                 {clusters.map((checked, index) => <ClusterSquare color={numbertocolor[index]} selected={checked} key={numbertocolor[index] + index} onClick={() => onClick(index)} />)}
             </List>
             <Divider hidden fitted />
-            <SaveClusters />
+            {/* <SaveClusters /> */}
         </Segment>
     </div>
 );
