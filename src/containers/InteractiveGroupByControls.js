@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { changeClusterRule} from '../actions'
-import { GroupByControls } from '../components/clusterField'
-
+import { ClusterModeDropdown } from '../components/ClusterModeSelector'
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,6 +12,6 @@ const mapDispatchToProps = (dispatch) => ({
 const InteractiveGroupByControls = connect(
   null,
   mapDispatchToProps
-)(GroupByControls)
+)(ClusterModeDropdown)
 
 export default InteractiveGroupByControls

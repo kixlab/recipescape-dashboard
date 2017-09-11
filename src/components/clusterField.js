@@ -43,13 +43,3 @@ class SaveClusters extends React.Component {
         );
     }
 }
-
-export const GroupByControls = ({groupByIngredients, groupByStructure}) =>  (
-            <Segment vertical>
-                <List horizontal>
-                    <List.Item><List.Header>Group by: </List.Header></List.Item>
-                    <List.Item><Button size='small' toggle basic onClick={ () => groupByStructure()}>Structure</Button></List.Item>
-                    <List.Item><Button size='small' toggle basic onClick={ ()=> groupByIngredients()}>Ingredients</Button></List.Item>
-                </List>
-            </Segment>
-);
