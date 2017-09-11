@@ -3,13 +3,6 @@ import { Icon, Popup, Loader, Grid, Item, Message, Table} from 'semantic-ui-reac
 import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 
 
-
-const TableHeader = () => (
-  <Grid.Row>
-      <Grid.Column>Time :  </Grid.Column>
-  </Grid.Row>
-);
-
 export class StatRow extends React.Component {
 
   state = {loading: true}
@@ -20,7 +13,7 @@ export class StatRow extends React.Component {
       {
         this.setState({histograms: d})
         this.setState({loading: false})
-      
+
     })
   }
 
@@ -53,13 +46,12 @@ export class StatRow extends React.Component {
             </Message>
               :
             <Grid container columns={'equal'} celled>
-              <TableHeader />
               <Grid.Row verticalAlign='top'>
                   <div className={"Stats"}>
                     <Table celled>
                       <Table.HeaderCell>Actions</Table.HeaderCell>
                     <Table.Row>
-                      {this.state.histograms.actions.map((methodCard, index) => 
+                      {this.state.histograms.actions.map((methodCard, index) =>
                       <Table.Cell>
                       <InteractiveGraphCard style={{display: 'float-left'}} {...methodCard} key={this.props.colors+index} colors={this.props.colors} />
                       </Table.Cell>
@@ -73,7 +65,7 @@ export class StatRow extends React.Component {
                   <Table celled>
                   <Table.HeaderCell>Ingredients</Table.HeaderCell>
                     <Table.Row>
-                      {this.state.histograms.ingredients.map((ingredientCard, index) => 
+                      {this.state.histograms.ingredients.map((ingredientCard, index) =>
                         <Table.Cell>
                       <InteractiveGraphCard {...ingredientCard} key={this.props.colors+index} colors={this.props.colors} />
                       </Table.Cell>
