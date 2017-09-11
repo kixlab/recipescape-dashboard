@@ -24,10 +24,10 @@
 
  
 .Stats {
-  height: 521px;
+  /* height: 521px; */
   /* width: 100%; */
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-y: auto; */
+  overflow-x: auto;
 } 
 
 .Recipes {

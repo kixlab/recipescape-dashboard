@@ -1,13 +1,12 @@
 import React from 'react'
-import { Icon, Popup, Loader, Grid, Item, Message} from 'semantic-ui-react'
+import { Icon, Popup, Loader, Grid, Item, Message, Table} from 'semantic-ui-react'
 import InteractiveGraphCard from '../containers/InteractiveGraphCard'
 
 
 
 const TableHeader = () => (
   <Grid.Row>
-      <Grid.Column>Time when cooking action is used : </Grid.Column>
-      <Grid.Column>Time when ingredient is used : </Grid.Column>
+      <Grid.Column>Time :  </Grid.Column>
   </Grid.Row>
 );
 
@@ -56,21 +55,32 @@ export class StatRow extends React.Component {
             <Grid container columns={'equal'} celled>
               <TableHeader />
               <Grid.Row verticalAlign='top'>
-                <Grid.Column>
                   <div className={"Stats"}>
-                    <Item.Group divided>
-                      {this.state.histograms.actions.map((methodCard, index) => <InteractiveGraphCard {...methodCard} key={this.props.colors+index} colors={this.props.colors} />)}
-                    </Item.Group>
+                    <Table celled>
+                      <Table.HeaderCell>Actions</Table.HeaderCell>
+                    <Table.Row>
+                      {this.state.histograms.actions.map((methodCard, index) => 
+                      <Table.Cell>
+                      <InteractiveGraphCard style={{display: 'float-left'}} {...methodCard} key={this.props.colors+index} colors={this.props.colors} />
+                      </Table.Cell>
+                      )}
+                    </Table.Row>
+                    </Table>
                   </div>
-
-                </Grid.Column>
-                <Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
                   <div className={"Stats"}>
-                    <Item.Group divided>
-                      {this.state.histograms.ingredients.map((ingredientCard, index) => <InteractiveGraphCard {...ingredientCard} key={this.props.colors+index} colors={this.props.colors} />)}
-                    </Item.Group>
+                  <Table celled>
+                  <Table.HeaderCell>Ingredients</Table.HeaderCell>
+                    <Table.Row>
+                      {this.state.histograms.ingredients.map((ingredientCard, index) => 
+                        <Table.Cell>
+                      <InteractiveGraphCard {...ingredientCard} key={this.props.colors+index} colors={this.props.colors} />
+                      </Table.Cell>
+                      )}
+                      </Table.Row>
+                    </Table>
                   </div>
-                </Grid.Column>
               </Grid.Row>
             </Grid>
         }
