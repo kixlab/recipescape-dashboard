@@ -70,12 +70,12 @@ export class App extends Component {
                 <BigRecipeMapContainer name={this.props.dishname} changeDishname={this.props.changeDishname}/>
               </Grid.Column>
               <Grid.Column>
-                <RecipeAnalysis/>
+              <InteractiveRecipeDeck />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-              <InteractiveRecipeDeck />
+                <RecipeAnalysis/>
               </Grid.Column>
             </Grid.Row>
           </Grid>

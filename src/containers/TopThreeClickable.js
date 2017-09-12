@@ -6,7 +6,7 @@ import React from 'react'
 
 const GraphTop = ({name, topThree, action, clicked, addCombo}) => {
     return (
-    <List>
+    <List horizontal>
       <List.Item>{name}</List.Item>
       {topThree.map((item, i) => {
         let pair = { ingredient: action ? item : name, action: action ? name : item },

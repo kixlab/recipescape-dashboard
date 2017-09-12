@@ -1,37 +1,12 @@
-.App {
-  text-align: center;
-}
-
-#root{
-  padding-top: 10px;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  /* padding: 20px; */
-  color: white;
-}
-
-.App-intro {
-  /* font-size: large; */
-}
-
- 
 .Stats {
-  height: 521px;
+  /* height: 521px; */
   /* width: 100%; */
-  overflow-y: auto;
-  overflow-x: hidden;
-} 
+  /* overflow-y: auto; */
+  overflow-x: auto;
+}
 
 .Recipes {
-  max-height:550px;
+  height:452px;
   overflow: auto;
 }
 

@@ -9,6 +9,7 @@ const GraphCard = ({action, ingredient, neighbors, currentOverlay, histogram, ov
   histogram_detail.map((d, i) => d.map(da => allRecipes.push(da[1])))
 
   return (
+
     <Item>
       <Item.Description> 
         <TopThreeClickable topThree={neighbors} clicked={currentOverlay} name={name} action={action ? true : false} />
@@ -17,9 +18,9 @@ const GraphCard = ({action, ingredient, neighbors, currentOverlay, histogram, ov
       //onMouseEnter={() => other.setHighlight(allRecipes)} onMouseLeave={() => other.deleteHighlight()}
       >
         {overlayData ?
-          <Plot {...other} histogram_detail={histogram_detail} data={histogram} overlayData={overlayData} width={200} height={120} />
+          <Plot {...other} histogram_detail={histogram_detail} data={histogram} overlayData={overlayData} width={200} height={100} />
           :
-          <Plot {...other} histogram_detail={histogram_detail} data={histogram} overlayData={[]} width={180} height={120} />
+          <Plot {...other} histogram_detail={histogram_detail} data={histogram} overlayData={[]} width={230} height={100} />
         }
       </Item.Content>
     </Item>
