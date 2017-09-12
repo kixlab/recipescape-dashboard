@@ -32,13 +32,13 @@ export class StatRow extends React.Component {
 
     return (
       <div>
-        <h2>
+        <h3>
           Recipe Trends
           <Popup
             trigger={<Icon color="grey" size="tiny" name="question circle" />}
             content="Shows you when ingredients or actions are added in the cooking process"
           />
-        </h2>
+        </h3>
         <div className={"RecipeMap"}>
               {this.state.loading?
             <Message>

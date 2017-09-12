@@ -47,12 +47,12 @@ export const RecipeCards = ({recipes, trees}) => {
 export const RecipeDeck = ({recipes, data}) => {
         return (
             <div>
-                <h2>Recipe Deck
+                <h3>Recipe Deck
                       <Popup
                         trigger={<Icon color="grey" size="tiny" name="question circle" />}
                         content='Recipes that you clicked in the map on are displayed her'
                     />
-                </h2>
+                </h3>
                 <div>
                     <InteractiveCompareRecipesButton />
                     <PopupComparison />

@@ -20,11 +20,11 @@ const getRealName = name => {
 export const BigRecipeMapContainer = ({clusters, name, changeDishname}) => (
     <div className={"RecipeMap"}>
         {/* <span style={{fontSize: '1.71428571rem', fontFamily: 'Lato', fontWeight: '700', marginBottom: '14px'}}> */}
-        <h2 type={"display3"} style={{display: 'inline'}}>
+        <h3 type={"display3"} style={{display: 'inline'}}>
             RecipeMap for {getRealName(name)}
             <Icon color='grey' size='mini' inverted name='settings'
                 onClick={() => {name === 'tomatopasta'? changeDishname('chocochip'): changeDishname('tomatopasta')}}/>
-        </h2>
+        </h3>
         <div style={{float: 'right', marginTop: '10px'}}>
             <InteractiveGroupByControls />
         </div>
