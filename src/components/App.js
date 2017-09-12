@@ -64,17 +64,17 @@ export class App extends Component {
             <Loader size='large'>Loading recipes for you</Loader>
           </Dimmer>
       :
-          <Grid columns='equal' container verticalAlign={'top'} >
+          <Grid container columns={2} verticalAlign={'top'} >
             <Grid.Row>
-              <Grid.Column>
+              <Grid.Column computer={6}>
                 <BigRecipeMapContainer name={this.props.dishname} changeDishname={this.props.changeDishname}/>
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column computer={10}>
               <InteractiveRecipeDeck />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column>
+              <Grid.Column computer={16}>
                 <RecipeAnalysis/>
               </Grid.Column>
             </Grid.Row>
