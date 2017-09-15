@@ -54,14 +54,14 @@ render(){
         <Button.Group widths={2}>
             <Button basic color={color} onClick={showRecipe} icon="zoom" />
             <Button basic color={color} icon={this.props.icon} onClick={toggleTree}/>
-            <PopupRecipe 
-            sentences={this.props.sentences} 
-            ingredients={this.props.ingredients} 
-            title={this.props.title} 
-            trees={this.props.trees} 
-            open={open} 
-            close={hideRecipe} 
-            color={color} 
+            <PopupRecipe
+            sentences={this.props.sentences}
+            ingredients={this.props.ingredients}
+            title={this.props.title}
+            trees={this.props.trees}
+            open={open}
+            close={hideRecipe}
+            color={color}
             image={this.props.image_url}
             />
         </Button.Group>
@@ -76,7 +76,7 @@ export class RecipeCard extends React.Component {
     componentWillMount(){
         this.setState({ zoom: false, text: false, icon: "arrow right" });
     }
-    
+
     showRecipe = () => this.setState({zoom: true});
     hideRecipe = () => this.setState({zoom: false});
     toggleTree = () => this.setState({text: !this.state.text, icon: this.state.text? "arrow right": "arrow left"})
@@ -90,7 +90,7 @@ render(){
     if(this.state.text) element = <TextCard {...this.props.element}/>;
     else element = <Tree data={this.props.element.trees} height={260} width={200}/>;
     return(
-        <Grid.Column width={8} >
+        <Grid.Column width={4} >
         <Card centered style={style}>
             <RecipeCardHeader color={this.props.element.color} title={this.props.element.title} removeRecipe={this.props.removeRecipe} id={this.props.element.origin_id}/>
             <Card.Content onClick={() => this.props.selectRecipe(this.props.element.origin_id)} style={{cursor: 'pointer'}}>

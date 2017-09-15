@@ -59,17 +59,17 @@ export class App extends Component {
 
     return (
       <div >
-        {this.state.loading ? 
+        {this.state.loading ?
           <Dimmer active inverted>
             <Loader size='large'>Loading recipes for you</Loader>
           </Dimmer>
       :
           <Grid container columns={2} verticalAlign={'top'} >
             <Grid.Row>
-              <Grid.Column computer={6}>
+              <Grid.Column computer={5}>
                 <BigRecipeMapContainer name={this.props.dishname} changeDishname={this.props.changeDishname}/>
               </Grid.Column>
-              <Grid.Column computer={10}>
+              <Grid.Column computer={11}>
               <InteractiveRecipeDeck />
               </Grid.Column>
             </Grid.Row>
