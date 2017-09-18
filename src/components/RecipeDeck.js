@@ -47,7 +47,7 @@ export const RecipeCards = ({recipes, trees}) => {
 export const RecipeDeck = ({recipes, data}) => {
         return (
             <div>
-                <h3>Recipe Deck
+                <h3>RecipeDeck
                       <Popup
                         trigger={<Icon color="grey" size="tiny" name="question circle" />}
                         content='Recipes that you clicked in the map on are displayed her'

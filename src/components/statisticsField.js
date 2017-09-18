@@ -33,7 +33,7 @@ export class StatRow extends React.Component {
     return (
       <div>
         <h3>
-          Recipe Stats
+          RecipeStat
           <Popup
             trigger={<Icon color="grey" size="tiny" name="question circle" />}
             content="Shows you when ingredients or actions are added in the cooking process"
