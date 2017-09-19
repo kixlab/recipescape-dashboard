@@ -31,10 +31,10 @@ export class Tree extends React.Component {
         let popUp = this.props.popUp
 
 
-        
+
         let treeData = this.props.data;
         let margin = { top: 30, right: 20, bottom: 30, left: 20 };
-        
+
 
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
@@ -55,7 +55,7 @@ export class Tree extends React.Component {
         let svg = select(node)
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom);
-            
+
         let g = svg.append("g")
                 .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")rotate(180 "+width/2 +" "+ height/2+")");
@@ -67,7 +67,7 @@ export class Tree extends React.Component {
             .attr("class", "link")
             .attr("d", function (d) {
                 let y = 0
-                !d.children ? y = d.y : y = d.y 
+                !d.children ? y = d.y : y = d.y
                 return "M" + d.x + "," + y
                     + "C" + d.x + "," + (y + d.parent.y) / 2
                     + " " + d.parent.x + "," + (y + d.parent.y) / 2
@@ -85,13 +85,14 @@ export class Tree extends React.Component {
             })
             .attr("transform", function (d) {
                 let y = 0
-                !d.children ? y = d.y : y = d.y 
+                !d.children ? y = d.y : y = d.y
                 return "translate(" + d.x + "," + y + ")";
             });
 
         // adds the circle to the node
         node_tree.append("circle")
-            .style("stroke", (d) => d.children ? "steelblue": "brown")
+            .style("stroke", (d) => (d.children || d.data.children) ? "steelblue": "brown")
+            // Last action does not have node children, but they should be displayed as other action
             .attr("r", 3)
             .on("mouseover", (d) => {
                 if(popUp) div.style("display", "inline")

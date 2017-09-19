@@ -9,7 +9,7 @@ function toD3Tree(nodes) {
     var node = nodes[0]
     var treeData = {}
     treeData.name = node.word
-    treeData.children = node.ingredient.map(function(v) { 
+    treeData.children = node.ingredient.map(function(v) {
       return {name: v}
     })
     var next = toD3Tree(nodes.slice(1))
@@ -36,8 +36,8 @@ async function initialize(dishname = 'chocochip') {
   for (let {id, ...treeInfo} of trees_resp) {
     trees[id] = {...toD3Tree(treeInfo.tree.reverse()), length: treeInfo.tree.length}
   }
-  
-    
+
+
   //load the clusters
   const clusters_resp = await axios.get(BASE_URL + `clusters/${dishname}`)
                                     .then(resp => resp.data)
@@ -50,8 +50,8 @@ async function initialize(dishname = 'chocochip') {
     for (let {recipe_id, ...coords} of cluster.points) {
 
       //add recipe and tree to cluster pounts
-      clusters[cluster.title][recipe_id] = {...coords, recipe_id, 
-        recipeName: {...recipes[recipe_id], trees: trees[recipe_id]}, 
+      clusters[cluster.title][recipe_id] = {...coords, recipe_id,
+        recipeName: {...recipes[recipe_id], trees: trees[recipe_id]},
       }
       //find out number of clusters
       activeClusters[cluster.title][coords.cluster_no] = coords;
@@ -65,7 +65,7 @@ async function initialize(dishname = 'chocochip') {
       centers: centers
     }
   }
-  
+
   return clusters;
 }
 
