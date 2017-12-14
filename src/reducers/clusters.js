@@ -2,7 +2,7 @@ import { TOGGLE_CLUSTER, INIT_ACTIVE_CLUSTERS, SELECT_ALL, UNSELECT_ALL, SAVE_CL
 import {ClusterBaseState} from './BaseState'
 import axios from 'axios'
 
-const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
+const BASE_URL = process.env.REACT_APP_API
 
 const clusters = (state = ClusterBaseState, action) => {
     switch(action.type){
@@ -20,7 +20,7 @@ const clusters = (state = ClusterBaseState, action) => {
             return Object.assign({}, state, {SavedClusters: [...state.SavedClusters, { name: action.name, clusters: state.ActiveCluster, ClusterRule: state.ClusterRule}]})
         case LOAD_CLUSTER_DECK:
             let loadedClusters = state.SavedClusters.find((deck) => deck.name == action.name)
-            if (loadedClusters) return  Object.assign({}, state, {ActiveClusters: loadedClusters.clusters},{ClusterRule: loadedClusters.ClusterRule}, {Histogram: setHistogram(state, loadedClusters.clusters)});     
+            if (loadedClusters) return  Object.assign({}, state, {ActiveClusters: loadedClusters.clusters},{ClusterRule: loadedClusters.ClusterRule}, {Histogram: setHistogram(state, loadedClusters.clusters)});
             return state;
         case CHANGE_CLUSTER_RULE:
             return Object.assign({}, state, {ClusterRule: action.rule});

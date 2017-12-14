@@ -2,10 +2,10 @@ import { TOGGLE_CLUSTER, INIT_ACTIVE_CLUSTERS, SELECT_ALL, UNSELECT_ALL, SAVE_CL
 import {HistogramBaseState} from './BaseState'
 import axios from 'axios'
 
-const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
+const BASE_URL = process.env.REACT_APP_API
 
 const histograms = (state = HistogramBaseState, action) => {
-    
+
     switch(action.type){
         case INGREDIENT_INSTRUCTION_COMBO:
         if(!action.source) {

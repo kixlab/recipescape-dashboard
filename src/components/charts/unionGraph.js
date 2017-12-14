@@ -84,7 +84,7 @@ export class UnionGraph extends React.Component {
         this.g.enter().append("text")
             .text((d) => d)
             .attr("color", "black")
-            .attr("x", (d) => this.getXPos(pos, width) + (pos == 'L' ? -50 : 20))
+            .attr("x", (d) => this.getXPos(pos, width) + (pos == 'L' ? -80 : 50))
             .attr("y", (d,i) => topOffset+(i+1)*distance)
 
         this.g.exit().remove()

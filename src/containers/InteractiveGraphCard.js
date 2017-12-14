@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 import GraphCard from '../components/GraphCard'
 import axios from 'axios'
 import { setHighlight, deleteHighlight, addRecipeDeck } from '../actions'
-const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
+const BASE_URL = process.env.REACT_APP_API
 
 const mapStateToProps = (state, ownProps) => {
     let overlay = ownProps.ingredient? state.histograms.IngredientCombos.find(d => d.ingredient == ownProps.ingredient)
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 
 async function getVal(state, ownProps, overlay){
 
-    const val =await axios.post(BASE_URL + `histogram/${state.clusters.RecipeName}`, 
+    const val =await axios.post(BASE_URL + `histogram/${state.clusters.RecipeName}`,
     {cluster_name: state.clusters.ClusterRule,
     selected_clusters: state.clusters.ActiveClusters.map((d,i) => d? i : -1).filter(d=> d > -1),
     action: overlay.action,
@@ -30,17 +30,17 @@ async function getVal(state, ownProps, overlay){
     }).then(resp => resp.data)
     return val
 };
- 
+
  const mapDispatchToProps = (dispatch) => ({
      setHighlight : (recipes) => dispatch(setHighlight(recipes)),
      deleteHighlight: () => dispatch(deleteHighlight()),
      addRecipes: (recipes) =>  recipes.map(d => dispatch(addRecipeDeck(d))),
-     
+
    });
-   
+
    const InteractiveGraphCard = connect(
        mapStateToProps,
        mapDispatchToProps,
    )(GraphCard)
-   
+
    export default InteractiveGraphCard;

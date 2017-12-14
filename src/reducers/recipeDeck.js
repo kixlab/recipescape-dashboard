@@ -1,20 +1,20 @@
 import { ADD_RECIPE_DECK, REMOVE_RECIPE_DECK, COMPARE_RECIPES, SAVE_RECIPE_DECK, DELETE_RECIPE_DECK, LOAD_RECIPE_DECK, SELECT_RECIPE, STOP_COMPARING, UNSELECT_ALL_RECIPES} from '../constants/actionTypes'
 import {RecipeBaseState} from './BaseState'
-import { numbertocolor } from '../components/charts/svgColorTranslation' 
+import { numbertocolor } from '../components/charts/svgColorTranslation'
 import axios from 'axios'
-const BASE_URL = "https://recipe.hyeungshikjung.com/recipe/"
+const BASE_URL = process.env.REACT_APP_API
 
 const recipeDeck = (state = RecipeBaseState, action) => {
     switch(action.type){
-        
+
         case 'SAVE_ALL':
             return Object.assign({}, state, {points: action.all.points}, {centers: action.all.centers})
-            
+
         case ADD_RECIPE_DECK:
             let recipe = state.points.find(d => d.recipe_id == action.recipe)
-            if(state.DisplayedRecipes.find((recipe) => 
-                recipe.origin_id == action.recipe)) return Object.assign({}, state, 
-                    { DisplayedRecipes: state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipe)}, 
+            if(state.DisplayedRecipes.find((recipe) =>
+                recipe.origin_id == action.recipe)) return Object.assign({}, state,
+                    { DisplayedRecipes: state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipe)},
                     { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipe != recipeID)});;
             return Object.assign({}, state, {DisplayedRecipes: [{...recipe.recipeName,  color: numbertocolor[recipe.cluster_no] }, ...state.DisplayedRecipes]})
 
@@ -22,7 +22,7 @@ const recipeDeck = (state = RecipeBaseState, action) => {
             let remaining = state.DisplayedRecipes.filter((recipe) => recipe.origin_id !== action.recipeID)
             if(remaining) return Object.assign({}, state, {DisplayedRecipes: remaining}, { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipeID != recipeID)});
             return  Object.assign({}, state, {DisplayedRecipes: []}, { HighlightedRecipes: []});
-        
+
         case UNSELECT_ALL_RECIPES:
             return Object.assign({}, state, {DisplayedRecipes: []}, { HighlightedRecipes: []});
 
@@ -39,7 +39,7 @@ const recipeDeck = (state = RecipeBaseState, action) => {
             if (loadedDeck) return  Object.assign({}, state, {DisplayedRecipes: loadedDeck.recipes}, {HighlightedRecipes: []});
                 return state
         case SELECT_RECIPE :
-            if(state.HighlightedRecipes.find((recipeID) => recipeID == action.recipeID)) 
+            if(state.HighlightedRecipes.find((recipeID) => recipeID == action.recipeID))
                 return Object.assign({}, state, { HighlightedRecipes: state.HighlightedRecipes.filter((recipeID) => action.recipeID != recipeID)});
             if(state.HighlightedRecipes.length == 2)
                 return Object.assign({}, state, { HighlightedRecipes: [state.HighlightedRecipes[0], action.recipeID]});
