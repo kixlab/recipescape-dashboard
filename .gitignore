@@ -2,13 +2,15 @@
 
 # dependencies
 /node_modules
-/semantic
 
 # testing
 /coverage
 
 # production
 /build
+
+# semantic UI
+/semantic/dist
 
 # misc
 .DS_Store

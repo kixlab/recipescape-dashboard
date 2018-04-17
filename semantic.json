@@ -8,15 +8,15 @@
       "themes": "src/themes/"
     },
     "output": {
-      "packaged": "dist/",
+      "packaged": "../public/",
       "uncompressed": "dist/components/",
       "compressed": "dist/components/",
-      "themes": "dist/themes/"
+      "themes": "../public/themes/"
     },
     "clean": "dist/"
   },
   "permission": false,
   "autoInstall": false,
   "rtl": false,
-  "version": "2.2.11"
+  "version": "2.3.1"
 }
