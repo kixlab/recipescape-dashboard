@@ -1,35 +1,37 @@
-import React from 'react'
-import { Icon, Popup, Loader, Grid, Item, Message, Table} from 'semantic-ui-react'
-import InteractiveGraphCard from '../containers/InteractiveGraphCard'
-
+import React from "react";
+import {
+  Icon,
+  Popup,
+  Loader,
+  Grid,
+  Item,
+  Message,
+  Table
+} from "semantic-ui-react";
+import InteractiveGraphCard from "../containers/InteractiveGraphCard";
 
 export class StatRow extends React.Component {
-
-  state = {loading: true}
-  histograms = {}
+  state = { loading: true };
+  histograms = {};
 
   componentDidMount() {
-    this.props.histogram.then(d=>
-      {
-        this.setState({histograms: d})
-        this.setState({loading: false})
-
-    })
+    this.props.histogram.then(d => {
+      this.setState({ histograms: d });
+      this.setState({ loading: false });
+    });
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     if (this.props.histogram != nextProps.histogram) {
-      this.setState({ loading: true })
+      this.setState({ loading: true });
       nextProps.histogram.then(d => {
-        this.setState({ histograms: d }
-        )
-        this.setState({loading: false})
-      })
+        this.setState({ histograms: d });
+        this.setState({ loading: false });
+      });
     }
   }
 
-  render(){
-
+  render() {
     return (
       <div>
         <h3>
@@ -40,42 +42,57 @@ export class StatRow extends React.Component {
           />
         </h3>
         <div className={"RecipeMap"}>
-              {this.state.loading?
+          {this.state.loading ? (
             <Message>
-              <Loader active size='medium' inline='centered'>Loading</Loader>
+              <Loader active size="medium" inline="centered">
+                Loading
+              </Loader>
             </Message>
-              :
-            <Grid container columns={'equal'} celled>
-              <Grid.Row verticalAlign='top'>
-                  <div className={"Stats"}>
-                    <Table celled>
-                      <Table.HeaderCell>Actions</Table.HeaderCell>
+          ) : (
+            <Grid container columns={"equal"} celled>
+              <Grid.Row verticalAlign="top">
+                <div className={"Stats"}>
+                  <Table celled>
+                    <Table.HeaderCell>Actions</Table.HeaderCell>
                     <Table.Row>
-                      {this.state.histograms.actions.map((methodCard, index) =>
-                      <Table.Cell>
-                      <InteractiveGraphCard style={{display: 'float-left'}} {...methodCard} key={this.props.colors+index} colors={this.props.colors} />
-                      </Table.Cell>
+                      {this.state.histograms.actions.map(
+                        (methodCard, index) => (
+                          <Table.Cell>
+                            <InteractiveGraphCard
+                              style={{ display: "float-left" }}
+                              {...methodCard}
+                              key={this.props.colors + index}
+                              colors={this.props.colors}
+                            />
+                          </Table.Cell>
+                        )
                       )}
                     </Table.Row>
-                    </Table>
-                  </div>
-                </Grid.Row>
-                <Grid.Row>
-                  <div className={"Stats"}>
+                  </Table>
+                </div>
+              </Grid.Row>
+              <Grid.Row>
+                <div className={"Stats"}>
                   <Table celled>
-                  <Table.HeaderCell>Ingredients</Table.HeaderCell>
+                    <Table.HeaderCell>Ingredients</Table.HeaderCell>
                     <Table.Row>
-                      {this.state.histograms.ingredients.map((ingredientCard, index) =>
-                        <Table.Cell>
-                      <InteractiveGraphCard {...ingredientCard} key={this.props.colors+index} colors={this.props.colors} />
-                      </Table.Cell>
+                      {this.state.histograms.ingredients.map(
+                        (ingredientCard, index) => (
+                          <Table.Cell>
+                            <InteractiveGraphCard
+                              {...ingredientCard}
+                              key={this.props.colors + index}
+                              colors={this.props.colors}
+                            />
+                          </Table.Cell>
+                        )
                       )}
-                      </Table.Row>
-                    </Table>
-                  </div>
+                    </Table.Row>
+                  </Table>
+                </div>
               </Grid.Row>
             </Grid>
-        }
+          )}
         </div>
       </div>
     );
