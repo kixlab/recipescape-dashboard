@@ -1,17 +1,15 @@
-import { connect } from 'react-redux'
-import { changeClusterRule} from '../actions'
-import { ClusterModeDropdown } from '../components/ClusterModeSelector'
+import { connect } from "react-redux";
+import { changeClusterRule } from "../actions";
+import { ClusterModeDropdown } from "../components/ClusterModeSelector";
 
-
-const mapDispatchToProps = (dispatch) => ({
-  groupByIngredients: () => dispatch(changeClusterRule('ingredient')),
-  groupByStructure: () => dispatch(changeClusterRule('tree')),
-
-})
+const mapDispatchToProps = dispatch => ({
+  groupByIngredients: () => dispatch(changeClusterRule("ingredient")),
+  groupByStructure: () => dispatch(changeClusterRule("tree"))
+});
 
 const InteractiveGroupByControls = connect(
   null,
   mapDispatchToProps
-)(ClusterModeDropdown)
+)(ClusterModeDropdown);
 
-export default InteractiveGroupByControls
+export default InteractiveGroupByControls;

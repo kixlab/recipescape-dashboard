@@ -1,18 +1,28 @@
-import {connect} from 'react-redux'
-import { List, Button } from 'semantic-ui-react'
-import { selectAll, unselectAll } from '../actions'
-import React from 'react'
+import { connect } from "react-redux";
+import { List, Button } from "semantic-ui-react";
+import { selectAll, unselectAll } from "../actions";
+import React from "react";
 
-let AllOrNothingButtons = ({dispatch}) => {
-        return(
-            <List horizontal>
-                <List.Item><List.Header>Clusters : </List.Header></List.Item>
-                <List.Item><Button size='small' basic onClick={() => dispatch(selectAll())}>select all</Button></List.Item>
-                <List.Item><Button size='small' basic onClick={() => dispatch(unselectAll())}>unselect all</Button></List.Item>
-            </List>
-        );
-}
+let AllOrNothingButtons = ({ dispatch }) => {
+  return (
+    <List horizontal>
+      <List.Item>
+        <List.Header>Clusters : </List.Header>
+      </List.Item>
+      <List.Item>
+        <Button size="small" basic onClick={() => dispatch(selectAll())}>
+          select all
+        </Button>
+      </List.Item>
+      <List.Item>
+        <Button size="small" basic onClick={() => dispatch(unselectAll())}>
+          unselect all
+        </Button>
+      </List.Item>
+    </List>
+  );
+};
 
-AllOrNothingButtons = connect()(AllOrNothingButtons)
+AllOrNothingButtons = connect()(AllOrNothingButtons);
 
-  export default AllOrNothingButtons
+export default AllOrNothingButtons;

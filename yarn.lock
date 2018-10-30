@@ -7544,9 +7544,9 @@ semantic-ui-react@^0.71.3:
     lodash "^4.17.2"
     prop-types "15.5.8"
 
-semantic-ui@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/semantic-ui/-/semantic-ui-2.3.1.tgz#ff33ac086e9a9daf63ab2b729f15b436d67bb859"
+semantic-ui@2.2.14:
+  version "2.2.14"
+  resolved "https://registry.yarnpkg.com/semantic-ui/-/semantic-ui-2.2.14.tgz#e57867831ddde68aa035c2944be1b2891a5810d1"
   dependencies:
     better-console "*"
     del "^3.0.0"
